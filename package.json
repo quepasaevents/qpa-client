@@ -5,11 +5,13 @@
   "license": "private",
   "private": true,
   "scripts": {
-    "build": "webpack --config ./webpack.config.ts",
+    "client-build": "webpack --config ./webpack.config.ts",
+    "ssr-build": "tsc",
     "start": "NODE_ENV=development webpack-dev-server --config ./webpack.config.ts --hot --progress",
-    "ssr": "ts-node SSR/index.tsx"
+    "ssr": "API_URL=http://alpha.quepasaalpujarra.com/graphql ts-node src/SSR/index.ts"
   },
   "dependencies": {
+    "@emotion/core": "^10.0.15",
     "@emotion/styled": "^10.0.12",
     "@types/mustache": "^0.8.32",
     "@types/react-router-dom": "^4.3.3",
@@ -19,6 +21,7 @@
     "apollo-link-http": "^1.5.14",
     "apollo-link-logger": "^1.2.3",
     "date-fns": "^1.29.0",
+    "emotion": "^10.0.14",
     "emotion-server": "^10.0.14",
     "express": "^4.17.1",
     "formik": "^1.4.1",

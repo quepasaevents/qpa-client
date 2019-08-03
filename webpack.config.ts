@@ -1,35 +1,35 @@
-import * as webpack from 'webpack'
+import * as express from "express"
+import * as HtmlWebpackPlugin from "html-webpack-plugin"
 import * as path from "path"
-import * as HtmlWebpackPlugin from 'html-webpack-plugin'
-import * as express from 'express'
+import * as webpack from "webpack"
 import * as WebpackDevServer from "webpack-dev-server"
-import {httpSSRHandler} from "./SSR/handler"
+import {httpSSRHandler} from "./src/SSR/handler"
 
 const config: webpack.Configuration = {
-  entry: './App/index.tsx',
+  entry: "./src/App/index.tsx",
   resolve: {
-    extensions: [".js", ".jsx", ".ts", ".tsx"]
+    extensions: [".js", ".jsx", ".ts", ".tsx"],
   },
   devServer: {
     historyApiFallback: true,
     hot: true,
     before: (app: express.Application, server: WebpackDevServer) => {
-      //todo: improve the regex
+      // todo: improve the regex
       app.get(/^((?!\.\w+).)*$/, httpSSRHandler)
     },
     proxy: {
-      '/graphql': {
+      "/graphql": {
         redirect: false,
         changeOrigin: true,
         target: `http://localhost:4000`,
       },
-      '/api': {
+      "/api": {
         redirect: false,
         changeOrigin: true,
         target: `http://localhost:4000`,
-      }
+      },
 
-    }
+    },
   },
   module: {
     rules: [
@@ -41,22 +41,22 @@ const config: webpack.Configuration = {
           options: {
             presets: [
               "@babel/typescript",
-              "@babel/react"
+              "@babel/react",
             ],
-            plugins: [].filter(Boolean)
-          }
-        }
-      }    ]
+            plugins: [].filter(Boolean),
+          },
+        },
+      }    ],
   },
-  devtool: '@source-map',
+  devtool: "@source-map",
   output: {
-    path: path.resolve(__dirname, './dist'),
-    filename: 'bundle.js',
-    publicPath: '/'
+    path: path.resolve(__dirname, "./dist"),
+    filename: "bundle.js",
+    publicPath: "/",
   },
   plugins: [new HtmlWebpackPlugin({
     title: "blabla",
-  })]
+  })],
 
 }
 

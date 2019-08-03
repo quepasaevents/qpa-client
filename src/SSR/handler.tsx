@@ -1,27 +1,27 @@
-import { Request, Response } from "express-serve-static-core"
-import * as ReactDOMServer from "react-dom/server"
-import { renderStylesToString } from "emotion-server"
-import App from "../App/App"
-import * as React from "react"
-import SSRProviders from "./SSRProviders"
-import * as fs from "fs"
-import * as path from "path"
-import * as Mustache from "mustache"
-import { ApolloClient } from "apollo-client"
 import { InMemoryCache } from "apollo-cache-inmemory"
-import { HttpLink } from "apollo-link-http"
-import fetch from "node-fetch"
-import { getDataFromTree } from "react-apollo"
-import apolloLogger from "apollo-link-logger"
+import { ApolloClient } from "apollo-client"
 import { ApolloLink } from "apollo-link"
+import { HttpLink } from "apollo-link-http"
+import apolloLogger from "apollo-link-logger"
+import { renderStylesToString } from "emotion-server"
+import { Request, Response } from "express-serve-static-core"
+import * as fs from "fs"
+import * as Mustache from "mustache"
+import fetch from "node-fetch"
+import * as path from "path"
+import * as React from "react"
+import { getDataFromTree } from "react-apollo"
+import * as ReactDOMServer from "react-dom/server"
+import App from "../App/App"
+import SSRProviders from "./SSRProviders"
 export const httpSSRHandler = async (req: Request, res: Response) => {
   res.status(200)
   const httpLink = new HttpLink({
-    uri: "http://localhost:4000/graphql",
+    uri: process.env.API_URL || "http://localhost:4000/graphql",
     fetch,
     headers: {
-      cookie: req.header("Cookie")
-    }
+      cookie: req.header("Cookie"),
+    },
   })
 
   const link = ApolloLink.from([apolloLogger, httpLink])
@@ -46,12 +46,12 @@ export const httpSSRHandler = async (req: Request, res: Response) => {
 
   const template = fs.readFileSync(
     path.join(__dirname, "./index.html.mustache"),
-    "utf-8"
+    "utf-8",
   )
 
   const result = Mustache.render(template, {
     appBody,
-    apolloData: JSON.stringify(initialState)
+    apolloData: JSON.stringify(initialState),
   })
   res.send(result)
 }

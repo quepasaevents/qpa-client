@@ -1,9 +1,9 @@
-import * as React from 'react'
-import {AppContextProvider} from "../App/Context/AppContext"
-import {ApolloProvider} from "react-apollo"
-import {ApolloClient} from "apollo-client"
 import {InMemoryCache} from "apollo-cache-inmemory"
-import { StaticRouter } from 'react-router'
+import {ApolloClient} from "apollo-client"
+import * as React from "react"
+import {ApolloProvider} from "react-apollo"
+import { StaticRouter } from "react-router"
+import {AppContextProvider} from "../App/Context/AppContext"
 
 interface Props {
   children: React.ReactChild | React.ReactChildren
@@ -20,6 +20,5 @@ const SSRProviders = (props: Props) => (
     </AppContextProvider>
   </ApolloProvider>
 )
-
 
 export default SSRProviders

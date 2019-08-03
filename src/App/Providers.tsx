@@ -1,11 +1,11 @@
-import * as React from 'react'
-import {AppContextProvider} from "./Context/AppContext"
-import {BrowserRouter as Router} from "react-router-dom"
-import {ApolloProvider} from "react-apollo"
-import {HttpLink} from "apollo-link-http"
-import {ApolloClient} from "apollo-client"
 import {InMemoryCache} from "apollo-cache-inmemory"
-import fetch from 'node-fetch'
+import {ApolloClient} from "apollo-client"
+import {HttpLink} from "apollo-link-http"
+import fetch from "node-fetch"
+import * as React from "react"
+import {ApolloProvider} from "react-apollo"
+import {BrowserRouter as Router} from "react-router-dom"
+import {AppContextProvider} from "./Context/AppContext"
 
 interface Props {
   children: React.ReactChild | React.ReactChildren
@@ -13,13 +13,13 @@ interface Props {
 
 const httpLink = new HttpLink({
   uri: "/graphql",
-  fetch
+  fetch,
 })
 
 const graphqlClient = new ApolloClient({
   connectToDevTools: true,
   link: httpLink,
-  cache: new InMemoryCache().restore(window.__APOLLO_DATA__)
+  cache: new InMemoryCache().restore((window as any).__APOLLO_DATA__),
 }) as ApolloClient<any>
 
 const Providers = (props: Props) => (
@@ -31,6 +31,5 @@ const Providers = (props: Props) => (
     </AppContextProvider>
   </ApolloProvider>
 )
-
 
 export default Providers
