@@ -1,5 +1,5 @@
-import * as React from "react"
 import styled from "@emotion/styled"
+import * as React from "react"
 import {FormEvent} from "react"
 
 const Signup = () => {
@@ -16,12 +16,12 @@ const Signup = () => {
         fetch("/api/signup", {
           method: "post",
           headers: {
-            "content-type": "application/json"
+            "content-type": "application/json",
           },
           body: JSON.stringify({
             name: form.name.value,
-            email: form.email.value
-          })
+            email: form.email.value,
+          }),
         }).then((res) => {
           if (res.status === 200) {
             setSuccess(true)

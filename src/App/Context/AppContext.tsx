@@ -7,7 +7,7 @@ interface IAppContext {
 
 const { Provider, Consumer } = React.createContext<IAppContext>({ me: null })
 
-const AppContextProvider = props => (
+const AppContextProvider = (props) => (
   <MeQuery>
     {({ data, loading, error }) => {
       return (

@@ -1,6 +1,6 @@
+import styled from "@emotion/styled"
 import * as React from "react"
 import { RouteComponentProps, withRouter } from "react-router"
-import styled from "@emotion/styled"
 
 interface RouteParams {
   hash: string
@@ -14,10 +14,10 @@ const InitializeSession = (props: Props) => {
     fetch(`/api/init-session`, {
       method: "post",
       headers: {
-        "content-type": "application/json"
+        "content-type": "application/json",
       },
-      body: JSON.stringify({ hash: props.match.params.hash })
-    }).then(res => {
+      body: JSON.stringify({ hash: props.match.params.hash }),
+    }).then((res) => {
       setResponseCode(res.status)
       setLoading(false)
       if (res.status === 200) {

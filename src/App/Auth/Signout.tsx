@@ -1,4 +1,4 @@
-import * as React from 'react'
+import * as React from "react"
 import {RouteComponentProps, withRouter} from "react-router"
 
 interface Props extends RouteComponentProps {
@@ -7,11 +7,11 @@ interface Props extends RouteComponentProps {
 
 const Signout = (props: Props) => {
   React.useEffect(() => {
-    fetch('/api/signout')
+    fetch("/api/signout")
       .then(() => {
-        props.history.push('/')
+        props.history.push("/")
       }).finally(() => {
-      props.history.push('/')
+      props.history.push("/")
 
     })
   })

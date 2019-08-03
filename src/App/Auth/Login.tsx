@@ -1,13 +1,13 @@
-import * as React from "react"
 import styled from "@emotion/styled"
+import * as React from "react"
 
 const sendLogin = (email: string) => {
   return fetch("/api/login", {
     method: "post",
     body: JSON.stringify({email}),
-    headers:{
-      'Content-Type': 'application/json'
-    }
+    headers: {
+      "Content-Type": "application/json",
+    },
   })
 }
 
@@ -53,7 +53,7 @@ const Login = () => {
                 id="email"
                 type="email"
                 value={email}
-                onChange={e => {
+                onChange={(e) => {
                   setEmail(e.target.value)
                 }}
                 disabled={loading || success}

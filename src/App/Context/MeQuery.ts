@@ -1,5 +1,5 @@
-import { Query } from 'react-apollo'
-import gql from 'graphql-tag'
+import gql from "graphql-tag"
+import { Query } from "react-apollo"
 
 const query = gql`
     query Me {
@@ -29,6 +29,6 @@ interface Data {
 
 export default class MeQuery extends Query<Data> {
   static defaultProps = {
-    query
+    query,
   }
 }
