@@ -50,7 +50,7 @@ const config: webpack.Configuration = {
   },
   devtool: "@source-map",
   output: {
-    path: path.resolve(__dirname, "./dist"),
+    path: path.resolve(__dirname, "./bin"),
     filename: "bundle.js",
     publicPath: "/",
   },

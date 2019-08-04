@@ -17,12 +17,12 @@ RUN apt-get install -y nodejs
 # application
 RUN mkdir /opt/client
 
-COPY ./dist ./opt/api
-COPY ./package.json /opt/api
-COPY ./yarn.lock /opt/api
+COPY ./dist ./opt/client
+COPY ./package.json /opt/client
+COPY ./yarn.lock /opt/client
 
-RUN (cd /opt/api; yarn)
+RUN (cd /opt/client; yarn)
 
-WORKDIR /opt/api
+WORKDIR /opt/client
 
-CMD node index.js
+CMD node SSR/index.js
