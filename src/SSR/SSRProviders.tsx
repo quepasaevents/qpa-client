@@ -13,7 +13,7 @@ interface Props {
 
 const SSRProviders = (props: Props) => (
   <ApolloProvider client={props.graphqlClient}>
-    <AppContextProvider>
+    <AppContextProvider isSSR={true}>
       <StaticRouter location={props.location}>
         { props.children }
       </StaticRouter>

@@ -24,7 +24,7 @@ const graphqlClient = new ApolloClient({
 
 const Providers = (props: Props) => (
   <ApolloProvider client={graphqlClient}>
-    <AppContextProvider>
+    <AppContextProvider isSSR={false}>
       <Router>
         { props.children }
       </Router>

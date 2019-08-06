@@ -5,6 +5,7 @@
   "license": "private",
   "private": true,
   "scripts": {
+    "build": "yarn client-build; yarn ssr-build",
     "client-build": "webpack --config ./webpack.config.ts",
     "ssr-build": "tsc; cp src/SSR/*.mustache dist/SSR/",
     "start": "NODE_ENV=development webpack-dev-server --config ./webpack.config.ts --hot --progress",

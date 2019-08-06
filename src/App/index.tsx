@@ -8,5 +8,5 @@ ReactDOM.render(
   <Providers>
     <App />
   </Providers>,
-  container
+  container,
 )

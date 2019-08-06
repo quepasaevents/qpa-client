@@ -1,6 +1,7 @@
 import styled from "@emotion/styled"
 import * as React from "react"
 import { RouteComponentProps, withRouter } from "react-router"
+import {useAppContext} from "../Context/AppContext";
 
 interface RouteParams {
   hash: string
@@ -10,21 +11,24 @@ interface Props extends RouteComponentProps<{ hash: string }> {}
 const InitializeSession = (props: Props) => {
   const [responseCode, setResponseCode] = React.useState(0)
   const [loading, setLoading] = React.useState(true)
-  React.useEffect(() => {
-    fetch(`/api/init-session`, {
-      method: "post",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ hash: props.match.params.hash }),
-    }).then((res) => {
-      setResponseCode(res.status)
-      setLoading(false)
-      if (res.status === 200) {
-        props.history.replace("/my-events")
-      }
+  const { isSSR } = useAppContext()
+  if (!isSSR) {
+    React.useEffect(() => {
+      fetch(`/api/init-session`, {
+        method: "post",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ hash: props.match.params.hash }),
+      }).then((res) => {
+        setResponseCode(res.status)
+        setLoading(false)
+        if (res.status === 200) {
+          props.history.replace("/my-events")
+        }
+      })
     })
-  })
+  }
 
   return (
     <Root>

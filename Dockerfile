@@ -9,10 +9,7 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
 RUN apt-get update
-RUN apt-get install -y nodejs yarn
-
-# Node
-RUN apt-get install -y nodejs
+RUN apt-get install -y nodejs yarn nginx
 
 # application
 RUN mkdir /opt/client
@@ -21,8 +18,12 @@ COPY ./dist ./opt/client
 COPY ./package.json /opt/client
 COPY ./yarn.lock /opt/client
 
-RUN (cd /opt/client; yarn)
+COPY ./client.nginx /etc/nginx/sites-available/default
 
+RUN mkdir /var/www/qpa
+COPY ./bin /var/www/qpa
+
+RUN (cd /opt/client; yarn install --production)
 WORKDIR /opt/client
 
-CMD node SSR/index.js
+ENTRYPOINT service nginx start; node SSR/index.js

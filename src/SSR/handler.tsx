@@ -16,6 +16,8 @@ import App from "../App/App"
 import SSRProviders from "./SSRProviders"
 export const httpSSRHandler = async (req: Request, res: Response) => {
   res.status(200)
+  console.log("Cookie header", req.header("Cookie"))
+
   const httpLink = new HttpLink({
     uri: process.env.API_URL || "http://localhost:4000/graphql",
     fetch,
