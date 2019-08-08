@@ -21,15 +21,14 @@ const endOfThisMonth = (
   }
 )()
 
-
 const Calendar = (props: Props) => {
   return (
     <OccurrencesQuery
       variables={{
         filter: {
-          from: "2019-06-01",
-          to: "2019-06-30"
-        }
+          from: beginningOfThisMonth,
+          to: endOfThisMonth,
+        },
       }}
     >
       {({data, error, loading}) => {
