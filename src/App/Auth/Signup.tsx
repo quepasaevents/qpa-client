@@ -41,7 +41,6 @@ const Signup = () => {
       }}
     >
       <Input name="name" placeholder="Your name"/>
-      <Input name="username" placeholder="Choose a username"/>
       <Input name="email" type="email" placeholder="Your email"/>
       <Button type="submit">Sign Up</Button>
       {
