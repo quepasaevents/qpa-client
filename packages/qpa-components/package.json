@@ -1,0 +1,9 @@
+{
+  "name": "qpa-components",
+  "version": "0.0.1",
+  "main": "index.ts",
+  "license": "MIT",
+  "dependencies": {
+    "office-ui-fabric-react": "^7.22.1"
+  }
+}
