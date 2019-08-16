@@ -57,7 +57,16 @@ const config: webpack.Configuration = {
             ].filter(Boolean),
           },
         },
-      }],
+      },
+      {
+        test: /\.(woff|woff2)$/i,
+        use: [
+          {
+            loader: "url-loader",
+          },
+        ],
+      },
+    ],
   },
   devtool: "@source-map",
   output: {

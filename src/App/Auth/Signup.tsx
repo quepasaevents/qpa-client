@@ -65,7 +65,7 @@ const Signup = () => {
         ({values, isValid}) => (
           <SForm>
             <p css={{gridArea: "1/1/1/4"}}>
-              In order to insert your own event, you are welcome to sign up.
+              In order to insert your own event, please sign up.
               You only have to give us a name, and and email where we can reach you.
               Once these are set, we will send an invitation to your email.
             </p>

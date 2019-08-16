@@ -1,9 +1,9 @@
-import { css, Global } from "@emotion/core"
+import {css, Global} from "@emotion/core"
 import styled from "@emotion/styled"
-import { MessageCenterDisplay } from "qpa-message-center"
+import {MessageCenterDisplay} from "qpa-message-center"
 import * as React from "react"
-import { RouteComponentProps } from "react-router"
-import { Redirect, Route, Switch } from "react-router-dom"
+import {RouteComponentProps} from "react-router"
+import {Redirect, Route, Switch} from "react-router-dom"
 import Calendar from "../Calendar/Calendar"
 import CreateEvent from "../Event/CreateEvent"
 import EditEvent from "../Event/EditEvent"
@@ -15,43 +15,55 @@ import Footer from "./Footer"
 import Header from "./Header/Header"
 import OccurrenceDetails from "./Occurrence/OccurrenceDetails"
 
+import firaSansLatin100 from "typeface-fira-sans/files/fira-sans-latin-100.woff"
+console.log('firaSansLatin100', firaSansLatin100)
 const App = () => (
   <Root>
     <Global
       styles={css`
+        @font-face {
+          font-family: "Fira Sans";
+          font-style: normal;
+          font-display: swap;
+          font-weight: 100;
+          src:
+            url(${firaSansLatin100}) format('woff'); /* Modern Browsers */
+          }
+        }
         body {
           margin: 0;
           height: 100vh;
+          font-family: "Fira Sans";
         }
         #app {
           height: 100%;
         }
       `}
     />
-    <StyledHeader />
+    <StyledHeader/>
     <Content>
       <Switch>
-        <Route path="/create" component={CreateEvent} />
+        <Route path="/create" component={CreateEvent}/>
         <Route
           path="/event/:eventId/edit"
           render={(routeProps: RouteComponentProps<{ eventId: string }>) => (
-            <EditEvent eventId={routeProps.match.params.eventId} />
+            <EditEvent eventId={routeProps.match.params.eventId}/>
           )}
         />
         <Route
           path="/o/:sanitizedEventName/:occurrenceId"
           component={OccurrenceDetails}
         />
-        <Route path="/init-session/:hash" component={InitializeSession} />
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
-        <Route path="/logout" component={Signout} />
-        <Route path="/" component={Calendar} />
-        <Redirect to="/" />
+        <Route path="/init-session/:hash" component={InitializeSession}/>
+        <Route path="/login" component={Login}/>
+        <Route path="/signup" component={Signup}/>
+        <Route path="/logout" component={Signout}/>
+        <Route path="/" component={Calendar}/>
+        <Redirect to="/"/>
       </Switch>
     </Content>
-    <MessageCenterDisplay />
-    <StyledFooter />
+    <MessageCenterDisplay/>
+    <StyledFooter/>
   </Root>
 )
 
