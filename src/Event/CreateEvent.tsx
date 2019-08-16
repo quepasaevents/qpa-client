@@ -1,9 +1,17 @@
-import * as React from 'react'
-import CreateEventMutation from './CreateEventMutation'
+import * as React from "react"
+import {useMessageCenter} from "../../packages/qpa-message-center"
+import CreateEventMutation from "./CreateEventMutation"
 import EventForm, {EventFormData} from "./EventForm"
 
 const CreateEvent = () => {
-  return <CreateEventMutation>
+  const { addMessage } = useMessageCenter()
+
+  return <CreateEventMutation onCompleted={() => {
+    addMessage({
+      type: "success",
+      text: "Event was created successfully",
+    })
+  }}>
     {
       (createEvent, { loading }) => (
         <EventForm
@@ -16,12 +24,12 @@ const CreateEvent = () => {
                 location: values.location,
                 time: {
                   ...values.time,
-                  timeZone: 'Europe/Madrid',
+                  timeZone: "Europe/Madrid",
                 },
-                status: 'confirmed',
-                meta: values.meta
-              }
-            }
+                status: "confirmed",
+                meta: values.meta,
+              },
+            },
           })
         }} />
       )}

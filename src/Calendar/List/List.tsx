@@ -4,6 +4,7 @@ import ListItem from "./ListItem"
 
 interface Props {
   occurrences: OccurrenceData[]
+  className?: string
 }
 
 const List = (props: Props) => {
@@ -27,12 +28,12 @@ const List = (props: Props) => {
   })
   const dayNames = Object.keys(days)
   return (
-    <div>
+    <div className={props.className}>
       <h3>Events for the dates between {dayNames[0]} and {dayNames[dayNames.length-1]}</h3>
-      {dayNames.map(dayName => (
+      {dayNames.map((dayName) => (
         <ul key={dayName}>
           <li>{dayName}</li>
-          {days[dayName].map(occ => (
+          {days[dayName].map((occ) => (
             <ListItem key={occ.id} occurrence={occ} />
           ))}
         </ul>

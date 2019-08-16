@@ -1,7 +1,7 @@
+import { Spinner } from "qpa-components"
 import * as React from "react"
+import App from "../App"
 import MeQuery, { UserData } from "./MeQuery"
-import App from "../App";
-
 interface IAppContext {
   me: UserData
   isSSR: boolean
@@ -17,6 +17,12 @@ const { Provider, Consumer } = AppContext
 const AppContextProvider = (props: Props) => (
   <MeQuery>
     {({ data, loading, error }) => {
+      if (loading) {
+        return <Spinner />
+      }
+      if (error) {
+        return <p>Error {error.message}</p>
+      }
       return (
         <Provider value={{
           me: data.me,

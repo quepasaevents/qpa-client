@@ -1,52 +1,52 @@
+import styled from "@emotion/styled"
+import * as addMonths from "date-fns/add_months"
+import * as endOfMonth from "date-fns/end_of_month"
+import * as startOfMonth from "date-fns/start_of_month"
+import { PrimaryButton } from "qpa-components"
 import * as React from "react"
-import OccurrencesQuery from "../Event/OccurrencesQuery"
-import List from "./List"
+import RangedCalendar from "./RangedCalendar"
 
 interface Props {
+
+  className?: string
 }
 
-const beginningOfThisMonth = (() => {
-    const dt = new Date()
-    dt.setDate(1)
-    return dt
-  }
-)()
-
-const endOfThisMonth = (
-  () => {
-    const dt = new Date()
-    dt.setMonth(dt.getMonth() + 1)
-    dt.setDate(0)
-    return dt
-  }
-)()
+const now = new Date()
 
 const Calendar = (props: Props) => {
-  return (
-    <OccurrencesQuery
-      variables={{
-        filter: {
-          from: beginningOfThisMonth,
-          to: endOfThisMonth,
-        },
-      }}
-    >
-      {({data, error, loading}) => {
-        if (loading) {
-          return "I am a Spinner"
-        }
-        if (error) {
-          return error.message
-        }
+  const [from, setFrom] = React.useState(startOfMonth(now))
+  const [to, setTo] = React.useState(endOfMonth(now))
 
-        if (!data.occurrences.length) {
-          return <p>No occurrences</p>
-        }
-        return <List occurrences={data.occurrences}/>
-      }}
-    </OccurrencesQuery>
+  const offset = (months: number) => {
+    setFrom(addMonths(from, months))
+    setTo(addMonths(to, months))
+  }
+
+  return (
+    <Root>
+      <Title>
+        <p>From: {String(from)}</p><p>To: {String(to)}</p>
+      </Title>
+      <Controls>
+        <PrimaryButton title="Previous" onClick={() => offset(-1)}>Previous month</PrimaryButton>
+        <PrimaryButton title="Next" onClick={() => offset(1)}>Next month</PrimaryButton>
+      </Controls>
+      <RangedCalendar from={from} to={to} className={props.className}/>
+    </Root>
   )
 
 }
+
+const Title = styled.div`
+
+`
+
+const Controls = styled.div`
+
+`
+
+const Root = styled.div`
+
+`
 
 export default Calendar

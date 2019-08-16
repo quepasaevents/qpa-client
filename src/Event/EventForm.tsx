@@ -1,8 +1,11 @@
+import * as addHours from "date-fns/add_hours"
+import * as format from "date-fns/format"
+import {Field, Form, Formik} from "formik"
+import { PrimaryButton } from "qpa-components"
 import * as React from "react"
-import { Formik, Form, Field } from "formik"
 import styled from "styled-components"
-import { EventStatus } from "../../@types"
-import DateTime from "./DateTime";
+import {EventStatus} from "../../@types"
+import DateTime from "./DateTime"
 
 interface Props {
   values?: EventFormData
@@ -32,7 +35,8 @@ export interface EventFormData {
   }
 }
 
-class EventFormik extends Formik<EventFormData> {}
+class EventFormik extends Formik<EventFormData> {
+}
 
 const nextWeekTenAM = new Date()
 nextWeekTenAM.setUTCDate(nextWeekTenAM.getDate() + 7)
@@ -50,62 +54,75 @@ const EventForm = (props: Props) => {
         props.values
           ? props.values
           : {
-              time: {
-                timeZone: "Europe/Madrid",
-                start: nextWeekTenAM.toISOString().substring(0, 16),
-                end: nextWeekMidday.toISOString().substring(0, 16)
+            time: {
+              timeZone: "Europe/Madrid",
+              start: nextWeekTenAM.toISOString().substring(0, 16),
+              end: nextWeekMidday.toISOString().substring(0, 16),
+            },
+            info: [
+              {
+                language: "en",
+                title: "",
+                description: "",
               },
-              info: [
-                {
-                  language: "en",
-                  title: "",
-                  description: ""
-                }
-              ],
-              location: {
-                name: ""
-              },
-              meta: {
-                tags: []
-              },
-              status: "confirmed"
-            }
+            ],
+            location: {
+              name: "",
+            },
+            meta: {
+              tags: [],
+            },
+            status: "confirmed",
+          }
       }
-      validate={values => {
+      validate={(values) => {
         const errors: any = {}
       }}
     >
-      {({ isValid, setFieldValue }) => (
+      {({isValid, setFieldValue}) => (
         <StyledForm>
+          <p>Title</p>
           <Field name="info[0].title">
-            {({ field }) => <input {...field} placeholder="Name your event" />}
+            {({field}) => <input {...field} placeholder="Name your event"/>}
           </Field>
+          <p>Description</p>
           <Field name="info[0].description">
-            {({ field }) => (
+            {({field}) => (
               <textarea
                 {...field}
                 placeholder="Write a few words about your event"
               />
             )}
           </Field>
+          <p>Start</p>
           <Field name="time.start">
             {
-              ({ field }) => <DateTime {...field} onChange={(newStartValue) => setFieldValue('time.start', newStartValue)} />
+              ({field}) => (
+                <DateTime {...field} onChange={(newStartValue) => {
+                  setFieldValue("time.start", newStartValue)
+                  setFieldValue("time.end", format(addHours(newStartValue, 2), "YYYY-MM-DDTHH:MM"))
+                }}/>
+              )
             }
           </Field>
+          <p>End</p>
           <Field name="time.end">
             {
-              ({ field }) => <DateTime {...field} onChange={(newEndValue) => setFieldValue('time.end', newEndValue)} />
+              ({field}) => (
+                <DateTime {...field} onChange={(newEndValue) => setFieldValue("time.end", newEndValue)}/>
+              )
             }
           </Field>
+          <p>Location</p>
           <Field name="location.name">
-            {({ field }) => <input {...field} placeholder="Location's name" />}
+            {({field}) => <input {...field} placeholder="Location's name"/>}
           </Field>
+          <p>Address</p>
           <Field name="location.address">
-            {({ field }) => <input {...field} placeholder="Address" />}
+            {({field}) => <input {...field} placeholder="Address"/>}
           </Field>
 
-          <button type="submit">{isEdit ? "Edit" : "Create"}</button>
+          <PrimaryButton type="submit">{isEdit ? "Edit" : "Create"}</PrimaryButton>
         </StyledForm>
       )}
     </EventFormik>

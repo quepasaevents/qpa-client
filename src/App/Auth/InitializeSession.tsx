@@ -1,7 +1,7 @@
 import styled from "@emotion/styled"
 import * as React from "react"
 import { RouteComponentProps, withRouter } from "react-router"
-import {useAppContext} from "../Context/AppContext";
+import {useAppContext} from "../Context/AppContext"
 
 interface RouteParams {
   hash: string
@@ -24,7 +24,7 @@ const InitializeSession = (props: Props) => {
         setResponseCode(res.status)
         setLoading(false)
         if (res.status === 200) {
-          props.history.replace("/my-events")
+          props.history.push("/my-events")
         }
       })
     })

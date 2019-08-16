@@ -1,5 +1,6 @@
 import { css, Global } from "@emotion/core"
 import styled from "@emotion/styled"
+import { MessageCenterDisplay } from "qpa-message-center"
 import * as React from "react"
 import { RouteComponentProps } from "react-router"
 import { Redirect, Route, Switch } from "react-router-dom"
@@ -49,6 +50,7 @@ const App = () => (
         <Redirect to="/" />
       </Switch>
     </Content>
+    <MessageCenterDisplay />
     <StyledFooter />
   </Root>
 )

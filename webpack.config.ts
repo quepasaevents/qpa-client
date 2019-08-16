@@ -13,10 +13,10 @@ const config: webpack.Configuration = {
   devServer: {
     historyApiFallback: true,
     hot: true,
-    before: (app: express.Application, server: WebpackDevServer) => {
-      // todo: improve the regex
-      app.get(/^((?!\.\w+).)*$/, httpSSRHandler)
-    },
+    // before: (app: express.Application, server: WebpackDevServer) => {
+    //   todo: improve the regex
+    // app.get(/^((?!\.\w+).)*$/, httpSSRHandler)
+    // },
     proxy: {
       "/graphql": {
         redirect: false,
@@ -42,11 +42,22 @@ const config: webpack.Configuration = {
             presets: [
               "@babel/typescript",
               "@babel/react",
+              [
+                "@emotion/babel-preset-css-prop",
+                {
+                  autoLabel: true,
+                  labelFormat: "[local]",
+                },
+              ],
+
             ],
-            plugins: [].filter(Boolean),
+            plugins: [
+              "@babel/plugin-proposal-class-properties",
+              // "module:@emotion/babel-preset-css-prop"
+            ].filter(Boolean),
           },
         },
-      }    ],
+      }],
   },
   devtool: "@source-map",
   output: {
@@ -56,6 +67,7 @@ const config: webpack.Configuration = {
   },
   plugins: [new HtmlWebpackPlugin({
     title: "blabla",
+    template: "./src/index-dev.html",
   })],
 
 }
