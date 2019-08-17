@@ -78,8 +78,8 @@ const App = () => (
         <Route path="/login" component={Login}/>
         <Route path="/signup" component={Signup}/>
         <Route path="/logout" component={Signout}/>
-        <Route path="/:month" render={(props) => <Calendar month={props.match.params.month} />}/>
-        <Route path="/" render={(props) => <Calendar />}/>
+        <Route path="/:month" component={Calendar}/>
+        <Route path="/" component={Calendar}/>
         <Redirect to="/"/>
       </Switch>
     </Content>

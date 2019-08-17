@@ -5,12 +5,11 @@ import startOfMonth from "date-fns/start_of_month"
 import {PrimaryButton} from "qpa-components"
 import * as React from "react"
 import {hot} from "react-hot-loader"
+import {RouteComponentProps, withRouter} from "react-router"
 import RangedCalendar from "./RangedCalendar"
 
-interface Props {
-  month?: string
+interface Props extends RouteComponentProps<{month?: string}> {
   className?: string
-
 }
 
 const now = new Date()
@@ -18,28 +17,31 @@ const MONTH_NAMES = ["january", "february", "march", "april", "may", "june",
   "july", "august", "september", "october", "november", "december"]
 
 const Calendar = (props: Props) => {
-  const currentDateOfMonth = (props.month && MONTH_NAMES.includes(props.month)) ? (
-    now.setMonth(MONTH_NAMES.indexOf(props.month))
+  const month = props.match.params.month
+
+  const currentDateOfMonth = (month && MONTH_NAMES.includes(month)) ? (
+    now.setMonth(MONTH_NAMES.indexOf(month))
   ) : now
 
-  const [from, setFrom] = React.useState<Date>(startOfMonth(currentDateOfMonth))
-  const [to, setTo] = React.useState<Date>(endOfMonth(currentDateOfMonth))
-
-  const offset = (months: number) => {
-    setFrom(addMonths(from, months))
-    setTo(addMonths(to, months))
-  }
+  const from = startOfMonth(currentDateOfMonth)
+  const to = endOfMonth(currentDateOfMonth)
 
   const monthBefore = addMonths(from, -1)
+  const monthBeforeName = MONTH_NAMES[monthBefore.getMonth()]
   const monthAfter = addMonths(from, 1)
+  const monthAfterName = MONTH_NAMES[monthAfter.getMonth()]
 
   return (
     <Root>
       <Controls>
         <PrimaryButton title="Previous"
-                       onClick={() => offset(-1)}>{"<"}{MONTH_NAMES[monthBefore.getMonth()]}</PrimaryButton>
+                       onClick={() => {
+                         props.history.push(`/${monthBeforeName}`)
+                       }}>{"<"}{monthBeforeName}</PrimaryButton>
         <ThisMonth>{ MONTH_NAMES[from.getMonth()] }</ThisMonth>
-        <PrimaryButton title="Next" onClick={() => offset(1)}>{MONTH_NAMES[monthAfter.getMonth()]}{">"}</PrimaryButton>
+        <PrimaryButton title="Next" onClick={() => {
+          props.history.push(`/${monthAfterName}`)
+        }}>{monthAfterName}{">"}</PrimaryButton>
       </Controls>
       <RangedCalendar from={from} to={to} className={props.className}/>
     </Root>
@@ -69,4 +71,4 @@ const Root = styled.div`
   }
 `
 
-export default hot(module)(Calendar)
+export default hot(module)(withRouter(Calendar))
