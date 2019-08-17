@@ -1,11 +1,18 @@
+import styled from "@emotion/styled"
+import dateFormat from "date-fns/format"
+import dateIsBefore from "date-fns/is_before"
 import * as React from "react"
-import { OccurrenceData } from "../../Event/OccurrencesQuery"
+import {hot} from "react-hot-loader"
+import {AppContext, useAppContext} from "../../App/Context/AppContext"
+import {OccurrenceData} from "../../Event/OccurrencesQuery"
 import ListItem from "./ListItem"
 
 interface Props {
   occurrences: OccurrenceData[]
   className?: string
 }
+
+const DAY_NAMES = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"]
 
 const List = (props: Props) => {
   const sorted = [...props.occurrences]
@@ -19,7 +26,7 @@ const List = (props: Props) => {
     return 0
   })
   const days: { [day: string]: OccurrenceData[] } = {}
-  sorted.forEach(occ => {
+  sorted.forEach((occ) => {
     const day = occ.start.substring(0, 10)
     if (!days[day]) {
       days[day] = []
@@ -27,19 +34,61 @@ const List = (props: Props) => {
     days[day].push(occ)
   })
   const dayNames = Object.keys(days)
+  const {me} = useAppContext()
+
   return (
-    <div className={props.className}>
-      <h3>Events for the dates between {dayNames[0]} and {dayNames[dayNames.length-1]}</h3>
-      {dayNames.map((dayName) => (
-        <ul key={dayName}>
-          <li>{dayName}</li>
-          {days[dayName].map((occ) => (
-            <ListItem key={occ.id} occurrence={occ} />
-          ))}
-        </ul>
-      ))}
-    </div>
+    <Root className={props.className}>
+      {
+        dayNames.map((dayName) => {
+          const [year, month, day] = dayName.split("-")
+          const dayDate = new Date(dayName)
+          const dayNumber = dayDate.getDay()
+          return (
+            <UL key={dayName}>
+              <DayName>
+                <div css={{gridArea: "1/1/3/2", fontSize: 32}}>{DAY_NAMES[dayNumber]}</div>
+                <div css={{gridArea: "1/2/2/3"}}>{day}-{month}</div>
+                <div css={{gridArea: "2/2/3/3", letterSpacing: 2}}>{year}</div>
+              </DayName>
+              <Items>
+                {days[dayName].map((occ) => (
+                  <ListItem canEdit={me && !!me.events.find((myEvent) => myEvent.id === occ.event.id)} key={occ.id}
+                            occurrence={occ}/>
+                ))}
+              </Items>
+            </UL>
+          )
+        })
+      }
+    </Root>
   )
 }
 
-export default List
+const Root = styled.div`
+`
+
+const Items = styled.div`
+`
+
+const DayName = styled.div`
+  font-weight: 600;
+  color: rgba(0,0,0,.6);
+  font-size: 14px;
+  width: auto;
+
+  display: grid;
+  grid-template: 18px / 48px 42px;
+`
+
+const UL = styled.div`
+  display: grid;
+  grid-template: 48px auto / 88px auto;
+  ${DayName} {
+    grid-area: 1/1/2/2;
+  }
+  ${Items} {
+    grid-area: 1/2/2/2;
+  }
+`
+
+export default hot(module)(List)

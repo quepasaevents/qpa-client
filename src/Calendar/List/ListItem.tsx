@@ -1,16 +1,18 @@
+import styled from "@emotion/styled"
 import * as React from "react"
-import { OccurrenceData } from "../../Event/OccurrencesQuery"
+import { hot } from "react-hot-loader"
+import { Link } from "react-router-dom"
 import { AppContext } from "../../App/Context/AppContext"
-import { Link } from 'react-router-dom'
-import styled from '@emotion/styled'
+import { OccurrenceData } from "../../Event/OccurrencesQuery"
 
 interface Props {
   occurrence: OccurrenceData
+  canEdit: boolean
 }
 
 const sanitizeEventName = (name: string) => {
   return encodeURIComponent(name.trim().toLocaleLowerCase()
-    .replace(/\s+/g,'-'))
+    .replace(/\s+/g, "-"))
 
 }
 const ListItem = (props: Props) => {
@@ -19,22 +21,18 @@ const ListItem = (props: Props) => {
   const info = event.info[0]
   const startTime = occurrence.start.split(" ")[1].substring(0, 5)
   return (
-    <AppContext>
-      {({ me }) => (
-        <div>
-          {startTime}
-          &nbsp;
-          <Link to={`/o/${sanitizeEventName(event.info[0].title)}/${occurrence.id}`}>
-            {info.title}
-          </Link>
-          {
-            me && me.events.find(myEvent => myEvent.id ===  event.id) ? (
-              <EditLink to={`/event/${event.id}/edit`}>Edit</EditLink>
-            ) : null
-          }
-        </div>
-      )}
-    </AppContext>
+    <div>
+      {startTime}
+      &nbsp;
+      <Link to={`/o/${sanitizeEventName(event.info[0].title)}/${occurrence.id}`}>
+        {info.title}
+      </Link>
+      {
+        props.canEdit ? (
+          <EditLink to={`/event/${event.id}/edit`}>Edit</EditLink>
+        ) : null
+      }
+    </div>
   )
 }
 
@@ -43,4 +41,4 @@ const EditLink = styled(Link)`
   font-size: 0.6em;
 `
 
-export default ListItem
+export default hot(module)(ListItem)

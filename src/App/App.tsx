@@ -16,7 +16,9 @@ import Header from "./Header/Header"
 import OccurrenceDetails from "./Occurrence/OccurrenceDetails"
 
 import firaSansLatin100 from "typeface-fira-sans/files/fira-sans-latin-100.woff"
-console.log('firaSansLatin100', firaSansLatin100)
+import firaSansLatin600 from "typeface-fira-sans/files/fira-sans-latin-600.woff"
+import firaSansLatin800 from "typeface-fira-sans/files/fira-sans-latin-800.woff"
+
 const App = () => (
   <Root>
     <Global
@@ -28,6 +30,24 @@ const App = () => (
           font-weight: 100;
           src:
             url(${firaSansLatin100}) format('woff'); /* Modern Browsers */
+          }
+        }
+        @font-face {
+          font-family: "Fira Sans";
+          font-style: normal;
+          font-display: swap;
+          font-weight: 600;
+          src:
+            url(${firaSansLatin600}) format('woff'); /* Modern Browsers */
+          }
+        }
+        @font-face {
+          font-family: "Fira Sans";
+          font-style: normal;
+          font-display: swap;
+          font-weight: 800;
+          src:
+            url(${firaSansLatin800}) format('woff'); /* Modern Browsers */
           }
         }
         body {
@@ -58,7 +78,8 @@ const App = () => (
         <Route path="/login" component={Login}/>
         <Route path="/signup" component={Signup}/>
         <Route path="/logout" component={Signout}/>
-        <Route path="/" component={Calendar}/>
+        <Route path="/:month" render={(props) => <Calendar month={props.match.params.month} />}/>
+        <Route path="/" render={(props) => <Calendar />}/>
         <Redirect to="/"/>
       </Switch>
     </Content>
