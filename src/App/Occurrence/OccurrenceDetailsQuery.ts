@@ -29,6 +29,7 @@ export interface OccurrenceDetailsData {
     start: string
     end: string
     event: {
+      id: string
       owner: {
         id: string
         name: string

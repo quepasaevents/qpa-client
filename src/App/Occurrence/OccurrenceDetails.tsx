@@ -1,7 +1,10 @@
-import * as React from 'react'
+import styled from "@emotion/styled"
+import { Spinner} from "qpa-components"
+import * as React from "react"
 import {RouteComponentProps, withRouter} from "react-router"
+import {Link} from "react-router-dom"
+import {AppContext} from "../Context/AppContext"
 import OccurrenceDetailsQuery from "./OccurrenceDetailsQuery"
-import styled from '@emotion/styled'
 
 interface RouteParams {
   occurrenceId: string
@@ -12,29 +15,45 @@ interface Props extends RouteComponentProps<RouteParams> {
 }
 
 const OccurrenceDetails = (props: Props) => {
-  return <OccurrenceDetailsQuery variables={{occurrenceId: props.match.params.occurrenceId}}>
-    {
-      ({data, loading, error}) => {
-        if (loading) {
-          return <p>loading...</p>
-        }
-        if (error) {
-          return <p>{error.message}</p>
-        }
-        const info = data.occurrence.event.info[0]
-        return (
-          <Root>
-            <Title>
-              { info.title }
-            </Title>
-            <Info>
-              { info.description }
-            </Info>
-          </Root>
-        )
+  return (
+      <AppContext>
+        {
+          ({ me }) => {
+            return (
+                <OccurrenceDetailsQuery variables={{occurrenceId: props.match.params.occurrenceId}}>
+                  {
+                    ({data, loading, error}) => {
+                      if (loading) {
+                        return <Spinner />
+                      }
+                      if (error) {
+                        return <p>{error.message}</p>
+                      }
+                      const event = data.occurrence.event
+                      const meIsOwner = me && me.id === event.owner.id
 
-      }    }
-  </OccurrenceDetailsQuery>
+                      const info = data.occurrence.event.info[0]
+                      return (
+                          <Root>
+                            <Title>
+                              { info.title }
+                            </Title>
+                            <Info>
+                              { info.description }
+                            </Info>
+                            {
+                              meIsOwner ? <EditButton to={`/event/${event.id}/edit`}>Edit</EditButton> : null
+                            }
+                          </Root>
+                      )
+
+                    }    }
+                </OccurrenceDetailsQuery>
+            )
+
+          }        }
+      </AppContext>
+  )
 }
 
 const Title = styled.div`
@@ -50,4 +69,5 @@ const Root = styled.div`
   grid-template-rows: 48px [title] 1fr [info];
 `
 
+const EditButton = styled(Link)``
 export default withRouter(OccurrenceDetails)

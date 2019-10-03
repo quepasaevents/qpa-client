@@ -1,3 +1,4 @@
+import { Spinner } from "qpa-components"
 import * as React from "react"
 import removeTypename from "../App/remove-typename"
 import EditEventMutation from "./EditEventMutation"
@@ -18,7 +19,7 @@ const EditEvent = (props: Props) => (
           {
             ({data, error, loading}) => {
               if (loading) {
-                return <p>Loading...</p>
+                return <Spinner />
               }
               if (error) {
                 return error.message
@@ -27,7 +28,7 @@ const EditEvent = (props: Props) => (
 
               return (
                 <EventForm
-                  loading={loading}
+                  loading={editLoading}
                   onSubmit={(values) => {
                     editEvent({
                       variables: {

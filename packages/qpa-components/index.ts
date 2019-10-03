@@ -1,6 +1,9 @@
+import Button, { ButtonProps } from "./Button"
+import Spinner from "./Spinner"
+
+export { Button }
 export {
   PrimaryButton,
-  PrimaryButton as Button,
   TextField,
   Spinner,
   Label,

@@ -1,7 +1,7 @@
 import addHours from "date-fns/add_hours"
 import format from "date-fns/format"
 import {Field, Form, Formik} from "formik"
-import { PrimaryButton } from "qpa-components"
+import {Button} from "qpa-components"
 import * as React from "react"
 import styled from "styled-components"
 import {EventStatus} from "../../@types"
@@ -122,7 +122,7 @@ const EventForm = (props: Props) => {
             {({field}) => <input {...field} placeholder="Address"/>}
           </Field>
 
-          <PrimaryButton type="submit">{isEdit ? "Edit" : "Create"}</PrimaryButton>
+          <Button type="submit" loading={props.loading}>{isEdit ? "Edit" : "Create"}</Button>
         </StyledForm>
       )}
     </EventFormik>
