@@ -11,13 +11,10 @@ import fetch from "node-fetch"
 import * as path from "path"
 import * as React from "react"
 import { getDataFromTree } from "react-apollo"
-import * as ReactDOMServer from "react-dom/server"
 import App from "../App/App"
 import SSRProviders from "./SSRProviders"
 export const httpSSRHandler = async (req: Request, res: Response) => {
   res.status(200)
-  console.log("Cookie header", req.header("Cookie"))
-
   const httpLink = new HttpLink({
     uri: process.env.API_URL || "http://localhost:4000/graphql",
     fetch,

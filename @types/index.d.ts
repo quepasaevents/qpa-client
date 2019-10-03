@@ -1,4 +1,5 @@
-export type EventStatus = 'confirmed' | 'canceled'
+export type EventStatus = "confirmed" | "canceled"
+
 // tslint:disable
 // graphql typescript definitions
 declare namespace GQL {

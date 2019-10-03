@@ -15,45 +15,13 @@ import Footer from "./Footer"
 import Header from "./Header/Header"
 import OccurrenceDetails from "./Occurrence/OccurrenceDetails"
 
-import firaSansLatin100 from "typeface-fira-sans/files/fira-sans-latin-100.woff"
-import firaSansLatin600 from "typeface-fira-sans/files/fira-sans-latin-600.woff"
-import firaSansLatin800 from "typeface-fira-sans/files/fira-sans-latin-800.woff"
-
 const App = () => (
   <Root>
     <Global
       styles={css`
-        @font-face {
-          font-family: "Fira Sans";
-          font-style: normal;
-          font-display: swap;
-          font-weight: 100;
-          src:
-            url(${firaSansLatin100}) format('woff'); /* Modern Browsers */
-          }
-        }
-        @font-face {
-          font-family: "Fira Sans";
-          font-style: normal;
-          font-display: swap;
-          font-weight: 600;
-          src:
-            url(${firaSansLatin600}) format('woff'); /* Modern Browsers */
-          }
-        }
-        @font-face {
-          font-family: "Fira Sans";
-          font-style: normal;
-          font-display: swap;
-          font-weight: 800;
-          src:
-            url(${firaSansLatin800}) format('woff'); /* Modern Browsers */
-          }
-        }
         body {
           margin: 0;
           height: 100vh;
-          font-family: "Fira Sans";
         }
         #app {
           height: 100%;

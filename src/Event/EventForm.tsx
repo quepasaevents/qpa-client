@@ -1,5 +1,5 @@
-import * as addHours from "date-fns/add_hours"
-import * as format from "date-fns/format"
+import addHours from "date-fns/add_hours"
+import format from "date-fns/format"
 import {Field, Form, Formik} from "formik"
 import { PrimaryButton } from "qpa-components"
 import * as React from "react"

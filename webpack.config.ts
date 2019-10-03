@@ -1,9 +1,6 @@
-import * as express from "express"
-import * as HtmlWebpackPlugin from "html-webpack-plugin"
+import HtmlWebpackPlugin from "html-webpack-plugin"
 import * as path from "path"
 import * as webpack from "webpack"
-import * as WebpackDevServer from "webpack-dev-server"
-import {httpSSRHandler} from "./src/SSR/handler"
 
 const config: webpack.Configuration = {
   entry: "./src/App/index.tsx",
@@ -13,20 +10,16 @@ const config: webpack.Configuration = {
   devServer: {
     historyApiFallback: true,
     hot: true,
-    // before: (app: express.Application, server: WebpackDevServer) => {
-    //   todo: improve the regex
-    // app.get(/^((?!\.\w+).)*$/, httpSSRHandler)
-    // },
     proxy: {
       "/graphql": {
         redirect: false,
         changeOrigin: true,
-        target: `http://localhost:4000`,
+        target: `https://alpha.quepasaalpujarra.com`,
       },
       "/api": {
         redirect: false,
         changeOrigin: true,
-        target: `http://localhost:4000`,
+        target: `https://alpha.quepasaalpujarra.com`,
       },
 
     },
@@ -53,7 +46,6 @@ const config: webpack.Configuration = {
             ],
             plugins: [
               "@babel/plugin-proposal-class-properties",
-              // "module:@emotion/babel-preset-css-prop"
             ].filter(Boolean),
           },
         },
