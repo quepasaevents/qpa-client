@@ -18,7 +18,7 @@ interface Props extends RouteComponentProps {}
 const Login = (props: Props) => {
   const [loading, setLoading] = React.useState(false)
   const [email, setEmail] = React.useState("")
-  const [success, setSuccess] = React.useState(true)
+  const [success, setSuccess] = React.useState(false)
   const isValid = /\w@\w.\w/.test(email)
   const [error, setError] = React.useState(false)
 

@@ -1,4 +1,4 @@
-import { PrimaryButton } from "qpa-components"
+import { Spinner } from "qpa-components"
 import * as React from "react"
 import OccurrencesQuery from "../Event/OccurrencesQuery"
 import List from "./List"
@@ -20,7 +20,7 @@ const RangedCalendar = (props: Props) => (
   >
     {({data, error, loading}) => {
       if (loading) {
-        return "I am a Spinner"
+        return <Spinner />
       }
       if (error) {
         return error.message

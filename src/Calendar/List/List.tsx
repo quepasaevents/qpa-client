@@ -77,12 +77,13 @@ const DayName = styled.div`
   width: auto;
 
   display: grid;
-  grid-template: 18px / 48px 42px;
+  grid-template: 18px / 55px 42px;
+  margin-right: 18px;
 `
 
 const UL = styled.div`
   display: grid;
-  grid-template: 48px auto / 88px auto;
+  grid-template: 48px auto / 120px auto;
   ${DayName} {
     grid-area: 1/1/2/2;
   }

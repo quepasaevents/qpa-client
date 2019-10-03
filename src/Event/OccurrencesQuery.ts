@@ -10,6 +10,10 @@ const query = gql`
       end
       event {
         id
+        location {
+          address
+          name
+        }
         info {
           language
           title
@@ -35,6 +39,10 @@ export interface OccurrenceData {
   event: {
     id: string
     info: InfoData[]
+    location: {
+      address: string
+      name: string
+    }
   }
 }
 
