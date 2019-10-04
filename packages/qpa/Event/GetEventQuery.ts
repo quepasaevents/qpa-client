@@ -1,6 +1,6 @@
-import {Query} from 'react-apollo'
-import gql from 'graphql-tag'
-import {EventStatus} from "../../@types"
+import gql from "graphql-tag"
+import {Query} from "react-apollo"
+import {EventStatus} from "../../../@types"
 
 export const EventFragment = gql`
   fragment EventData on CalendarEvent {
@@ -19,6 +19,7 @@ export const EventFragment = gql`
       end
       timeZone
       recurrence
+      exceptions
     }
     status
     meta {
@@ -32,6 +33,7 @@ export interface EventTimeData {
   end: string
   timeZone: string
   recurrence: string
+  exceptions: string
 }
 
 export interface EventInfoData {
@@ -43,7 +45,7 @@ export interface EventInfoData {
 export interface ContactData {
   contact: {
     email: string
-    phone: string
+    phone: string,
   }
   languages: string[]
   name: string
@@ -58,7 +60,7 @@ export interface EventData {
   contact: ContactData[]
   location: {
     address: string
-    name: string
+    name: string,
   }
   time: EventTimeData
   status: EventStatus
@@ -85,4 +87,3 @@ interface Variables {
 export default class GetEventQuery extends Query<Data, Variables> {
   static defaultProps = { query }
 }
-

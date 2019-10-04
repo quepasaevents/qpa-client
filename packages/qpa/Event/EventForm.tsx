@@ -4,7 +4,7 @@ import {Field, Form, Formik} from "formik"
 import {Button} from "qpa-components"
 import * as React from "react"
 import styled from "styled-components"
-import {EventStatus} from "../../@types"
+import {EventStatus} from "../../../@types"
 import DateTime from "./DateTime"
 
 interface Props {
@@ -19,6 +19,7 @@ export interface EventFormData {
     start: string;
     end: string;
     recurrence?: string;
+    exceptions?: string;
   }
   info: Array<{
     language: string;

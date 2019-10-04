@@ -1,4 +1,16 @@
-image: docker:latest
+stages:
+  - build
+  - release
+
+build:
+  stage: build
+  artifacts:
+    paths:
+      - dist
+    expire_in: 1 week
+  script:
+    - yarn
+    - yarn build
 
 services:
   - docker:dind

@@ -11,7 +11,7 @@ import fetch from "node-fetch"
 import * as path from "path"
 import * as React from "react"
 import { getDataFromTree } from "react-apollo"
-import App from "../App/App"
+import App from "../qpa/App/App"
 import SSRProviders from "./SSRProviders"
 export const httpSSRHandler = async (req: Request, res: Response) => {
   res.status(200)

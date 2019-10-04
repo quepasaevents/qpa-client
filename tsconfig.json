@@ -12,7 +12,8 @@
       "esnext.asynciterable"
     ]
   },
-  "include": ["src", "@types/index.d.ts"],
+  "include": [
+    "packages/qpa", "@types/index.d.ts"],
   "exclude": [
     ".*/__tests__/.*", "node_modules", "dist", "lib", "__tests__"
   ]

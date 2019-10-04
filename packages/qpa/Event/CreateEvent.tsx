@@ -1,5 +1,5 @@
 import * as React from "react"
-import {useMessageCenter} from "../../packages/qpa-message-center"
+import {useMessageCenter} from "qpa-message-center"
 import CreateEventMutation from "./CreateEventMutation"
 import EventForm, {EventFormData} from "./EventForm"
 

@@ -3,7 +3,7 @@ import * as path from "path"
 import * as webpack from "webpack"
 
 const config: webpack.Configuration = {
-  entry: "./src/App/index.tsx",
+  entry: "./packages/qpa/App/index.tsx",
   resolve: {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
   },
@@ -62,13 +62,13 @@ const config: webpack.Configuration = {
   },
   devtool: "@source-map",
   output: {
-    path: path.resolve(__dirname, "./bin"),
+    path: path.resolve(__dirname, "./dist"),
     filename: "bundle.js",
     publicPath: "/",
   },
   plugins: [new HtmlWebpackPlugin({
     title: "blabla",
-    template: "./src/index-dev.html",
+    template: "./packages/qpa/index-dev.html",
   })],
 
 }

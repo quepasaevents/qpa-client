@@ -7,9 +7,9 @@
   "scripts": {
     "build": "yarn client-build; yarn ssr-build",
     "client-build": "webpack --config ./webpack.config.ts",
-    "ssr-build": "tsc; cp src/SSR/*.mustache dist/SSR/",
+    "ssr-build": "tsc; cp packages/qpa-ssr/*.mustache dist/SSR/",
     "start": "NODE_ENV=development webpack-dev-server --config ./webpack.config.ts --hot --progress",
-    "ssr": "API_URL=http://alpha.quepasaalpujarra.com/graphql ts-node src/SSR/index.ts",
+    "ssr": "API_URL=http://alpha.quepasaalpujarra.com/graphql ts-node packages/qpa-ssr/index.ts",
     "release": "docker build -t eu.gcr.io/qpa-staging-237606/web:$TAG .; docker push eu.gcr.io/qpa-staging-237606/web:$TAG"
   },
   "workspaces": [
