@@ -11,7 +11,7 @@ import fetch from "node-fetch"
 import * as path from "path"
 import * as React from "react"
 import { getDataFromTree } from "react-apollo"
-import App from "../qpa/App/App"
+import App from "qpa/App/App"
 import SSRProviders from "./SSRProviders"
 export const httpSSRHandler = async (req: Request, res: Response) => {
   res.status(200)
@@ -42,15 +42,27 @@ export const httpSSRHandler = async (req: Request, res: Response) => {
 
   const appBody = renderStylesToString(appWithData)
   const initialState = graphqlClient.extract()
-
-  const template = fs.readFileSync(
-    path.join(__dirname, "./index.html.mustache"),
-    "utf-8",
-  )
-
   const result = Mustache.render(template, {
     appBody,
     apolloData: JSON.stringify(initialState),
   })
   res.send(result)
 }
+
+const template = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quepasa Alpujarra</title>
+    <script type="application/javascript">
+        __APOLLO_DATA__ = {{{ apolloData }}};
+    </script>
+</head>
+<body>
+    <div id="app">{{{ appBody }}}</div>
+    <script type="application/javascript" src="/bundle.js"></script>
+</body>
+</html>
+
+`

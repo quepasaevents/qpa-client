@@ -3,7 +3,7 @@ import {ApolloClient} from "apollo-client"
 import * as React from "react"
 import {ApolloProvider} from "react-apollo"
 import { StaticRouter } from "react-router"
-import {AppContextProvider} from "../qpa/App/Context/AppContext"
+import {AppContextProvider} from "qpa/App/Context/AppContext"
 
 interface Props {
   children: React.ReactChild | React.ReactChildren

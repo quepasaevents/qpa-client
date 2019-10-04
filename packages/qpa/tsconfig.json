@@ -5,8 +5,7 @@
     "jsx": "react",
     "lib": [
       "es7",
-      "esnext.asynciterable",
-      "dom"
+      "esnext.asynciterable"
     ]
   },
   "include": [

@@ -1,9 +1,9 @@
-import HtmlWebpackPlugin from "html-webpack-plugin"
+import * as HtmlWebpackPlugin from "html-webpack-plugin"
 import * as path from "path"
 import * as webpack from "webpack"
 
 const config: webpack.Configuration = {
-  entry: "./packages/qpa/App/index.tsx",
+  entry: "./App/index.tsx",
   resolve: {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
   },
@@ -62,13 +62,13 @@ const config: webpack.Configuration = {
   },
   devtool: "@source-map",
   output: {
-    path: path.resolve(__dirname, "./dist"),
+    path: path.resolve(__dirname, "../../dist/static"),
     filename: "bundle.js",
     publicPath: "/",
   },
   plugins: [new HtmlWebpackPlugin({
     title: "blabla",
-    template: "./packages/qpa/index-dev.html",
+    template: "./index-dev.html",
   })],
 
 }

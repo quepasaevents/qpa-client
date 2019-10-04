@@ -14,16 +14,15 @@ RUN apt-get install -y nodejs yarn nginx
 # application
 RUN mkdir /opt/client
 
-COPY ./dist ./opt/client
-COPY ./package.json /opt/client
-COPY ./yarn.lock /opt/client
+COPY ./dist/ssr ./opt/ssr
+COPY ./package.json /opt/ssr
+COPY ./yarn.lock /opt/ssr
 
 COPY ./client.nginx /etc/nginx/sites-available/default
 
 RUN mkdir /var/www/qpa
-COPY ./bin /var/www/qpa
+COPY ./dist/static/. /var/www/qpa
 
-RUN (cd /opt/client; yarn install --production)
-WORKDIR /opt/client
+WORKDIR /opt/ssr
 
-ENTRYPOINT service nginx start; node SSR/index.js
+ENTRYPOINT service nginx start; node ssr-server.js
