@@ -5,7 +5,7 @@
   "license": "private",
   "private": true,
   "scripts": {
-    "build": "webpack --config ./webpack.config.ts --progress",
+    "build": "webpack --config ./webpack.config.ts",
     "start": "NODE_ENV=development webpack-dev-server --config ./webpack.config.ts --hot --progress"
   },
   "dependencies": {
