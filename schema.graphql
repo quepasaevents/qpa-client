@@ -1,54 +1,31 @@
-type User {
-    name: String!
-    username: String
-    email: String!
-    id: ID!
-    events: [CalendarEvent]!
-    roles: [UserRole!]
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+    query: Query
+    mutation: Mutation
 }
-
-type UserRole {
-    user: User!
-    type: RoleType!
-}
-scalar Date
-scalar RoleType
-
-type UserSession {
-    hash: String!
-    user: User!
-    ctime: Date!
-    isValid: Boolean!
-}
-
-input SignupInput {
-    email: String!
-    username: String!
-    name: String!
-}
-
-input SigninInput {
-    hash: String!
-}
-
-input RequestInviteInput {
-    email: String!
-}
-
-# ------
-# Events
-# ------
-
 
 type CalendarEvent {
     id: ID!
-    owner: User!
-    info: [EventInformation]!
-    time: EventTime!
-    status: EventStatus!
+    info(lang: String!): EventInformation
+    infos: [EventInformation]!
     location: Location!
-    occurrences: [EventOccurrence]
     meta: EventMeta
+    occurrences: [EventOccurrence]
+    owner: User!
+    status: EventStatus!
+    time: EventTime!
+}
+
+type Error {
+    message: String!
+    path: String!
+}
+
+type EventInformation {
+    description: String
+    language: String!
+    title: String!
 }
 
 type EventMeta {
@@ -56,10 +33,18 @@ type EventMeta {
 }
 
 type EventOccurrence {
-    id: ID!
-    event: CalendarEvent!
-    start: String!
     end: String!
+    event: CalendarEvent!
+    id: ID!
+    start: String!
+}
+
+type EventTime {
+    end: Timestamp
+    exceptions: String
+    recurrence: String
+    start: Timestamp
+    timeZone: TimeZone
 }
 
 type Location {
@@ -67,62 +52,57 @@ type Location {
     name: String
 }
 
-type EventTime  {
-    timeZone: TimeZone
-    start: Timestamp
-    end: Timestamp
-    recurrence: String
-    exceptions: String
+type Mutation {
+    createEvent(input: CreateEventInput!): CalendarEvent
+    grantRole(input: GrantRoleInput!): User!
+    requestInvite(input: RequestInviteInput!): Boolean!
+    revokeRole(input: GrantRoleInput!): User!
+    signin(input: SigninInput!): UserSession!
+    signup(input: SignupInput!): [Error]
+    updateEvent(input: UpdateEventInput!): CalendarEvent
 }
 
-# in RFC3339 e.g. 2002-10-02T10:00:00-05:00 or 2002-10-02T15:00:00Z
-scalar Timestamp
-
-# IANA Timezone e.g. "Europe/Zurich"
-scalar TimeZone
-
-#  "confirmed" | "tentative" | "cancelled"
-scalar EventStatus
-
-# e.g. 'de', 'en', etc'
-scalar Language
-
-# Event information for presentation
-type EventInformation  {
-    language: String!
-    title: String!
-    description: String
+type Query {
+    event(id: ID!): CalendarEvent
+    events(filter: EventsQueryFilter!): [CalendarEvent]
+    me: User
+    occurrence(id: ID!): EventOccurrence
+    occurrences(filter: OccurrencesQueryFilter!): [EventOccurrence]
 }
 
-scalar Category
-
-input EventsQueryFilter {
-    owner: ID
-    limit: Int
-    from: Timestamp
-    to: Timestamp
-    categories: [Category]
+type User {
+    email: String!
+    events: [CalendarEvent]!
+    id: ID!
+    name: String!
+    roles: [UserRole!]
+    username: String
 }
 
-input OccurrencesQueryFilter {
-    from: Timestamp
-    to: Timestamp
-    timeZone: TimeZone
-    categories: [Category]
-    limit: Int
+type UserRole {
+    type: RoleType!
+    user: User!
 }
 
-input EventTimeInput {
-    timeZone: TimeZone!
-    start: Timestamp!
-    end: Timestamp!
-    recurrence: String
+type UserSession {
+    ctime: Date!
+    hash: String!
+    isValid: Boolean!
+    user: User!
+}
+
+input CreateEventInput {
+    infos: [EventInformationInput]!
+    location: EventLocationInput!
+    meta: EventMetaInput!
+    status: String!
+    time: EventTimeInput!
 }
 
 input EventInformationInput {
+    description: String
     language: String!
     title: String!
-    description: String
 }
 
 input EventLocationInput {
@@ -134,67 +114,74 @@ input EventMetaInput {
     tags: [String]!
 }
 
-input CreateEventInput {
-    time: EventTimeInput!
-    info: [EventInformationInput]!
-    location: EventLocationInput!
-    meta: EventMetaInput!
-    status: String!
+input EventTimeInput {
+    end: Timestamp!
+    exceptions: String
+    recurrence: String
+    start: Timestamp!
+    timeZone: TimeZone!
+}
+
+input EventsQueryFilter {
+    categories: [Category]
+    from: Timestamp
+    limit: Int
+    owner: ID
+    to: Timestamp
+}
+
+input GrantRoleInput {
+    roleType: RoleType!
+    userId: ID!
+}
+
+input OccurrencesQueryFilter {
+    categories: [Category]
+    from: Timestamp
+    limit: Int
+    timeZone: TimeZone
+    to: Timestamp
+}
+
+input RequestInviteInput {
+    email: String!
+}
+
+input RevokeRoleInput {
+    roleType: RoleType!
+    userId: ID!
+}
+
+input SigninInput {
+    hash: String!
+}
+
+input SignupInput {
+    email: String!
+    name: String!
+    username: String!
 }
 
 input UpdateEventInput {
     id: ID!
-    time: EventTimeInput
-    info: [EventInformationInput!]
+    infos: [EventInformationInput!]
     location: EventLocationInput
     meta: EventMetaInput
     status: String
-}
-
-input GrantRoleInput {
-    userId: ID!
-    roleType: RoleType!
-}
-
-input RevokeRoleInput {
-    userId: ID!
-    roleType: RoleType!
-}
-
-input AcceptEventInput {
-    eventId: ID!,
-    accepted: Boolean!
-    comment: String
-}
-
-type Error {
-    path: String!
-    message: String!
-}
-
-type Mutation {
-    # Auth
-    signup(input: SignupInput!): [Error]
-    signin(input: SigninInput!): UserSession!
-    requestInvite(input: RequestInviteInput!): Boolean!
-    grantRole(input: GrantRoleInput!): User!
-    revokeRole(input: GrantRoleInput!): User!
-
-    # Event
-    createEvent(input: CreateEventInput!): CalendarEvent
-    updateEvent(input: UpdateEventInput!): CalendarEvent
-    acceptEvent(input: AcceptEventInput!): CalendarEvent
-
+    time: EventTimeInput
 }
 
 
-type Query {
-    # Auth
-    me: User
+scalar TimeZone
 
-    # Event
-    event(id: ID!): CalendarEvent
-    events(filter: EventsQueryFilter!): [CalendarEvent]
-    occurrences(filter: OccurrencesQueryFilter!): [EventOccurrence]
-    occurrence(id: ID!): EventOccurrence
-}
+scalar Timestamp
+
+scalar EventStatus
+
+scalar RoleType
+
+scalar Category
+
+scalar Date
+
+scalar Language

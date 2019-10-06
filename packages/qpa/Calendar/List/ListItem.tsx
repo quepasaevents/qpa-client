@@ -18,7 +18,7 @@ const sanitizeEventName = (name: string) => {
 const ListItem = (props: Props) => {
     const {occurrence} = props
     const {event} = occurrence
-    const info = event.info[0]
+    const info = event.infos[0]
     const startTime = occurrence.start.split(" ")[1].substring(0, 5)
     return (
         <Root>

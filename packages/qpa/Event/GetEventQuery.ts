@@ -5,7 +5,7 @@ import {EventStatus} from "../../../@types"
 export const EventFragment = gql`
   fragment EventData on CalendarEvent {
     id
-    info {
+    infos {
       description
       language
       title
@@ -56,7 +56,7 @@ export interface EventMetaData {
 
 export interface EventData {
   id: string
-  info: EventInfoData[]
+  infos: EventInfoData[]
   contact: ContactData[]
   location: {
     address: string

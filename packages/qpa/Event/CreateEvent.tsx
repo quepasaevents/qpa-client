@@ -20,7 +20,7 @@ const CreateEvent = () => {
           createEvent({
             variables: {
               input: {
-                info: values.info,
+                infos: values.infos,
                 location: values.location,
                 time: {
                   ...values.time,

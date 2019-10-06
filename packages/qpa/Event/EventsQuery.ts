@@ -6,7 +6,7 @@ const query = gql`
         events(filter: $filter) {
             id
             status
-            info {
+            infos {
                 title
                 description
                 language
@@ -28,7 +28,7 @@ interface Variables {
 export interface EventData {
   id: string
   status: string
-  info: Array<{
+  infos: Array<{
     title: string
     description: string
     language: string

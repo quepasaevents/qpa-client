@@ -1,6 +1,5 @@
 import {Query} from 'react-apollo'
 import gql from 'graphql-tag'
-import {GQL} from "../../../@types"
 
 const query = gql`
   query EventsQuery($filter: OccurrencesQueryFilter!) {
@@ -14,7 +13,7 @@ const query = gql`
           address
           name
         }
-        info {
+        infos {
           language
           title
         }
@@ -38,7 +37,7 @@ export interface OccurrenceData {
   end: string
   event: {
     id: string
-    info: InfoData[]
+    infos: InfoData[]
     location: {
       address: string
       name: string

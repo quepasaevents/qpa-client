@@ -1,12 +1,11 @@
 import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
-import {GQL} from "../../../@types"
 
 const mutation = gql`
   mutation CreateEvent($input: CreateEventInput!) {
       createEvent(input: $input) {
           id
-          info {
+          infos {
               description
               language
               title
@@ -41,7 +40,7 @@ interface OccurrenceData {
 }
 interface Data {
     id: string
-    info: InfoData[]
+    infos: InfoData[]
     location: {
         address: string
         name: string

@@ -45,7 +45,7 @@ const EditEvent = (props: Props) => (
                     },
                     time: event.time,
                     location: event.location,
-                    info: event.info,
+                    infos: event.infos,
                     status: event.status,
                   }}/>
               )

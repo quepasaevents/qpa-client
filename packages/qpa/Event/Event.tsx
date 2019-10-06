@@ -10,8 +10,8 @@ interface Props {
 const Event = (props: Props) => {
   // Get desired language or fallback to first language
   const localInfo = props.language
-    ? props.event.info.find(info => info.language === props.language)
-    : props.event.info[0]
+    ? props.event.infos.find(info => info.language === props.language)
+    : props.event.infos[0]
 
   return (
     <div>

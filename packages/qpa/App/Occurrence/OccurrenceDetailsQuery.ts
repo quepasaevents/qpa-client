@@ -13,7 +13,7 @@ const query = gql`
             id
             name
           }
-          info {
+          infos {
             description
             language
             title
@@ -34,7 +34,7 @@ export interface OccurrenceDetailsData {
         id: string
         name: string
       }
-      info: Array<{
+      infos: Array<{
         description
         language
         title

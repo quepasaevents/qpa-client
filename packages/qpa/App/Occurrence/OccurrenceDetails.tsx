@@ -32,7 +32,7 @@ const OccurrenceDetails = (props: Props) => {
                                     const event = data.occurrence.event
                                     const meIsOwner = me && me.id === event.owner.id
 
-                                    const info = data.occurrence.event.info[0]
+                                    const info = data.occurrence.event.infos[0]
                                     return (
                                         <Root>
                                             <Title>
