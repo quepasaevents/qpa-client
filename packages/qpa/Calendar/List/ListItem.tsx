@@ -2,7 +2,6 @@ import styled from "@emotion/styled"
 import * as React from "react"
 import {hot} from "react-hot-loader"
 import {Link} from "react-router-dom"
-import {AppContext} from "../../App/Context/AppContext"
 import {OccurrenceData} from "../../Event/OccurrencesQuery"
 
 interface Props {
@@ -25,7 +24,7 @@ const ListItem = (props: Props) => {
             <Time>
                 {startTime}
             </Time>
-            <Link to={`/o/${sanitizeEventName(event.info[0].title)}/${occurrence.id}`}>
+            <Link to={`/o/${sanitizeEventName(event.infos[0].title)}/${occurrence.id}`}>
                 {info.title}
             </Link>
             <Location>

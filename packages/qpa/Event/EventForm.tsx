@@ -10,6 +10,7 @@ interface Props {
     values?: EventFormData
     onSubmit: (values: EventFormData) => void
     loading: boolean
+    languages: string[]
 }
 
 export interface EventFormData {
@@ -59,18 +60,13 @@ const EventForm = (props: Props) => {
                             start: nextWeekTenAM.toISOString().substring(0, 16),
                             end: nextWeekMidday.toISOString().substring(0, 16),
                         },
-                        infos: [
+                        infos: props.languages.map(lang => (
                             {
-                                language: "en",
+                                language: lang,
                                 title: "",
                                 description: "",
-                            },
-                            {
-                                language: "es",
-                                title: "",
-                                description: ""
                             }
-                        ],
+                        )),
                         location: {
                             name: "",
                         },
@@ -84,21 +80,32 @@ const EventForm = (props: Props) => {
                 const errors: any = {}
             }}
         >
-            {({isValid, setFieldValue}) => (
+            {({isValid, setFieldValue, values}) => (
                 <StyledForm>
-                    <p>Title</p>
-                    <Field name="info[0].title">
-                        {({field}) => <input {...field} placeholder="Name your event"/>}
-                    </Field>
-                    <p>Description</p>
-                    <Field name="info[0].description">
-                        {({field}) => (
-                            <textarea
-                                {...field}
-                                placeholder="Write a few words about your event"
-                            />
-                        )}
-                    </Field>
+                    {
+                        props.languages.map(lang => {
+                            const i = values.infos.findIndex(info => info.language === lang)
+                            return (
+                                <section key={lang}>
+                                    <h1>{lang}</h1>
+                                    <p>Title</p>
+                                    <Field name={`info[${i}].title`}>
+                                        {({field}) => <input {...field} placeholder="Name your event"/>}
+                                    </Field>
+                                    <p>Description</p>
+                                    <Field name={`info[${i}].description`}>
+                                        {({field}) => (
+                                            <textarea
+                                                {...field}
+                                                placeholder="Write a few words about your event"
+                                            />
+                                        )}
+                                    </Field>
+                                </section>
+                            )
+                        })
+                    }
+
                     <p>Start</p>
                     <Field name="time.start">
                         {
