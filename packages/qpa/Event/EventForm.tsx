@@ -3,7 +3,7 @@ import {addHours, format} from "date-fns"
 import {Field, Form, Formik} from "formik"
 import {Button} from "qpa-components"
 import * as React from "react"
-import styled from "styled-components"
+import styled from "@emotion/styled"
 import {EventStatus} from "../../../@types"
 import DateTime from "./DateTime"
 import * as intl from 'react-intl-universal'
@@ -98,8 +98,8 @@ const EventForm = (props: Props) => {
                         props.locales.map(lang => {
                             const i = values.infos.findIndex(info => info.language === lang)
                             return (
-                                <section key={lang}>
-                                    <h1>{intl.get('EVENT_FORM_INFO')} {intl.get(lang)}</h1>
+                                <Section key={lang}>
+                                    <EventLanguageTitle>{intl.get('EVENT_FORM_INFO')} {intl.get(lang)}</EventLanguageTitle>
                                     <p>{intl.get('EVENT_TITLE')}</p>
                                     <Field name={`info[${i}].title`}>
                                         {({field}) => <input {...field} placeholder="Name your event"/>}
@@ -113,31 +113,37 @@ const EventForm = (props: Props) => {
                                             />
                                         )}
                                     </Field>
-                                </section>
+                                </Section>
                             )
                         })
                     }
+                    <Section>
 
-                    <p>Start</p>
-                    <Field name="time.start">
-                        {
-                            ({field}) => (
-                                <DateTime {...field} onChange={(newStartValue) => {
-                                    setFieldValue("time.start", newStartValue)
-                                    setFieldValue("time.end", format(addHours(newStartValue, 2), "YYYY-MM-DDTHH:MM"))
-                                }}/>
-                            )
-                        }
-                    </Field>
-                    <p>End</p>
-                    <Field name="time.end">
-                        {
-                            ({field}) => (
-                                <DateTime {...field}
-                                          onChange={(newEndValue) => setFieldValue("time.end", newEndValue)}/>
-                            )
-                        }
-                    </Field>
+                        <FormTitle>
+                            {intl.get('TITLE_TIME')}
+                        </FormTitle>
+                        <p>{intl.get('START_TIME')}</p>
+                        <Field name="time.start">
+                            {
+                                ({field}) => (
+                                    <DateTime {...field} onChange={(newStartValue) => {
+                                        setFieldValue("time.start", newStartValue)
+                                        setFieldValue("time.end", format(addHours(newStartValue, 2), "YYYY-MM-DDTHH:MM"))
+                                    }}/>
+                                )
+                            }
+                        </Field>
+                        <p>{intl.get('END_TIME')} </p>
+                        <Field name="time.end">
+                            {
+                                ({field}) => (
+                                    <DateTime {...field}
+                                              onChange={(newEndValue) => setFieldValue("time.end", newEndValue)}/>
+                                )
+                            }
+                        </Field>
+                    </Section>
+
                     <p>{intl.get('LOCATION')}</p>
                     <Field name="location.name">
                         {({field}) => <input {...field} placeholder={intl.get('LOCATION_PLACEHOLDER')}/>}
@@ -156,8 +162,16 @@ const EventForm = (props: Props) => {
 }
 
 const FormTitle = styled.div`
-font-size: 24px;
+  font-size: 18px;
 `
+const EventLanguageTitle = styled.div`
+  font-size: 24px;
+  font-weight: bold;
+`
+const Section = styled.section`
+  padding-top: 18px;
+`
+
 const StyledForm = styled(Form)`
   display: flex;
   flex-direction: column;
@@ -168,6 +182,9 @@ const StyledForm = styled(Form)`
   }
   @media(max-width: 600px) {
     width: 450px;
+  }
+  ${Button} {
+    width: 200px;
   }
 `
 export default EventForm

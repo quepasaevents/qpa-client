@@ -1,6 +1,7 @@
 import {IButtonProps, PrimaryButton} from "office-ui-fabric-react"
 import * as React from "react"
 import Spinner from "./Spinner"
+import styled from '@emotion/styled'
 
 export interface ButtonProps extends IButtonProps {
     loading?: boolean
@@ -15,4 +16,4 @@ const Button = (props: ButtonProps) => {
     </PrimaryButton>
 }
 
-export default Button
+export default styled(Button)``
