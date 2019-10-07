@@ -5,11 +5,30 @@ import * as React from "react"
 import Footer from "./Footer"
 import Header from "./Header/Header"
 import Routes from "./Routes"
+import * as intl from 'react-intl-universal'
+import {Helmet} from 'react-helmet'
+import AppMessages from './App.msg.json'
 
-const App = () => (
-  <Root>
-    <Global
-      styles={css`
+const App = () => {
+    const [intlInit, setIntlInit] = React.useState(false)
+     intl.init({
+        currentLocale: 'es-ES',
+        locales: {
+            'en-GB': AppMessages.en,
+            'es-ES': AppMessages.es
+        }
+    }).then(() => setIntlInit(true))
+
+    if (!intlInit) {
+        return null
+    }
+    return (
+        <Root>
+            <Helmet>
+                <title>{ intl.get('APP_TITLE')}</title>
+            </Helmet>
+            <Global
+                styles={css`
         body {
           margin: 0;
           height: 100vh;
@@ -18,16 +37,17 @@ const App = () => (
           height: 100%;
         }
       `}
-    />
-    <StyledHeader/>
-    <Content>
-      <Routes />
-    </Content>
-    <MessageCenterDisplay/>
-    <StyledFooter/>
-  </Root>
-)
+            />
+            <StyledHeader/>
+            <Content>
+                <Routes />
+            </Content>
+            <MessageCenterDisplay/>
+            <StyledFooter/>
+        </Root>
+    )
 
+}
 const Root = styled.div`
   display: grid;
   height: 100%;
@@ -39,8 +59,7 @@ const Content = styled.div`
   grid-row: body;
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  justify-self: center;
 `
 
 const StyledFooter = styled(Footer)`

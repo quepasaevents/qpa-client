@@ -46,6 +46,7 @@ const Root = styled.div`
   background: rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: row;
+  padding-right: 14px;
 `
 
 const LinksSection = styled.div`

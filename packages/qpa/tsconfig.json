@@ -3,6 +3,7 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "jsx": "react",
+    "resolveJsonModule": true,
     "lib": [
       "es7",
       "esnext.asynciterable"

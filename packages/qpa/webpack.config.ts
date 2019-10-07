@@ -67,7 +67,6 @@ const config: webpack.Configuration = {
     publicPath: "/",
   },
   plugins: [new HtmlWebpackPlugin({
-    title: "blabla",
     template: "./index-dev.html",
   })],
 

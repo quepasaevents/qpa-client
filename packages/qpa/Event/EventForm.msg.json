@@ -1,0 +1,36 @@
+{
+  "en": {
+    "EVENT_CREATED_SUCCESSFULLY": "Event was created successfully",
+    "EVENT_TITLE": "Title of event",
+    "DESCRIPTION": "Description of the event",
+    "DESCRIPTION_PLACEHOLDER": "Write a few words about your event",
+    "LOCATION": "Location",
+    "LOCATION_PLACEHOLDER": "Location's name",
+    "ADDRESS": "Address",
+    "ADDRESS_PLACEHOLDER": "Address of the location",
+    "EDIT": "Edit Event",
+    "CREATE": "Create Event",
+    "EVENT_FORM_INFO": "Event details in",
+    "en-GB": "English",
+    "es-ES": "Spanish",
+    "EVENT_FORM_DETAILS_FOREWORD": "Please enter some details about your event.",
+    "EVENT_FORM_DETAILS_FOREWORD_MULTILINGUAL": "Please enter some details about your event. Please consider that your audience is multilingual so please do make an effort to write the description in other languages too."
+  },
+  "es": {
+    "EVENT_CREATED_SUCCESSFULLY": "Evento ha sido creado correctamente",
+    "EVENT_TITLE": "Titulo del evento",
+    "DESCRIPTION": "Descripción del evento",
+    "DESCRIPTION_PLACEHOLDER": "Escribe unas palabras sobre tu evento",
+    "LOCATION": "Lugar",
+    "LOCATION_PLACEHOLDER": "Nombre del lugar",
+    "ADDRESS": "Dirección",
+    "ADDRESS_PLACEHOLDER": "Dirección del lugar",
+    "EDIT": "Modificar evento",
+    "CREATE": "Crear evento",
+    "EVENT_FORM_INFO": "Detalles del evento en",
+    "en-GB": "Inglés",
+    "es-ES": "Español",
+    "EVENT_FORM_DETAILS_FOREWORD": "Por favor, añade unos detalles sobre tu evento",
+    "EVENT_FORM_DETAILS_FOREWORD_MULTILINGUAL": "Por favor, añade unos detalles sobre tu evento. Ten en cuenta, que tu publico es multilingual así que por favor, haz el esfuerzo de escribir las descripciones en otros idiomas también"
+  }
+}

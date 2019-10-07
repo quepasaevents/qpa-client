@@ -5,7 +5,7 @@ import MeQuery, { UserData } from "./MeQuery"
 interface IAppContext {
   me: UserData
   isSSR: boolean
-  supportedLanguages: string[]
+  supportedLocales: string[]
 }
 
 interface Props {
@@ -13,8 +13,8 @@ interface Props {
   children: React.ReactChild
 }
 
-const SUPPORTED_LANGUAGES = ['en', 'es']
-const AppContext = React.createContext<IAppContext>({ me: null, isSSR: false, supportedLanguages: SUPPORTED_LANGUAGES })
+const SUPPORTED_LOCALES = ['en-GB', 'es-ES']
+const AppContext = React.createContext<IAppContext>({ me: null, isSSR: false, supportedLocales: SUPPORTED_LOCALES })
 const { Provider, Consumer } = AppContext
 const AppContextProvider = (props: Props) => (
   <MeQuery>
@@ -29,7 +29,7 @@ const AppContextProvider = (props: Props) => (
         <Provider value={{
           me: data.me,
           isSSR: props.isSSR,
-          supportedLanguages: SUPPORTED_LANGUAGES
+          supportedLocales: SUPPORTED_LOCALES
         }}>
           {
             props.children

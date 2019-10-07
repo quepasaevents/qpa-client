@@ -11,7 +11,7 @@ interface Props {
 }
 
 const EditEvent = (props: Props) => {
-    const { supportedLanguages } = useAppContext()
+    const { supportedLocales } = useAppContext()
 
     return (
         <EditEventMutation onCompleted={() => {
@@ -33,7 +33,7 @@ const EditEvent = (props: Props) => {
                                 return (
                                     <EventForm
                                         loading={editLoading}
-                                        languages={supportedLanguages}
+                                        locales={supportedLocales}
                                         onSubmit={(values) => {
                                             editEvent({
                                                 variables: {

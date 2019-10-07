@@ -1,3 +1,4 @@
+import {css} from "@emotion/core"
 import {addHours, format} from "date-fns"
 import {Field, Form, Formik} from "formik"
 import {Button} from "qpa-components"
@@ -5,12 +6,14 @@ import * as React from "react"
 import styled from "styled-components"
 import {EventStatus} from "../../../@types"
 import DateTime from "./DateTime"
+import * as intl from 'react-intl-universal'
+import messages from "./EventForm.msg.json"
 
 interface Props {
     values?: EventFormData
     onSubmit: (values: EventFormData) => void
     loading: boolean
-    languages: string[]
+    locales: string[]
 }
 
 export interface EventFormData {
@@ -47,6 +50,10 @@ const nextWeekMidday = new Date(nextWeekTenAM)
 nextWeekMidday.setUTCHours(12)
 
 const EventForm = (props: Props) => {
+    intl.load({
+        'es-ES': messages.es,
+        'en-GB': messages.en
+    })
     const isEdit = !!props.values
     return (
         <EventFormik
@@ -60,7 +67,7 @@ const EventForm = (props: Props) => {
                             start: nextWeekTenAM.toISOString().substring(0, 16),
                             end: nextWeekMidday.toISOString().substring(0, 16),
                         },
-                        infos: props.languages.map(lang => (
+                        infos: props.locales.map(lang => (
                             {
                                 language: lang,
                                 title: "",
@@ -82,22 +89,27 @@ const EventForm = (props: Props) => {
         >
             {({isValid, setFieldValue, values}) => (
                 <StyledForm>
+                    <FormTitle>
+                        {
+                            props.locales.length > 1 ? intl.get('EVENT_FORM_DETAILS_FOREWORD_MULTILINGUAL') : intl.get('EVENT_FORM_DETAILS_FOREWORD')
+                        }
+                    </FormTitle>
                     {
-                        props.languages.map(lang => {
+                        props.locales.map(lang => {
                             const i = values.infos.findIndex(info => info.language === lang)
                             return (
                                 <section key={lang}>
-                                    <h1>{lang}</h1>
-                                    <p>Title</p>
+                                    <h1>{intl.get('EVENT_FORM_INFO')} {intl.get(lang)}</h1>
+                                    <p>{intl.get('EVENT_TITLE')}</p>
                                     <Field name={`info[${i}].title`}>
                                         {({field}) => <input {...field} placeholder="Name your event"/>}
                                     </Field>
-                                    <p>Description</p>
+                                    <p>{intl.get('DESCRIPTION')}</p>
                                     <Field name={`info[${i}].description`}>
                                         {({field}) => (
                                             <textarea
                                                 {...field}
-                                                placeholder="Write a few words about your event"
+                                                placeholder={intl.get('DESCRIPTION_PLACEHOLDER')}
                                             />
                                         )}
                                     </Field>
@@ -126,20 +138,36 @@ const EventForm = (props: Props) => {
                             )
                         }
                     </Field>
-                    <p>Location</p>
+                    <p>{intl.get('LOCATION')}</p>
                     <Field name="location.name">
-                        {({field}) => <input {...field} placeholder="Location's name"/>}
+                        {({field}) => <input {...field} placeholder={intl.get('LOCATION_PLACEHOLDER')}/>}
                     </Field>
-                    <p>Address</p>
+                    <p>{intl.get('ADDRESS')}</p>
                     <Field name="location.address">
-                        {({field}) => <input {...field} placeholder="Address"/>}
+                        {({field}) => <input {...field} placeholder={intl.get('ADDRESS_PLACEHOLDER')}/>}
                     </Field>
 
-                    <Button type="submit" loading={props.loading}>{isEdit ? "Edit" : "Create"}</Button>
+                    <Button type="submit"
+                            loading={props.loading}>{isEdit ? intl.get('EDIT') : intl.get('CREATE')}</Button>
                 </StyledForm>
             )}
         </EventFormik>
     )
 }
-const StyledForm = styled(Form)``
+
+const FormTitle = styled.div`
+font-size: 24px;
+`
+const StyledForm = styled(Form)`
+  display: flex;
+  flex-direction: column;
+  margin-top: 24px;
+  width: 800px;
+  @media(max-width: 800px) {
+    width: 600px;
+  }
+  @media(max-width: 600px) {
+    width: 450px;
+  }
+`
 export default EventForm

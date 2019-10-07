@@ -8,7 +8,7 @@
     "build": "yarn client-build; yarn ssr-build",
     "client-build": "(cd packages/qpa; yarn build)",
     "ssr-build": "(cd packages/qpa-ssr; yarn build)",
-    "start": "NODE_ENV=development webpack-dev-server --config packages/qpa/webpack.config.ts --hot --progress",
+    "start": "(cd packages/qpa; yarn start)",
     "ssr": "API_URL=http://alpha.quepasaalpujarra.com/graphql ts-node packages/qpa-ssr/index.ts",
     "release": "docker build -t eu.gcr.io/qpa-staging-237606/web:$TAG .; docker push eu.gcr.io/qpa-staging-237606/web:$TAG",
     "codegen": "gql2ts ./schema.graphql -o ./@types/graphql.d.ts"

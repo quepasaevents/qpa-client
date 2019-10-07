@@ -40,6 +40,8 @@
     "react": "^16.8.6",
     "react-apollo": "^2.2.4",
     "react-dom": "^16.8.6",
+    "react-helmet": "^5.2.1",
+    "react-intl-universal": "^2.1.4",
     "react-router": "^5.0.0",
     "react-router-dom": "^5.0.0",
     "styled-components": "^4.1.3",

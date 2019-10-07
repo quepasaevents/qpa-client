@@ -6,7 +6,7 @@ import EventForm, {EventFormData} from "./EventForm"
 
 const CreateEvent = () => {
   const { addMessage } = useMessageCenter()
-  const { supportedLanguages } = useAppContext()
+  const { supportedLocales } = useAppContext()
 
   return <CreateEventMutation onCompleted={() => {
     addMessage({
@@ -17,7 +17,7 @@ const CreateEvent = () => {
     {
       (createEvent, { loading }) => (
         <EventForm
-          languages={supportedLanguages}
+          locales={supportedLocales}
           loading={loading}
           onSubmit={(values: EventFormData) => {
           createEvent({
