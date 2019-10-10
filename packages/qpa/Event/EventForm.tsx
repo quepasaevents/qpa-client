@@ -104,11 +104,11 @@ const EventForm = (props: Props) => {
                                     <Section key={lang}>
                                         <EventLanguageTitle>{intl.get('EVENT_FORM_INFO')} {intl.get(lang)}</EventLanguageTitle>
                                         <p>{intl.get('EVENT_TITLE')}</p>
-                                        <Field name={`info[${i}].title`}>
+                                        <Field name={`infos[${i}].title`}>
                                             {({field}) => <TextField {...field} placeholder="Name your event"/>}
                                         </Field>
                                         <p>{intl.get('DESCRIPTION')}</p>
-                                        <Field name={`info[${i}].description`}>
+                                        <Field name={`infos[${i}].description`}>
                                             {({field}) => (
                                                 <TextField
                                                     {...field}
