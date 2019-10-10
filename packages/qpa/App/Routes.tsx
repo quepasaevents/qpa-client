@@ -11,27 +11,29 @@ import Signout from "./Auth/Signout"
 import Signup from "./Auth/Signup"
 import OccurrenceDetails from "./Occurrence/OccurrenceDetails"
 
-const Routes = () => (
-    <Switch>
-        <Route path="/create" component={CreateEvent}/>
-        <Route
-            path="/event/:eventId/edit"
-            render={(routeProps: RouteComponentProps<{ eventId: string }>) => (
-                <EditEvent eventId={routeProps.match.params.eventId}/>
-            )}
-        />
-        <Route
-            path="/o/:sanitizedEventName/:occurrenceId"
-            component={OccurrenceDetails}
-        />
-        <Route path="/init-session/:hash" component={InitializeSession}/>
-        <Route path="/login" component={Login}/>
-        <Route path="/signup" component={Signup}/>
-        <Route path="/logout" component={Signout}/>
-        <Route path="/:month" component={Calendar}/>
-        <Route path="/" component={Calendar}/>
-        <Redirect to="/"/>
-    </Switch>
-)
+const Routes = () => {
+        return (
+            <Switch>
+                    <Route path="/create" component={CreateEvent}/>
+                    <Route
+                        path="/event/:eventId/edit"
+                        render={(routeProps: RouteComponentProps<{ eventId: string }>) => (
+                            <EditEvent eventId={routeProps.match.params.eventId}/>
+                        )}
+                    />
+                    <Route
+                        path="/o/:sanitizedEventName/:occurrenceId"
+                        component={OccurrenceDetails}
+                    />
+                    <Route path="/init-session/:hash" component={InitializeSession}/>
+                    <Route path="/login" component={Login}/>
+                    <Route path="/signup" component={Signup}/>
+                    <Route path="/logout" component={Signout}/>
+                    <Route path="/:month" component={Calendar}/>
+                    <Route path="/" component={Calendar}/>
+                    <Redirect to="/"/>
+            </Switch>
+        )
 
+}
 export default Routes

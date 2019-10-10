@@ -10,18 +10,13 @@ import {Helmet} from 'react-helmet'
 import AppMessages from './App.msg.json'
 
 const App = () => {
-    const [intlInit, setIntlInit] = React.useState(false)
      intl.init({
         currentLocale: 'es-ES',
         locales: {
             'en-GB': AppMessages.en,
             'es-ES': AppMessages.es
         }
-    }).then(() => setIntlInit(true))
-
-    if (!intlInit) {
-        return null
-    }
+    })
     return (
         <Root>
             <Helmet>

@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "build": "webpack --config ./webpack.config.ts",
-    "start": "NODE_ENV=development webpack-dev-server --config ./webpack.config.ts --hot --progress"
+    "start": "API_URL=http://alpha.quepasaalpujarra.com/graphql webpack --config ./webpack.config.ts --watch --progress"
   },
   "dependencies": {
     "@babel/node": "^7.6.2",
