@@ -14,14 +14,13 @@ const config: webpack.Configuration = {
       "/graphql": {
         redirect: false,
         changeOrigin: true,
-        target: `https://alpha.quepasaalpujarra.com`,
+        target: process.env.API_URL || "https://alpha.quepasaalpujarra.com",
       },
       "/api": {
         redirect: false,
         changeOrigin: true,
-        target: `https://alpha.quepasaalpujarra.com`,
+        target: process.env.API_URL || "https://alpha.quepasaalpujarra.com",
       },
-
     },
   },
   module: {
@@ -42,11 +41,10 @@ const config: webpack.Configuration = {
                   labelFormat: "[local]",
                 },
               ],
-
             ],
-            plugins: [
-              "@babel/plugin-proposal-class-properties",
-            ].filter(Boolean),
+            plugins: ["@babel/plugin-proposal-class-properties"].filter(
+              Boolean
+            ),
           },
         },
       },
@@ -66,10 +64,11 @@ const config: webpack.Configuration = {
     filename: "bundle.js",
     publicPath: "/",
   },
-  plugins: [new HtmlWebpackPlugin({
-    template: "./index-dev.html",
-  })],
-
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: "./index-dev.html",
+    }),
+  ],
 }
 
 export default config

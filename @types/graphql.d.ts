@@ -132,6 +132,7 @@ declare namespace GQL {
   interface IMutation {
     __typename: 'Mutation';
     createEvent: ICalendarEvent | null;
+    deleteEvent: IUser;
     grantRole: IUser;
     requestInvite: boolean;
     revokeRole: IUser;
@@ -142,6 +143,10 @@ declare namespace GQL {
 
   interface ICreateEventOnMutationArguments {
     input: ICreateEventInput;
+  }
+
+  interface IDeleteEventOnMutationArguments {
+    id: string;
   }
 
   interface IGrantRoleOnMutationArguments {

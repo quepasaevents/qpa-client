@@ -1,8 +1,9 @@
 import { Spinner } from "qpa-components"
 import * as React from "react"
-import {useAppContext} from "../App/Context/AppContext"
+import { useAppContext } from "../App/Context/AppContext"
 import removeTypename from "../App/remove-typename"
 import EditEventMutation from "./EditEventMutation"
+import DeleteEventMutation from "./DeleteEventMutation"
 import EventForm from "./EventForm"
 import GetEventQuery from "./GetEventQuery"
 
@@ -11,60 +12,73 @@ interface Props {
 }
 
 const EditEvent = (props: Props) => {
-    const { supportedLocales } = useAppContext()
+  const { supportedLocales } = useAppContext()
 
-    return (
-        <EditEventMutation onCompleted={() => {
+  return (
+    <DeleteEventMutation>
+      {(deleteEvent, { loading: deleteEventLoading }) => (
+        <EditEventMutation
+          onCompleted={() => {
             alert("Event edited successfully")
-        }}>
-            {
-                (editEvent, { loading: editLoading }) => (
-                    <GetEventQuery skip={!props.eventId} variables={{id: props.eventId}}>
-                        {
-                            ({data, error, loading}) => {
-                                if (loading) {
-                                    return <Spinner />
-                                }
-                                if (error) {
-                                    return error.message
-                                }
-                                const event = removeTypename(data.event)
+          }}
+        >
+          {(editEvent, { loading: editLoading }) => (
+            <GetEventQuery
+              skip={!props.eventId}
+              variables={{ id: props.eventId }}
+            >
+              {({ data, error, loading }) => {
+                if (loading) {
+                  return <Spinner />
+                }
+                if (error) {
+                  return error.message
+                }
+                const event = removeTypename(data.event)
 
-                                return (
-                                    <EventForm
-                                        loading={editLoading}
-                                        locales={supportedLocales}
-                                        onSubmit={(values) => {
-                                            editEvent({
-                                                variables: {
-                                                    input: {
-                                                        id: props.eventId,
-                                                        ...values,
-                                                    },
-                                                },
-                                            })
-                                        }}
-                                        values={{
-                                            meta: {
-                                                tags: event.meta.tags,
-                                            },
-                                            time: event.time,
-                                            location: {
-                                                address: event.location.address || '',
-                                                name: event.location.name || ''
-                                            },
-                                            infos: event.infos,
-                                            status: event.status,
-                                        }}/>
-                                )
+                return (
+                  <EventForm
+                    loading={editLoading}
+                    deleteEventLoading={deleteEventLoading}
+                    locales={supportedLocales}
+                    onDeleteEvent={() => {
+                        deleteEvent({
+                            variables: {
+                                id: props.eventId
                             }
-                        }
-                    </GetEventQuery>
+                        })
+                    }}
+                    onSubmit={values => {
+                      editEvent({
+                        variables: {
+                          input: {
+                            id: props.eventId,
+                            ...values,
+                          },
+                        },
+                      })
+                    }}
+                    values={{
+                      meta: {
+                        tags: event.meta.tags,
+                      },
+                      time: event.time,
+                      location: {
+                        address: event.location.address || "",
+                        name: event.location.name || "",
+                      },
+                      infos: event.infos,
+                      status: event.status,
+                    }}
+                  />
                 )
-            }
+              }}
+            </GetEventQuery>
+          )}
         </EditEventMutation>
-    )
-
+      )}
+    </DeleteEventMutation>
+  )
 }
 
 export default EditEvent

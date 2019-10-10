@@ -54,6 +54,7 @@ type Location {
 
 type Mutation {
     createEvent(input: CreateEventInput!): CalendarEvent
+    deleteEvent(id: ID!): User!
     grantRole(input: GrantRoleInput!): User!
     requestInvite(input: RequestInviteInput!): Boolean!
     revokeRole(input: GrantRoleInput!): User!
