@@ -1,7 +1,7 @@
 import {css} from "@emotion/core"
 import {addHours, format} from "date-fns"
 import {Field, Form, Formik} from "formik"
-import {Button} from "qpa-components"
+import {Button, TextField} from "qpa-components"
 import * as React from "react"
 import styled from "@emotion/styled"
 import {EventStatus} from "../../../@types"
@@ -30,7 +30,7 @@ export interface EventFormData {
         description: string;
     }>
     location: {
-        address?: string;
+        address: string;
         name: string;
     }
     status: EventStatus
@@ -55,6 +55,7 @@ const EventForm = (props: Props) => {
         'en-GB': messages.en
     })
     const isEdit = !!props.values
+
     return (
         <EventFormik
             onSubmit={props.onSubmit}
@@ -76,87 +77,97 @@ const EventForm = (props: Props) => {
                         )),
                         location: {
                             name: "",
+                            address: ""
                         },
                         meta: {
                             tags: [],
                         },
                         status: "confirmed",
-                    }
+                    } as EventFormData
             }
             validate={(values) => {
                 const errors: any = {}
             }}
         >
-            {({isValid, setFieldValue, values}) => (
-                <StyledForm>
-                    <FormTitle>
-                        {
-                            props.locales.length > 1 ? intl.get('EVENT_FORM_DETAILS_FOREWORD_MULTILINGUAL') : intl.get('EVENT_FORM_DETAILS_FOREWORD')
-                        }
-                    </FormTitle>
-                    {
-                        props.locales.map(lang => {
-                            const i = values.infos.findIndex(info => info.language === lang)
-                            return (
-                                <Section key={lang}>
-                                    <EventLanguageTitle>{intl.get('EVENT_FORM_INFO')} {intl.get(lang)}</EventLanguageTitle>
-                                    <p>{intl.get('EVENT_TITLE')}</p>
-                                    <Field name={`info[${i}].title`}>
-                                        {({field}) => <input {...field} placeholder="Name your event"/>}
-                                    </Field>
-                                    <p>{intl.get('DESCRIPTION')}</p>
-                                    <Field name={`info[${i}].description`}>
-                                        {({field}) => (
-                                            <textarea
-                                                {...field}
-                                                placeholder={intl.get('DESCRIPTION_PLACEHOLDER')}
-                                            />
-                                        )}
-                                    </Field>
-                                </Section>
-                            )
-                        })
-                    }
-                    <Section>
-
+            {({isValid, setFieldValue, values}) => {
+                return (
+                    <StyledForm>
                         <FormTitle>
-                            {intl.get('TITLE_TIME')}
+                            {
+                                props.locales.length > 1 ? intl.get('EVENT_FORM_DETAILS_FOREWORD_MULTILINGUAL') : intl.get('EVENT_FORM_DETAILS_FOREWORD')
+                            }
                         </FormTitle>
-                        <p>{intl.get('START_TIME')}</p>
-                        <Field name="time.start">
-                            {
-                                ({field}) => (
-                                    <DateTime {...field} onChange={(newStartValue) => {
-                                        setFieldValue("time.start", newStartValue)
-                                        setFieldValue("time.end", format(addHours(newStartValue, 2), "YYYY-MM-DDTHH:MM"))
-                                    }}/>
+                        {
+                            props.locales.map(lang => {
+                                const i = values.infos.findIndex(info => info.language === lang)
+                                return (
+                                    <Section key={lang}>
+                                        <EventLanguageTitle>{intl.get('EVENT_FORM_INFO')} {intl.get(lang)}</EventLanguageTitle>
+                                        <p>{intl.get('EVENT_TITLE')}</p>
+                                        <Field name={`info[${i}].title`}>
+                                            {({field}) => <TextField {...field} placeholder="Name your event"/>}
+                                        </Field>
+                                        <p>{intl.get('DESCRIPTION')}</p>
+                                        <Field name={`info[${i}].description`}>
+                                            {({field}) => (
+                                                <TextField
+                                                    {...field}
+                                                    multiline
+                                                    rows={8}
+                                                    placeholder={intl.get('DESCRIPTION_PLACEHOLDER')}
+                                                />
+                                            )}
+                                        </Field>
+                                    </Section>
                                 )
-                            }
+                            })
+                        }
+                        <Section>
+
+                            <FormTitle>
+                                {intl.get('TITLE_TIME')}
+                            </FormTitle>
+                            <p>{intl.get('START_TIME')}</p>
+                            <Field name="time.start">
+                                {
+                                    ({field}) => (
+                                        <DateTime {...field} onChange={(newStartValue) => {
+                                            setFieldValue("time.start", newStartValue)
+                                            setFieldValue("time.end", format(addHours(newStartValue, 2), "YYYY-MM-DDTHH:MM"))
+                                        }}/>
+                                    )
+                                }
+                            </Field>
+                            <p>{intl.get('END_TIME')} </p>
+                            <Field name="time.end">
+                                {
+                                    ({field}) => (
+                                        <DateTime {...field}
+                                                  onChange={(newEndValue) => setFieldValue("time.end", newEndValue)}/>
+                                    )
+                                }
+                            </Field>
+                        </Section>
+
+                        <p>{intl.get('LOCATION')}</p>
+                        <Field name="location.name">
+                            {({field}) => <TextField {...field} placeholder={intl.get('LOCATION_PLACEHOLDER')}/>}
                         </Field>
-                        <p>{intl.get('END_TIME')} </p>
-                        <Field name="time.end">
+                        <p>{intl.get('ADDRESS')}</p>
+                        <Field name="location.address">
+                            {({field}) => <TextField {...field} placeholder={intl.get('ADDRESS_PLACEHOLDER')}/>}
+                        </Field>
+                        <Footer>
+                            <Button type="submit"
+                                    loading={props.loading}>{isEdit ? intl.get('EDIT') : intl.get('CREATE')}</Button>
                             {
-                                ({field}) => (
-                                    <DateTime {...field}
-                                              onChange={(newEndValue) => setFieldValue("time.end", newEndValue)}/>
-                                )
+                                isEdit ? <DeleteButton type="button">{ intl.get('DELETE')}</DeleteButton> : null
                             }
-                        </Field>
-                    </Section>
+                        </Footer>
 
-                    <p>{intl.get('LOCATION')}</p>
-                    <Field name="location.name">
-                        {({field}) => <input {...field} placeholder={intl.get('LOCATION_PLACEHOLDER')}/>}
-                    </Field>
-                    <p>{intl.get('ADDRESS')}</p>
-                    <Field name="location.address">
-                        {({field}) => <input {...field} placeholder={intl.get('ADDRESS_PLACEHOLDER')}/>}
-                    </Field>
-
-                    <Button type="submit"
-                            loading={props.loading}>{isEdit ? intl.get('EDIT') : intl.get('CREATE')}</Button>
-                </StyledForm>
-            )}
+                    </StyledForm>
+                )
+            }}
         </EventFormik>
     )
 }
@@ -172,6 +183,10 @@ const Section = styled.section`
   padding-top: 18px;
 `
 
+const DeleteButton = styled(Button)`
+  background: red;
+`
+
 const StyledForm = styled(Form)`
   display: flex;
   flex-direction: column;
@@ -183,8 +198,12 @@ const StyledForm = styled(Form)`
   @media(max-width: 600px) {
     width: 450px;
   }
-  ${Button} {
+  ${Button}, ${DeleteButton} {
     width: 200px;
   }
+`
+const Footer = styled.div`
+  display: flex;
+  flex-direction: row;
 `
 export default EventForm

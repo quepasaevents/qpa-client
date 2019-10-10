@@ -1,14 +1,16 @@
+import styled from "@emotion/styled"
 import * as React from "react"
 
 interface Props {
   value: string
   onChange: (value: string) => void
+  className?: string
 }
 
-const DateTime = ({ value, onChange }: Props) => {
+const DateTime = ({ value, onChange, className }: Props) => {
   const dateTimeSplit = value.split("T")
   return (
-    <div>
+    <Root className={className}>
       <input type="date" value={dateTimeSplit[0]} onChange={(e) => {
         const newDateValue = e.target.value
         onChange([newDateValue, dateTimeSplit[1]].join("T"))
@@ -17,8 +19,11 @@ const DateTime = ({ value, onChange }: Props) => {
         const newTimeValue = e.target.value
         onChange([dateTimeSplit[0], newTimeValue].join("T"))
       }}/>
-    </div>
+    </Root>
   )
 }
 
+const Root = styled.div`
+
+`
 export default DateTime

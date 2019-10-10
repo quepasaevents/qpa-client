@@ -49,7 +49,10 @@ const EditEvent = (props: Props) => {
                                                 tags: event.meta.tags,
                                             },
                                             time: event.time,
-                                            location: event.location,
+                                            location: {
+                                                address: event.location.address || '',
+                                                name: event.location.name || ''
+                                            },
                                             infos: event.infos,
                                             status: event.status,
                                         }}/>
