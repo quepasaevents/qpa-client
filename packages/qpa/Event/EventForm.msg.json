@@ -2,6 +2,7 @@
   "en": {
     "EVENT_CREATED_SUCCESSFULLY": "Event was created successfully",
     "EVENT_TITLE": "Title of event",
+    "EVENT_TITLE_PLACEHOLDER": "Name your event",
     "DESCRIPTION": "Description of the event",
     "DESCRIPTION_PLACEHOLDER": "Write a few words about your event",
     "LOCATION": "Location",
@@ -23,6 +24,7 @@
   "es": {
     "EVENT_CREATED_SUCCESSFULLY": "Evento ha sido creado correctamente",
     "EVENT_TITLE": "Titulo del evento",
+    "EVENT_TITLE_PLACEHOLDER": "Da un nombre a tu evento",
     "DESCRIPTION": "Descripción del evento",
     "DESCRIPTION_PLACEHOLDER": "Escribe unas palabras sobre tu evento",
     "LOCATION": "Lugar",
