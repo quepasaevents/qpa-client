@@ -18,7 +18,8 @@
     "EVENT_FORM_DETAILS_FOREWORD_MULTILINGUAL": "Please enter some details about your event. Please consider that your audience is multilingual so please do make an effort to write the description in other languages too.",
     "START_TIME": "Starting time",
     "END_TIME": "End time",
-    "TITLE_TIME": "In the following, please enter the times of start and end of your event. In the near future we will allow you to insert repeating events as well!",
+    "TITLE_TIME": "Time",
+    "TIME_EXPLANATION": "In the following, please enter the times of start and end of your event. In the near future we will allow you to insert repeating events as well!",
     "DELETE": "Delete Event"
   },
   "es": {
@@ -40,7 +41,8 @@
     "EVENT_FORM_DETAILS_FOREWORD_MULTILINGUAL": "Por favor, añade unos detalles sobre tu evento. Ten en cuenta, que tu publico es multilingual así que por favor, haz el esfuerzo de escribir las descripciones en otros idiomas también",
     "START_TIME": "Comienzo",
     "END_TIME": "Final",
-    "TITLE_TIME": "En lo siguiente por favor pon el tiempo de cuando empieza y termina tu event. ¡En el proximo futuro te haramos posible crear eventos repetitivos!",
+    "TITLE_TIME": "El tiempo",
+    "TIME_EXPLANATION": "En lo siguiente por favor pon el tiempo de cuando empieza y termina tu event. ¡En el proximo futuro te haramos posible crear eventos repetitivos!",
     "DELETE": "Eliminar evento"
   }
 }

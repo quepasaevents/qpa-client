@@ -101,9 +101,9 @@ const EventForm = (props: Props) => {
               const i = values.infos.findIndex(info => info.language === lang)
               return (
                 <Section key={lang}>
-                  <EventLanguageTitle>
+                  <SectionTitle>
                     {intl.get("EVENT_FORM_INFO")} {intl.get(lang)}
-                  </EventLanguageTitle>
+                  </SectionTitle>
                   <p>{msg.EVENT_TITLE}</p>
                   <Field name={`infos[${i}].title`}>
                     {({ field }) => (
@@ -128,7 +128,8 @@ const EventForm = (props: Props) => {
               )
             })}
             <Section>
-              <FormTitle>{intl.get("TITLE_TIME")}</FormTitle>
+                <SectionTitle>{intl.get("TITLE_TIME")}</SectionTitle>
+              <FormTitle>{intl.get("TIME_EXPLANATION")}</FormTitle>
               <p>{intl.get("START_TIME")}</p>
               <Field name="time.start">
                 {({ field }) => (
@@ -199,7 +200,7 @@ const EventForm = (props: Props) => {
 const FormTitle = styled.div`
   font-size: 18px;
 `
-const EventLanguageTitle = styled.div`
+const SectionTitle = styled.div`
   font-size: 24px;
   font-weight: bold;
 `
