@@ -43,7 +43,7 @@ const Title = styled.div`
   flex: 1;
 `
 const Root = styled.div`
-  background: rgba(0, 0, 0, 0.1);
+  background: #5E8036;
   display: flex;
   flex-direction: row;
   padding-right: 14px;

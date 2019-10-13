@@ -1,9 +1,13 @@
 import styled from "@emotion/styled"
-import {Field, Form, Formik} from "formik"
-import {Button, Label, Spinner, TextField} from "qpa-components"
-import {useMessageCenter} from "qpa-message-center"
+import { Field, Form, Formik } from "formik"
+import { Button, Label, Spinner, TextField } from "qpa-components"
+import { useMessageCenter } from "qpa-message-center"
 import * as React from "react"
-import {Link} from "react-router-dom"
+import { hot } from "react-hot-loader"
+import { Link } from "react-router-dom"
+import Logo from "../LOGO.png"
+import intl from "react-intl-universal"
+import messages from "./Signup.msg.json"
 
 interface SignupFormData {
   email: string
@@ -11,94 +15,165 @@ interface SignupFormData {
 }
 class SignupFormik extends Formik<SignupFormData> {}
 
+const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 const Signup = () => {
+  intl.load(messages)
   const { addMessage } = useMessageCenter()
   const [loading, setLoading] = React.useState(false)
   const [success, setSuccess] = React.useState(null)
   const [error, setError] = React.useState(null)
   const [emailTaken, setEmailTaken] = React.useState(false)
 
-  if (success) {
-    return <Label>Sign up was successful. Please check your email or <Link to="/">go to calendar</Link></Label>
-  }
   return (
-    <SignupFormik
-      initialValues={{name: "", email: ""}}
-      onSubmit={(values, {setFieldError}) => {
-        fetch("/api/signup", {
-          method: "post",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify({
-            name: values.name,
-            email: values.email,
-          }),
-        }).then((res) => {
-          if (res.status === 200) {
-            setSuccess(true)
-            addMessage({
-              type: "success",
-              text: "Sign up succeeded. Please check your email",
+    <Root>
+      <LogoHolder>
+        <img src={Logo} />
+      </LogoHolder>
+      {success ? (
+        <Label>
+          {intl.get("signup-success")}{" "}
+          <Link to="/">{intl.get("go-to-calendar")}</Link>
+        </Label>
+      ) : (
+        <SignupFormik
+          initialValues={{ name: "", email: "" }}
+          validate={(values: SignupFormData) => {
+            const errors: any = {}
+            if (!values.name) {
+              errors.name = intl.get("form-error-no-name")
+            }
+            if (values.name.length < 4) {
+              errors.name = intl.get("form-error-name-too-short")
+            }
+            if (!values.email) {
+              errors.email = intl.get("form-error-no-email")
+            }
+            if (!emailRegex.test(values.email)) {
+              errors.email = intl.get("form-error-legal-email")
+            }
+            return errors
+          }}
+          onSubmit={(values, { setFieldError }) => {
+            fetch("/api/signup", {
+              method: "post",
+              headers: {
+                "content-type": "application/json",
+              },
+              body: JSON.stringify({
+                name: values.name,
+                email: values.email,
+              }),
             })
-            return
-          } else {
-            addMessage({
-              type: "error",
-              text: "Error signin up. Please try later",
-            })
-          }
+              .then(res => {
+                if (res.status === 200) {
+                  setSuccess(true)
+                  addMessage({
+                    type: "success",
+                    text: intl.get("signup-success"),
+                  })
+                  return
+                } else {
+                  addMessage({
+                    type: "error",
+                    text: intl.get("signup-error"),
+                  })
+                }
 
-          if (res.status === 409) {
-            setFieldError("email", "Email is taken. Maybe try to log in?")
-          }
-        }).catch((e) => {
-          addMessage({
-            type: "error",
-            text: `Error signin up. Please try later. ${e.message}`,
-          })
-        })
-
-      }}
-    >
-      {
-        ({values, isValid}) => (
-          <SForm>
-            <p css={{gridArea: "1/1/1/4"}}>
-              In order to insert your own event, please sign up.
-              You only have to give us a name, and and email where we can reach you.
-              Once these are set, we will send an invitation to your email.
-            </p>
-            <Field name="name">
-              {
-                ({field}) => <STextField placeholder="Your name" {...field} css={{gridArea: "2/2/2/3"}}/>
-              }
-            </Field>
-            <Field name="email" css={{gridRow: 2}}>
-              {
-                ({field}) => <STextField placeholder="Your email" {...field} css={{gridArea: "3/2/3/4"}}/>
-              }
-            </Field>
-
-            <Button type="submit" disabled={!isValid || loading} css={{gridArea: "4/2/5/3", marginTop: 12}}>{
-              loading ? <Spinner /> : "Sign up"
-            }</Button>
-
-          </SForm>
-        )
-      }
-    </SignupFormik>
+                if (res.status === 409) {
+                  setFieldError("email", intl.get("email-taken"))
+                }
+              })
+              .catch(e => {
+                addMessage({
+                  type: "error",
+                  text: `${intl.get('signup-error')} ${e.message}`,
+                })
+              })
+          }}
+        >
+          {({ values, isValid, errors, touched }) => (
+            <SForm>
+              <Title>
+                {
+                  intl.get('signup-form-title')
+                }
+              </Title>
+              <Fields>
+                <Field name="name">
+                  {({ field }) => (
+                    <TextField errorMessage={touched.name && errors.name} placeholder={intl.get('your-name')} {...field} />
+                  )}
+                </Field>
+                <Field name="email" css={{ gridRow: 2 }}>
+                  {({ field }) => (
+                    <TextField errorMessage={touched.email && errors.email} placeholder={intl.get("your-email")} {...field} />
+                  )}
+                </Field>
+              </Fields>
+              <SButton type="submit" disabled={!isValid || loading}>
+                {loading ? <Spinner /> : intl.get("sign-up")}
+              </SButton>
+              <GoToLogin to="/login">
+                {
+                  intl.get('already-have-account-login')
+                }
+              </GoToLogin>
+            </SForm>
+          )}
+        </SignupFormik>
+      )}
+    </Root>
   )
 }
 
+const Root = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
+const LogoHolder = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 20px;
+`
+
 const SForm = styled(Form)`
+  height: 100%;
   display: grid;
-  grid-template-columns: 1fr 240px 1fr;
-  max-width: 640px;
+  grid-template-columns:
+    [full-start] auto
+    [center-start] 200px
+    [center-end] auto
+    [full-end];
+  grid-template-rows:
+    [title-start] 120px
+    [title-end fields-start] 120px
+    [fields-end button-start] 32px
+    [button-end bottom-start] 48px
+    [bottom-end]
+    ;
+`
+const Title = styled.div`
+  grid-column: full;
+  grid-row: title;
+`
+const Fields = styled.div`
+  grid-column: full;
+  grid-row: fields;
+  > *:not(:first-child) {
+    margin-top: 24px;
+  }
+`
+const SButton = styled(Button)`
+  grid-row: button;
+  grid-column: center;
 `
 
-const STextField = styled(TextField)`
-  width: 240px;
+const GoToLogin = styled(Link)`
+  grid-row: bottom;
+  grid-column: center;
+  font-size: 12px;
+  margin-top: 4px;
 `
-
-export default Signup
+export default hot(module)(Signup)

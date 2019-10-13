@@ -11,7 +11,7 @@ const Footer = (props: Props) => (
 )
 
 const Root = styled.div`
-  background: rgba(0, 0, 0, 0.1);
+  background: #FFAD00;
 `
 
 export default Footer

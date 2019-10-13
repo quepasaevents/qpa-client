@@ -1,0 +1,32 @@
+{
+  "es-ES": {
+    "form-error-no-name": "Por favor, introduze un nombre",
+    "form-error-name-too-short": "El Nombre tiene que ser más largo",
+    "form-error-no-email": "Por favor, introduze un email",
+    "form-error-legal-email": "Por favor, introduze una dirección valida de email",
+    "signup-error": "Error en crear una cuenta, por favor intenta más tarde otra vez",
+    "signup-success": "Cuenta creada correctamente, mira en tu email",
+    "email-taken": "Esta email ya tiene una cuenta. Quieres iniciar una sesión?",
+    "go-to-calendar": "Ir al calendario",
+    "your-email": "Tu email",
+    "your-name": "Tu nombre",
+    "sign-up": "Registrarse",
+    "signup-form-title": "Para poder entrar to propios eventos, tienes que registrarte. Solo tendrías que darnos un nombre y una dirección email, dónde reciber correos electronico. Una vez tengamos esta información, de mandamos una invitación a tú email",
+    "already-have-account-login": "Ya tengo una cuenta. ¡Inicia Sesión!"
+  },
+  "en-GB": {
+    "form-error-no-name": "Please type in a name",
+    "form-error-name-too-short": "Name has to be longer",
+    "form-error-no-email": "Please type in an email",
+    "form-error-legal-email": "Please enter a legal email",
+    "signup-error": "Error signin up. Please try later",
+    "signup-success": "Sign up succeeded. Please check your email",
+    "email-taken": "Email is taken. Maybe try to log in?",
+    "go-to-calendar": "Go to calendar",
+    "your-email": "Your email",
+    "your-name": "Your name",
+    "sign-up": "Sign Up",
+    "signup-form-title": "In order to insert your own event, please sign up. You only have to give us a name, and an email where we can reach you. Once these are set, we will send an invitation to your email.",
+    "already-have-account-login": "I already have an account, go to login!"
+  }
+}
