@@ -51,7 +51,7 @@ const config: webpack.Configuration = {
                 },
             },
             {
-                test: /\.(woff|woff2)$/i,
+                test: /\.(woff|woff2|png)$/i,
                 use: [
                     {
                         loader: "url-loader",
