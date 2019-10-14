@@ -32,9 +32,10 @@ const Header = (props: Props) => (
 )
 
 const StyledLink = styled(Link)`
-  color: rgba(0,0,0,.7);
+  color: white;
+  text-decoration: none;
   &:not(:first-of-type) {
-    margin-left: 8px;
+    margin-left: 14px;
   }
 `
 
@@ -43,7 +44,7 @@ const Title = styled.div`
   flex: 1;
 `
 const Root = styled.div`
-  background: #5E8036;
+  background: ${props => props.theme.colors.lead};
   display: flex;
   flex-direction: row;
   padding-right: 14px;

@@ -7,6 +7,7 @@ import { hot } from "react-hot-loader"
 import { Link } from "react-router-dom"
 import Logo from "../LOGO.png"
 import intl from "react-intl-universal"
+import {emailRegex} from "./auth-commons"
 import messages from "./Signup.msg.json"
 
 interface SignupFormData {
@@ -15,7 +16,6 @@ interface SignupFormData {
 }
 class SignupFormik extends Formik<SignupFormData> {}
 
-const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 const Signup = () => {
   intl.load(messages)
   const { addMessage } = useMessageCenter()

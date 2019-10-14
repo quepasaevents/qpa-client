@@ -16,4 +16,6 @@ const Button = (props: ButtonProps) => {
     </PrimaryButton>
 }
 
-export default styled(Button)``
+export default styled(Button)`
+  background-color: ${props => props.theme.colors.lead};
+`

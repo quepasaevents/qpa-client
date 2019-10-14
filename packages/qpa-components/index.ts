@@ -4,7 +4,6 @@ import TextField, {TextFieldProps} from './TextField'
 export { Button, ButtonProps, TextField, TextFieldProps, Spinner }
 
 export {
-  PrimaryButton,
   Label,
   MessageBar,
 } from "office-ui-fabric-react"

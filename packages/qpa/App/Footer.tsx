@@ -11,7 +11,7 @@ const Footer = (props: Props) => (
 )
 
 const Root = styled.div`
-  background: #FFAD00;
+  background: ${props => props.theme.colors.secondary};
 `
 
 export default Footer

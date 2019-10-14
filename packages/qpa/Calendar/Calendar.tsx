@@ -2,7 +2,7 @@ import styled from "@emotion/styled"
 import addMonths from "date-fns/add_months"
 import endOfMonth from "date-fns/end_of_month"
 import startOfMonth from "date-fns/start_of_month"
-import { PrimaryButton } from "qpa-components"
+import { Button } from "qpa-components"
 import * as React from "react"
 import { hot } from "react-hot-loader"
 import { RouteComponentProps, withRouter } from "react-router"
@@ -47,7 +47,7 @@ const Calendar = (props: Props) => {
   return (
     <Root>
       <Controls>
-        <PrimaryButton
+        <Button
           title="Previous"
           onClick={() => {
             props.history.push(`/${monthBeforeName}`)
@@ -55,9 +55,9 @@ const Calendar = (props: Props) => {
         >
           {"<"}
           {monthBeforeName}
-        </PrimaryButton>
+        </Button>
         <ThisMonth>{MONTH_NAMES[from.getMonth()]}</ThisMonth>
-        <PrimaryButton
+        <Button
           title="Next"
           onClick={() => {
             props.history.push(`/${monthAfterName}`)
@@ -65,7 +65,7 @@ const Calendar = (props: Props) => {
         >
           {monthAfterName}
           {">"}
-        </PrimaryButton>
+        </Button>
       </Controls>
       <RangedCalendar from={from} to={to} className={props.className} />
     </Root>
