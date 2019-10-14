@@ -1,4 +1,4 @@
-import styled from "@emotion/styled"
+import styled, { Theme, useTheme } from "qpa-emotion"
 import * as React from "react"
 import { Link } from "react-router-dom"
 import { AppContext } from "../Context/AppContext"
@@ -7,30 +7,35 @@ interface Props {
   className?: string
 }
 
-const Header = (props: Props) => (
-  <AppContext>
-    {({ me }) => (
-      <Root className={props.className}>
-        <Menu />
-        <Title />
-        <LinksSection>
-          {me ? (
-            <>
-              <StyledLink to="/create">Create event</StyledLink>
-              <StyledLink to="/logout">Log out</StyledLink>
-            </>
-          ) : (
-            <>
-              <StyledLink to="/login">Log In</StyledLink>
-              <StyledLink to="/signup">Sign Up</StyledLink>
-            </>
-          )}
-        </LinksSection>
-      </Root>
-    )}
-  </AppContext>
-)
+const Header = (props: Props) => {
+  const theme = useTheme()
 
+  return (
+    <AppContext>
+      {({ me }) => (
+        <Root className={props.className} css={{
+          background: theme.colors.lead
+        }}>
+          <Menu />
+          <Title />
+          <LinksSection>
+            {me ? (
+              <>
+                <StyledLink to="/create">Create event</StyledLink>
+                <StyledLink to="/logout">Log out</StyledLink>
+              </>
+            ) : (
+              <>
+                <StyledLink to="/login">Log In</StyledLink>
+                <StyledLink to="/signup">Sign Up</StyledLink>
+              </>
+            )}
+          </LinksSection>
+        </Root>
+      )}
+    </AppContext>
+  )
+}
 const StyledLink = styled(Link)`
   color: white;
   text-decoration: none;
@@ -44,7 +49,6 @@ const Title = styled.div`
   flex: 1;
 `
 const Root = styled.div`
-  background: ${props => props.theme.colors.lead};
   display: flex;
   flex-direction: row;
   padding-right: 14px;

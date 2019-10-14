@@ -1,5 +1,4 @@
-import { css, Global } from "@emotion/core"
-import styled from "@emotion/styled"
+import styled, { css, Global } from "qpa-emotion"
 import { MessageCenterDisplay } from "qpa-message-center"
 import * as React from "react"
 import Footer from "./Footer"

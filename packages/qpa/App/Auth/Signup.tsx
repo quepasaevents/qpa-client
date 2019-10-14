@@ -1,4 +1,4 @@
-import styled from "@emotion/styled"
+import styled from "qpa-emotion"
 import { Field, Form, Formik } from "formik"
 import { Button, Label, Spinner, TextField } from "qpa-components"
 import { useMessageCenter } from "qpa-message-center"

@@ -1,4 +1,4 @@
-import styled from "@emotion/styled"
+import styled from "qpa-emotion"
 import * as React from "react"
 import { RouteComponentProps, withRouter } from "react-router"
 import {useAppContext} from "../Context/AppContext"

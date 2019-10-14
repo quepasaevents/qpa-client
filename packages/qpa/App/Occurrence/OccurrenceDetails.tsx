@@ -1,4 +1,4 @@
-import styled from "@emotion/styled"
+import styled from "qpa-emotion"
 import {Spinner} from "qpa-components"
 import * as React from "react"
 import {RouteComponentProps, withRouter} from "react-router"

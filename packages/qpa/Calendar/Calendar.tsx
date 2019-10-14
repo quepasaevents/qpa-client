@@ -1,4 +1,4 @@
-import styled from "@emotion/styled"
+import styled from "qpa-emotion"
 import addMonths from "date-fns/add_months"
 import endOfMonth from "date-fns/end_of_month"
 import startOfMonth from "date-fns/start_of_month"

@@ -1,4 +1,4 @@
-import styled from "@emotion/styled"
+import styled from "qpa-emotion"
 import dateFormat from "date-fns/format"
 import dateIsBefore from "date-fns/is_before"
 import * as React from "react"

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import styled from '@emotion/styled'
+import styled from "qpa-emotion"
 
 interface Props {
   className?: string

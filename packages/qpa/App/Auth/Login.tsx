@@ -1,4 +1,4 @@
-import styled from "@emotion/styled"
+import styled from "qpa-emotion"
 import { Button, Label, TextField } from "qpa-components"
 import * as React from "react"
 import { hot } from "react-hot-loader"
@@ -54,10 +54,7 @@ const Login = (props: Props) => {
       <Title>{intl.get("login-title")}</Title>
       {error ? (
         <Error>
-          <Label>
-            Could not find a user with the mentioned email. Please sign up
-            first.
-          </Label>
+          <Label>{intl.get("email-not-found")}</Label>
           <StyledButton
             onClick={() => props.history.push("/signup")}
             css={{ gridColumn: 2 }}
@@ -71,10 +68,8 @@ const Login = (props: Props) => {
       ) : success ? (
         <Success>
           <Label>
-            Invitation was sent to your email: {email}. Please check your email
-            and click on the link provided in the invitation. In the meantime
-            you can browse other events in the calendar
-          </Label>
+            {intl.get("invitation-sent")}
+            </Label>
           <StyledButton onClick={() => props.history.push("/")}>
             To Calendar
           </StyledButton>
@@ -103,16 +98,15 @@ const Login = (props: Props) => {
 const Root = styled.form`
   display: grid;
   color: rgba(0, 0, 0, 0.6);
-  grid-template-rows: 
+  grid-template-rows:
     [full-start logo-start] 200px
     [title-start logo-end] minmax(80px, 120px)
     [input-start title-end] 48px
     [button-start input-end] 24px
-    [full-end button-end]
-    ;
-    ${TextField} {
-      grid-row: input
-    }
+    [full-end button-end];
+  ${TextField} {
+    grid-row: input;
+  }
 `
 
 const LogoHolder = styled.div`
@@ -124,11 +118,11 @@ const LogoHolder = styled.div`
 `
 
 const Title = styled.div`
-  grid-row: title
+  grid-row: title;
 `
 
 const StyledButton = styled(Button)`
-  grid-row: button
+  grid-row: button;
 `
 
 const Error = styled.div`

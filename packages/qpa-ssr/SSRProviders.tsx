@@ -1,11 +1,10 @@
 import { InMemoryCache } from "apollo-cache-inmemory"
 import { ApolloClient } from "apollo-client"
-import theme from "qpa/App/theme"
 import * as React from "react"
 import { ApolloProvider } from "react-apollo"
 import { StaticRouter } from "react-router"
 import { AppContextProvider } from "qpa/App/Context/AppContext"
-import { ThemeProvider } from "styled-components"
+import { ThemeProvider, theme } from "qpa-emotion"
 
 interface Props {
   children: React.ReactChild | React.ReactChildren

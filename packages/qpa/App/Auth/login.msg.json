@@ -3,12 +3,17 @@
     "login-title": "Para ver todos los eventos, no hace falta darnos ningúna información. Solo si quieres crear y manejar tus propios eventos, por favor introduze tu email aquí, si ya tienes una cuenta.",
     "i-dont-have-account": "No tengo una cuenta, pero quiero una",
     "to-signup": "Crear una cuanta",
-    "to-calendar": "Ir al calendario"
+    "to-calendar": "Ir al calendario",
+    "email-not-found": "No se encuentre una cuenta con este email. Por favor crea una cuenta",
+    "invintation-sent": "Te hemos enviado ena invitación a tu email. Por favor "
   },
   "en-GB": {
     "login-title": "In order to see all the events, you don't have to provide us any information. Only if you wish to create and manage your own events, please enter you email in case you already have an account.",
     "i-dont-have-account": "I don't have an account, but I want one",
     "to-signup": "Sign Up",
-    "to-calendar": "Go to the calendar"
+    "to-calendar": "Go to the calendar",
+    "email-not-found": "Could not find an account with the provided email. Please create an account",
+    "invitation-sent": "Invitation was sent to your email. Please check your email and click on the link provided in the invitation. In the meantime you can browse other events in the calendar"
+
   }
 }

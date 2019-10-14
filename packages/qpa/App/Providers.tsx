@@ -7,8 +7,7 @@ import * as React from "react"
 import { ApolloProvider } from "react-apollo"
 import { BrowserRouter as Router } from "react-router-dom"
 import { AppContextProvider } from "./Context/AppContext"
-import { ThemeProvider } from "emotion-theming"
-import theme from "./theme"
+import { ThemeProvider, theme } from "qpa-emotion"
 
 interface Props {
   children: React.ReactChild | React.ReactChildren
