@@ -14,10 +14,11 @@ const config: webpack.Configuration = {
     rules: [
       {
         exclude: path.resolve(__dirname, "node_modules"),
-        test: /\.tsx?$/,
+        test: /\.[tj]sx?$/,
         use: {
           loader: "babel-loader",
           options: {
+            babelrc: false,
             presets: [
               "@babel/typescript",
               "@babel/react",
