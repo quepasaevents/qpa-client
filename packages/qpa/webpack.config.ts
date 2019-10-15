@@ -1,12 +1,9 @@
-import * as HtmlWebpackPlugin from "html-webpack-plugin"
+import config, {Configuration, HtmlWebpackPlugin} from 'qpa-webpack/webpack.config'
 import * as path from "path"
-import * as webpack from "webpack"
 
-const config: webpack.Configuration = {
+const qpaConfig: Configuration = {
+  ...config,
   entry: "./App/index.tsx",
-  resolve: {
-    extensions: [".js", ".jsx", ".ts", ".tsx"],
-  },
   devServer: {
     historyApiFallback: true,
     hot: true,
@@ -23,52 +20,16 @@ const config: webpack.Configuration = {
       },
     },
   },
-  module: {
-    rules: [
-      {
-        exclude: path.resolve(__dirname, "node_modules"),
-        test: /\.tsx?$/,
-        use: {
-          loader: "babel-loader",
-          options: {
-            presets: [
-              "@babel/typescript",
-              "@babel/react",
-              [
-                "@emotion/babel-preset-css-prop",
-                {
-                  autoLabel: true,
-                  labelFormat: "[local]",
-                },
-              ],
-            ],
-            plugins: ["@babel/plugin-proposal-class-properties"].filter(
-              Boolean
-            ),
-          },
-        },
-      },
-      {
-        test: /\.(woff|woff2|png)$/i,
-        use: [
-          {
-            loader: "url-loader",
-          },
-        ],
-      },
-    ],
-  },
-  devtool: "@source-map",
-  output: {
-    path: path.resolve(__dirname, "../../dist/static"),
-    filename: "bundle.js",
-    publicPath: "/",
-  },
   plugins: [
     new HtmlWebpackPlugin({
       template: "./index-dev.html",
     }),
   ],
+  output: {
+    path: path.resolve(__dirname, "../../dist/static"),
+    filename: "bundle.js",
+    publicPath: "/",
+  }
 }
 
-export default config
+export default qpaConfig
