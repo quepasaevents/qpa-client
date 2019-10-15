@@ -1,6 +1,6 @@
 {
   "name": "qpa-message-center",
   "version": "0.0.1",
-  "main": "index.js",
+  "main": "index.tsx",
   "license": "MIT"
 }

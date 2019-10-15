@@ -9,7 +9,7 @@ const idGenerator = (function*() {
   }
 }())
 
-export interface Message extends MessageRequest {
+interface Message extends MessageRequest {
   text: string
   id: number
   show: boolean
@@ -96,4 +96,4 @@ class MessageCenterProvider extends React.Component<Props, State, IMessageCenter
   }
 }
 
-export { MessageCenter, MessageCenterContext, MessageCenterProvider, MessageCenterDisplay, useMessageCenter }
+export { MessageCenter, MessageCenterContext, Message, MessageCenterProvider, MessageCenterDisplay, useMessageCenter }

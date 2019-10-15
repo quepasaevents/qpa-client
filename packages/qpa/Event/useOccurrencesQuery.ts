@@ -1,4 +1,4 @@
-import {Query} from 'react-apollo'
+import { useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 
 const query = gql`
@@ -49,8 +49,5 @@ interface Data {
   occurrences: OccurrenceData[]
 }
 
-export default class OccurrencesQuery extends Query<Data, Variables> {
-  static defaultProps = {
-    query
-  }
-}
+const useOccurrencesQuery = (variables: Variables) => useQuery<Data, Variables>(query, { variables })
+export default useOccurrencesQuery

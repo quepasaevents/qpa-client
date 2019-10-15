@@ -18,22 +18,16 @@ const config: webpack.Configuration = {
         use: {
           loader: "babel-loader",
           options: {
-            babelrc: false,
-            presets: [
-              "@babel/typescript",
-              "@babel/react",
-              [
-                "@emotion/babel-preset-css-prop",
-                {
-                  autoLabel: true,
-                  labelFormat: "[local]",
-                },
-              ],
+            "presets": [
+              "@babel/preset-react",
+              "@babel/preset-typescript",
             ],
-            plugins: [
+            "plugins": [
               "@babel/plugin-proposal-class-properties",
-            ].filter(Boolean),
-          },
+              "babel-plugin-emotion"
+            ]
+          }
+          ,
         },
       },
       {
@@ -46,7 +40,8 @@ const config: webpack.Configuration = {
       },
     ],
   },
-  devtool: "@source-map",
+  plugins: []
+  // devtool: "@source-map",
 }
 
 export default config

@@ -1,6 +1,6 @@
 import { Spinner } from "qpa-components"
 import * as React from "react"
-import OccurrencesQuery from "../Event/OccurrencesQuery"
+import UseOccurrencesQuery from "../Event/OccurrencesQuery"
 import List from "./List"
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 }
 
 const RangedCalendar = (props: Props) => (
-  <OccurrencesQuery
+  <UseOccurrencesQuery
     variables={{
       filter: {
         from: props.from,
@@ -31,7 +31,7 @@ const RangedCalendar = (props: Props) => (
       }
       return <List className={props.className} occurrences={data.occurrences}/>
     }}
-  </OccurrencesQuery>
+  </UseOccurrencesQuery>
 )
 
 export default RangedCalendar

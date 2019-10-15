@@ -21,10 +21,12 @@ const qpaConfig: Configuration = {
     },
   },
   plugins: [
+    ...config.plugins,
     new HtmlWebpackPlugin({
       template: "./index-dev.html",
     }),
   ],
+  devtool: "#@source-map",
   output: {
     path: path.resolve(__dirname, "../../dist/static"),
     filename: "bundle.js",

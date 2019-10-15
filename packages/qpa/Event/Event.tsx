@@ -1,6 +1,6 @@
 import * as React from "react"
-import { EventData } from "./EventsQuery"
-import {OccurrenceData} from "./OccurrencesQuery";
+import { EventData } from "./useEventsQuery"
+import {OccurrenceData} from "./useOccurrencesQuery";
 
 interface Props {
   event: EventData

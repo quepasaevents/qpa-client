@@ -1,9 +1,7 @@
 import styled from "qpa-emotion"
-import dateFormat from "date-fns/format"
-import dateIsBefore from "date-fns/is_before"
 import * as React from "react"
-import {hot} from "react-hot-loader"
-import {AppContext, useAppContext} from "../../App/Context/AppContext"
+import {
+  useAppContext} from "../../App/Context/AppContext"
 import {OccurrenceData} from "../../Event/OccurrencesQuery"
 import ListItem from "./ListItem"
 
@@ -92,4 +90,4 @@ const UL = styled.div`
   }
 `
 
-export default hot(module)(List)
+export default List

@@ -1,4 +1,4 @@
-import {Query} from 'react-apollo'
+import {useQuery} from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 
 const query = gql`
@@ -39,8 +39,5 @@ interface Data {
   events: EventData[]
 }
 
-export default class EventsQuery extends Query<Data, Variables> {
-  static defaultProps = {
-    query
-  }
-}
+const useEventsQuery = (variables: Variables) => useQuery<Data, Variables>(query, {variables})
+export default useEventsQuery

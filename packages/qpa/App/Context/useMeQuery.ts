@@ -1,5 +1,5 @@
 import gql from "graphql-tag"
-import { Query } from "react-apollo"
+import { useQuery } from "@apollo/react-hooks"
 
 const query = gql`
     query Me {
@@ -27,8 +27,5 @@ interface Data {
   me: UserData
 }
 
-export default class MeQuery extends Query<Data> {
-  static defaultProps = {
-    query,
-  }
-}
+const useMeQuery = () => useQuery<Data>(query)
+export default useMeQuery

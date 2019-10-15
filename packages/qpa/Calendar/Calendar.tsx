@@ -1,7 +1,5 @@
-import styled from "qpa-emotion"
-import addMonths from "date-fns/add_months"
-import endOfMonth from "date-fns/end_of_month"
-import startOfMonth from "date-fns/start_of_month"
+import styled from "@emotion/styled"
+import {addMonths, endOfMonth, startOfMonth} from "date-fns"
 import { Button } from "qpa-components"
 import * as React from "react"
 import { hot } from "react-hot-loader"
@@ -94,4 +92,4 @@ const Root = styled.div`
   }
 `
 
-export default hot(module)(withRouter(Calendar))
+export default withRouter(Calendar)

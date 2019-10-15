@@ -1,7 +1,6 @@
 import styled from "qpa-emotion"
 import { Button, Label, TextField } from "qpa-components"
 import * as React from "react"
-import { hot } from "react-hot-loader"
 import { RouteComponentProps, withRouter } from "react-router"
 import Logo from "../LOGO.png"
 import intl from "react-intl-universal"
@@ -143,4 +142,4 @@ const Success = styled.div`
   display: grid;
   grid-row-gap: 16px;
 `
-export default hot(module)(withRouter(Login))
+export default withRouter(Login)

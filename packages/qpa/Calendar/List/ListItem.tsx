@@ -1,6 +1,5 @@
 import styled from "qpa-emotion"
 import * as React from "react"
-import {hot} from "react-hot-loader"
 import {Link} from "react-router-dom"
 import {OccurrenceData} from "../../Event/OccurrencesQuery"
 
@@ -68,4 +67,4 @@ const Address = styled(SubInfoLine)`
   grid-row: small2;
 `
 
-export default hot(module)(ListItem)
+export default ListItem

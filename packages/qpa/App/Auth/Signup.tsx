@@ -3,7 +3,6 @@ import { Field, Form, Formik } from "formik"
 import { Button, Label, Spinner, TextField } from "qpa-components"
 import { useMessageCenter } from "qpa-message-center"
 import * as React from "react"
-import { hot } from "react-hot-loader"
 import { Link } from "react-router-dom"
 import Logo from "../LOGO.png"
 import intl from "react-intl-universal"
@@ -176,4 +175,4 @@ const GoToLogin = styled(Link)`
   font-size: 12px;
   margin-top: 4px;
 `
-export default hot(module)(Signup)
+export default Signup

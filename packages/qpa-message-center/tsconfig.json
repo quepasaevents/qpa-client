@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "jsx": "react",
+    "resolveJsonModule": true,
+    "lib": ["es7", "esnext.asynciterable"]
+  },
+  "include": [
+    "../packages",
+    "../../@types/index.d.ts",
+    "../../@types/graphql.d.ts"
+  ],
+  "exclude": [".*/__tests__/.*", "node_modules", "dist", "lib", "__tests__"]
+}
