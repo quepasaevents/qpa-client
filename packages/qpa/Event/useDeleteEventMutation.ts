@@ -1,4 +1,4 @@
-import {useMutation} from '@apollo/react-hooks'
+import {MutationHookOptions, useMutation} from '@apollo/react-hooks'
 import gql from "graphql-tag"
 
 const mutation = gql`
@@ -24,4 +24,5 @@ interface Data {
     }
 }
 
-const useDeleteEventMutation = (variables: Variables) => useMutation<Data, Variables>(mutation, {variables})
+const useDeleteEventMutation = (options?: MutationHookOptions<Data, Variables>) => useMutation<Data, Variables>(mutation, options)
+export default useDeleteEventMutation

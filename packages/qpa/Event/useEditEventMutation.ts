@@ -19,7 +19,7 @@ interface Variables {
   input: GQL.IUpdateEventInput
 }
 
-const useEditEventMutation = (options: MutationHookOptions<Data, Variables>) =>
+const useEditEventMutation = (options?: MutationHookOptions<Data, Variables>) =>
   useMutation<Data, Variables>(mutation, options)
 
 export default useEditEventMutation
