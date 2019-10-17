@@ -1,5 +1,6 @@
 import styled from "@emotion/styled"
 import * as React from "react"
+import {hot} from "react-hot-loader"
 import {
   useAppContext} from "../../App/Context/AppContext"
 import {OccurrenceData} from "../../Event/useOccurrencesQuery"
@@ -35,14 +36,14 @@ const List = (props: Props) => {
   const {me} = useAppContext()
 
   return (
-    <Root className={props.className}>
+    <ListRoot className={props.className}>
       {
         dayNames.map((dayName) => {
           const [year, month, day] = dayName.split("-")
           const dayDate = new Date(dayName)
           const dayNumber = dayDate.getDay()
           return (
-            <UL key={dayName}>
+            <DayItems key={dayName}>
               <DayName>
                 <div css={{gridArea: "1/1/3/2", fontSize: 32}}>{DAY_NAMES[dayNumber]}</div>
                 <div css={{gridArea: "1/2/2/3"}}>{day}-{month}</div>
@@ -54,15 +55,15 @@ const List = (props: Props) => {
                             occurrence={occ}/>
                 ))}
               </Items>
-            </UL>
+            </DayItems>
           )
         })
       }
-    </Root>
+    </ListRoot>
   )
 }
 
-const Root = styled.div`
+const ListRoot = styled.div`
 `
 
 const Items = styled.div`
@@ -79,9 +80,9 @@ const DayName = styled.div`
   margin-right: 18px;
 `
 
-const UL = styled.div`
+const DayItems = styled.div`
   display: grid;
-  grid-template: 48px auto / 120px auto;
+  grid-template: auto auto / 120px auto;
   ${DayName} {
     grid-area: 1/1/2/2;
   }
@@ -90,4 +91,4 @@ const UL = styled.div`
   }
 `
 
-export default List
+export default hot(module)(List)

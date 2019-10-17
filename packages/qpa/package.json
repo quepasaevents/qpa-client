@@ -54,6 +54,7 @@
     "@types/react-router": "^5.1.2",
     "apollo-link-context": "^1.0.14",
     "qpa-webpack": "0.0.1",
+    "react-hot-loader": "^4.12.15",
     "ts-jest": "^24.0.0",
     "ts-node": "^8.0.2",
     "tslint": "^5.12.1",

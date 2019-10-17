@@ -1,4 +1,7 @@
-import config, {Configuration, HtmlWebpackPlugin} from 'qpa-webpack/webpack.config'
+import config, {
+  Configuration,
+  HtmlWebpackPlugin,
+} from "qpa-webpack/webpack.config"
 import * as path from "path"
 
 const qpaConfig: Configuration = {
@@ -29,9 +32,14 @@ const qpaConfig: Configuration = {
   devtool: "#@source-map",
   output: {
     path: path.resolve(__dirname, "../../dist/static"),
-    filename: "bundle.js",
+    filename: "[name].bundle.js",
     publicPath: "/",
-  }
+  },
+  optimization: {
+    splitChunks: {
+      chunks: "all",
+    },
+  },
 }
 
 export default qpaConfig
