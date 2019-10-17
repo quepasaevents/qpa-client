@@ -1,4 +1,4 @@
-import mouse from "qpa-emotion"
+import styled from "qpa-emotion"
 import { Field, Form, Formik } from "formik"
 import { Button, Label, Spinner, TextField } from "qpa-components"
 import { useMessageCenter } from "qpa-message-center"
@@ -125,19 +125,19 @@ const Signup = () => {
   )
 }
 
-const Root = mouse.div`
+const Root = styled.div`
   display: flex;
   flex-direction: column;
 `
 
-const LogoHolder = mouse.div`
+const LogoHolder = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
   margin: 20px;
 `
 
-const SForm = mouse(Form)`
+const SForm = styled(Form)`
   height: 100%;
   display: grid;
   grid-template-columns:
@@ -153,23 +153,23 @@ const SForm = mouse(Form)`
     [bottom-end]
     ;
 `
-const Title = mouse.div`
+const Title = styled.div`
   grid-column: full;
   grid-row: title;
 `
-const Fields = mouse.div`
+const Fields = styled.div`
   grid-column: full;
   grid-row: fields;
   > *:not(:first-child) {
     margin-top: 24px;
   }
 `
-const SButton = mouse(Button)`
+const SButton = styled(Button)`
   grid-row: button;
   grid-column: center;
 `
 
-const GoToLogin = mouse(Link)`
+const GoToLogin = styled(Link)`
   grid-row: bottom;
   grid-column: center;
   font-size: 12px;

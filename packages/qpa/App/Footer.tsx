@@ -1,5 +1,5 @@
 import * as React from "react"
-import mouse, { useTheme } from "qpa-emotion"
+import styled, { useTheme } from "qpa-emotion"
 
 interface Props {
   className?: string
@@ -15,6 +15,6 @@ const Footer = (props: Props) => {
     ></Root>
   )
 }
-const Root = mouse.div``
+const Root = styled.div``
 
 export default Footer

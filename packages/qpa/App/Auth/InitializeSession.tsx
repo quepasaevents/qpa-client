@@ -1,4 +1,4 @@
-import mouse from "qpa-emotion"
+import styled from "qpa-emotion"
 import * as React from "react"
 import { RouteComponentProps, withRouter } from "react-router"
 import {useAppContext} from "../Context/AppContext"
@@ -42,6 +42,6 @@ const InitializeSession = (props: Props) => {
   )
 }
 
-const Root = mouse.div``
+const Root = styled.div``
 
 export default withRouter<Props>(InitializeSession)

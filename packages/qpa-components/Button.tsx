@@ -1,7 +1,7 @@
 import { IButtonProps, PrimaryButton } from "office-ui-fabric-react"
 import * as React from "react"
 import Spinner from "./Spinner"
-import mouse, { useTheme } from "qpa-emotion"
+import styled, { useTheme } from "qpa-emotion"
 
 export interface ButtonProps extends IButtonProps {
   loading?: boolean
@@ -22,4 +22,4 @@ const Button = (props: ButtonProps) => {
   )
 }
 
-export default mouse(Button)``
+export default styled(Button)``

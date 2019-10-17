@@ -1,6 +1,7 @@
-import mouse from "qpa-emotion"
+import styled from "@emotion/styled"
 import { Button, Label, TextField } from "qpa-components"
 import * as React from "react"
+import { hot } from "react-hot-loader"
 import { RouteComponentProps, withRouter } from "react-router"
 import Logo from "../LOGO.png"
 import intl from "react-intl-universal"
@@ -66,9 +67,7 @@ const Login = (props: Props) => {
         </Error>
       ) : success ? (
         <Success>
-          <Label>
-            {intl.get("invitation-sent")}
-            </Label>
+          <Label>{intl.get("invitation-sent")}</Label>
           <StyledButton onClick={() => props.history.push("/")}>
             To Calendar
           </StyledButton>
@@ -94,7 +93,7 @@ const Login = (props: Props) => {
   )
 }
 
-const Root = mouse.form`
+const Root = styled.form`
   display: grid;
   color: rgba(0, 0, 0, 0.6);
   grid-template-rows:
@@ -103,12 +102,12 @@ const Root = mouse.form`
     [input-start title-end] 48px
     [button-start input-end] 24px
     [full-end button-end];
-  ${TextField} {
-    grid-row: input;
-  }
+  // ${TextField} {
+  //   grid-row: input;
+  // }
 `
 
-const LogoHolder = mouse.div`
+const LogoHolder = styled.div`
   margin: 20px;
   grid-row: logo;
   display: flex;
@@ -116,15 +115,15 @@ const LogoHolder = mouse.div`
   justify-content: center;
 `
 
-const Title = mouse.div`
+const Title = styled.div`
   grid-row: title;
 `
 
-const StyledButton = mouse(Button)`
+const StyledButton = styled(Button)`
   grid-row: button;
 `
 
-const Error = mouse.div`
+const Error = styled.div`
   display: grid;
   grid-template-columns: 1fr repeat(2, auto) 1fr;
   grid-gap: 24px 4px;
@@ -138,7 +137,7 @@ const Error = mouse.div`
   }
 `
 
-const Success = mouse.div`
+const Success = styled.div`
   display: grid;
   grid-row-gap: 16px;
 `
