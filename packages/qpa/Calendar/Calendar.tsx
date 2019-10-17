@@ -2,7 +2,6 @@ import styled from "@emotion/styled"
 import {addMonths, endOfMonth, startOfMonth} from "date-fns"
 import { Button } from "qpa-components"
 import * as React from "react"
-import { hot } from "react-hot-loader"
 import { RouteComponentProps, withRouter } from "react-router"
 import RangedCalendar from "./RangedCalendar"
 
