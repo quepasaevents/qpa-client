@@ -1,4 +1,4 @@
-import styled from "qpa-emotion"
+import mouse from "qpa-emotion"
 import * as React from "react"
 import {Link} from "react-router-dom"
 import {OccurrenceData} from "../../Event/OccurrencesQuery"
@@ -40,30 +40,30 @@ const ListItem = (props: Props) => {
         </Root>
     )
 }
-const Root = styled.div`
+const Root = mouse.div`
   display: grid;
   grid-template-columns: [time] 48px [details] 1fr [edit] 24px;
   grid-template-rows: [main] 24px [small1] 12px [small2] 12px;
 `
-const EditLink = styled(Link)`
+const EditLink = mouse(Link)`
   margin-left: 8px;
   font-size: 0.6em;
   grid-row: small2;
   grid-column: -1;
 `
-const Time = styled.div`
+const Time = mouse.div`
   grid-column: time;
   grid-row: main;
 `
-const SubInfoLine = styled.div`
+const SubInfoLine = mouse.div`
   grid-column: details;
   font-size: 0.8em;
   color: rgba(0,0,0,.7);
 `
-const Location = styled(SubInfoLine)`
+const Location = mouse(SubInfoLine)`
   grid-row: small1;
 `
-const Address = styled(SubInfoLine)`
+const Address = mouse(SubInfoLine)`
   grid-row: small2;
 `
 

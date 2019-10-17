@@ -1,4 +1,4 @@
-import styled, { css, Global } from "qpa-emotion"
+import mouse, { css, Global } from "qpa-emotion"
 import { MessageCenterDisplay } from "qpa-message-center"
 import * as React from "react"
 import Footer from "./Footer"
@@ -44,7 +44,7 @@ const App = () => {
     </Root>
   )
 }
-const Root = styled.div`
+const Root = mouse.div`
   display: grid;
   height: 100%;
   grid-template-columns:
@@ -59,16 +59,16 @@ const Root = styled.div`
     [footer-end];
 `
 
-const Content = styled.div`
+const Content = mouse.div`
   grid-row: center;
   grid-column: content;
 `
 
-const StyledFooter = styled(Footer)`
+const StyledFooter = mouse(Footer)`
   grid-row: footer;
   grid-column: full;
 `
-const StyledHeader = styled(Header)`
+const StyledHeader = mouse(Header)`
   grid-column: full;
   grid-row: header;
 `

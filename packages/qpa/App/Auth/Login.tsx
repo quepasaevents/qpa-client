@@ -1,4 +1,4 @@
-import styled from "qpa-emotion"
+import mouse from "qpa-emotion"
 import { Button, Label, TextField } from "qpa-components"
 import * as React from "react"
 import { RouteComponentProps, withRouter } from "react-router"
@@ -94,7 +94,7 @@ const Login = (props: Props) => {
   )
 }
 
-const Root = styled.form`
+const Root = mouse.form`
   display: grid;
   color: rgba(0, 0, 0, 0.6);
   grid-template-rows:
@@ -108,7 +108,7 @@ const Root = styled.form`
   }
 `
 
-const LogoHolder = styled.div`
+const LogoHolder = mouse.div`
   margin: 20px;
   grid-row: logo;
   display: flex;
@@ -116,15 +116,15 @@ const LogoHolder = styled.div`
   justify-content: center;
 `
 
-const Title = styled.div`
+const Title = mouse.div`
   grid-row: title;
 `
 
-const StyledButton = styled(Button)`
+const StyledButton = mouse(Button)`
   grid-row: button;
 `
 
-const Error = styled.div`
+const Error = mouse.div`
   display: grid;
   grid-template-columns: 1fr repeat(2, auto) 1fr;
   grid-gap: 24px 4px;
@@ -138,7 +138,7 @@ const Error = styled.div`
   }
 `
 
-const Success = styled.div`
+const Success = mouse.div`
   display: grid;
   grid-row-gap: 16px;
 `

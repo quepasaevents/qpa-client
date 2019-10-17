@@ -18,16 +18,13 @@ const config: webpack.Configuration = {
         use: {
           loader: "babel-loader",
           options: {
-            "presets": [
+            presets: [
               "@babel/preset-react",
               "@babel/preset-typescript",
+              "@emotion/babel-preset-css-prop",
             ],
-            "plugins": [
-              "@babel/plugin-proposal-class-properties",
-              "babel-plugin-emotion"
-            ]
-          }
-          ,
+            plugins: ["@babel/plugin-proposal-class-properties"],
+          },
         },
       },
       {
@@ -40,7 +37,7 @@ const config: webpack.Configuration = {
       },
     ],
   },
-  plugins: []
+  plugins: [],
   // devtool: "@source-map",
 }
 

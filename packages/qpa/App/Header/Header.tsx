@@ -2,6 +2,7 @@ import styled, { Theme, useTheme } from "qpa-emotion"
 import * as React from "react"
 import { Link } from "react-router-dom"
 import { AppContext } from "../Context/AppContext"
+import { hot } from 'react-hot-loader'
 
 interface Props {
   className?: string
@@ -58,4 +59,4 @@ const LinksSection = styled.div`
   align-self: center;
   padding: 4px;
 `
-export default Header
+export default hot(module)(Header)

@@ -1,4 +1,4 @@
-import styled from "qpa-emotion"
+import mouse from "qpa-emotion"
 import * as React from "react"
 
 interface Props {
@@ -23,7 +23,7 @@ const DateTime = ({ value, onChange, className }: Props) => {
   )
 }
 
-const Root = styled.div`
+const Root = mouse.div`
 
 `
 export default DateTime

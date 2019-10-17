@@ -22,7 +22,7 @@ const RangedCalendar = (props: Props) => {
     return <Spinner />
   }
   if (error) {
-    return error.message
+    return <p>{error.message}</p>
   }
 
   if (!data.occurrences.length) {

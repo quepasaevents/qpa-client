@@ -1,8 +1,8 @@
-import styled from "qpa-emotion"
+import styled from "@emotion/styled"
 import * as React from "react"
 import {
   useAppContext} from "../../App/Context/AppContext"
-import {OccurrenceData} from "../../Event/OccurrencesQuery"
+import {OccurrenceData} from "../../Event/useOccurrencesQuery"
 import ListItem from "./ListItem"
 
 interface Props {

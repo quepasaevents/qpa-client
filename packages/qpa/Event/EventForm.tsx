@@ -2,7 +2,7 @@ import { addHours, format } from "date-fns"
 import { Field, Form, Formik } from "formik"
 import { Button, TextField } from "qpa-components"
 import * as React from "react"
-import styled from "qpa-emotion"
+import mouse from "qpa-emotion"
 import { EventStatus } from "../../../@types"
 import DateTime from "./DateTime"
 import * as intl from "react-intl-universal"
@@ -196,22 +196,22 @@ const EventForm = (props: Props) => {
   )
 }
 
-const FormTitle = styled.div`
+const FormTitle = mouse.div`
   font-size: 18px;
 `
-const SectionTitle = styled.div`
+const SectionTitle = mouse.div`
   font-size: 24px;
   font-weight: bold;
 `
-const Section = styled.section`
+const Section = mouse.section`
   padding-top: 18px;
 `
 
-const DeleteButton = styled(Button)`
+const DeleteButton = mouse(Button)`
   background: red;
 `
 
-const StyledForm = styled(Form)`
+const StyledForm = mouse(Form)`
   display: flex;
   flex-direction: column;
   margin-top: 24px;
@@ -226,7 +226,7 @@ const StyledForm = styled(Form)`
     width: 200px;
   }
 `
-const Footer = styled.div`
+const Footer = mouse.div`
   display: flex;
   flex-direction: row;
 `
