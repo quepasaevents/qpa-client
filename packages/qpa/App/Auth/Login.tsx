@@ -1,5 +1,6 @@
 import styled from "@emotion/styled"
 import { Button, Label, TextField } from "qpa-components"
+import { css } from "qpa-emotion"
 import * as React from "react"
 import { hot } from "react-hot-loader"
 import { RouteComponentProps, withRouter } from "react-router"
@@ -48,9 +49,13 @@ const Login = (props: Props) => {
           })
       }}
     >
-      <LogoHolder>
-        <img src={Logo} />
-      </LogoHolder>
+      <LogoHolder
+        css={css`
+          background-image: url("${Logo}");
+          background-position: center;
+          background-repeat: no-repeat;
+`}
+      />
       <Title>{intl.get("login-title")}</Title>
       {error ? (
         <Error>
@@ -74,11 +79,11 @@ const Login = (props: Props) => {
         </Success>
       ) : (
         <>
-          <label htmlFor="email">Please enter your email to log in</label>
-          <TextField
+          <EmailTextField
             id="email"
             type="email"
             value={email}
+            label="Please enter your email to log in"
             onChange={(e, newValue) => {
               setEmail(newValue)
             }}
@@ -96,19 +101,20 @@ const Login = (props: Props) => {
 const Root = styled.form`
   display: grid;
   color: rgba(0, 0, 0, 0.6);
+  grid-gap: 8px;
   grid-template-rows:
     [full-start logo-start] 200px
-    [title-start logo-end] minmax(80px, 120px)
-    [input-start title-end] 48px
+    [title-start logo-end] auto
+    [input-start title-end] auto
     [button-start input-end] 24px
     [full-end button-end];
-  // ${TextField} {
-  //   grid-row: input;
-  // }
+`
+
+const EmailTextField = styled(TextField)`
+  grid-row: input;
 `
 
 const LogoHolder = styled.div`
-  margin: 20px;
   grid-row: logo;
   display: flex;
   flex-direction: row;

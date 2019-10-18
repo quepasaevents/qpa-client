@@ -3,16 +3,17 @@ import { ApolloClient } from "apollo-client"
 import { ApolloLink } from "apollo-link"
 import { HttpLink } from "apollo-link-http"
 import apolloLogger from "apollo-link-logger"
-import { renderStylesToString } from "emotion-server"
+import {extractCritical, renderStylesToString} from "emotion-server"
+import { renderToString } from "react-dom/server"
 import { Request, Response } from "express-serve-static-core"
-import * as fs from "fs"
-import * as Mustache from "mustache"
 import fetch from "node-fetch"
-import * as path from "path"
 import * as React from "react"
 import { getDataFromTree } from "react-apollo"
 import App from "qpa/App/App"
 import SSRProviders from "./SSRProviders"
+import Helmet from "react-helmet"
+import template from "./template"
+
 export const httpSSRHandler = async (req: Request, res: Response) => {
   res.status(200)
   const httpLink = new HttpLink({
@@ -38,31 +39,18 @@ export const httpSSRHandler = async (req: Request, res: Response) => {
     </SSRProviders>
   )
 
-  const appWithData = await getDataFromTree(app)
+  const appDataString = await getDataFromTree(app)
+  const appBody = renderToString(app)
+  const emotionCritical = extractCritical(appBody)
 
-  const appBody = renderStylesToString(appWithData)
   const initialState = graphqlClient.extract()
-  const result = Mustache.render(template, {
+  const helmet = Helmet.renderStatic()
+
+  const result = template({
     appBody,
+    helmet,
     apolloData: JSON.stringify(initialState),
+    emotionCritical
   })
   res.send(result)
 }
-
-const template = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Quepasa Alpujarra</title>
-    <script type="application/javascript">
-        __APOLLO_DATA__ = {{{ apolloData }}};
-    </script>
-</head>
-<body>
-    <div id="app">{{{ appBody }}}</div>
-    <script type="application/javascript" src="/bundle.js"></script>
-</body>
-</html>
-
-`

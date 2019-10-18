@@ -8,6 +8,8 @@
     "build": "yarn client-build; yarn ssr-build",
     "client-build": "(cd packages/qpa; yarn build)",
     "ssr-build": "(cd packages/qpa-ssr; yarn build)",
+    "ssr-start": "(cd packages/qpa-ssr; yarn start)",
+    "ssr-run": "(cd packages/qpa-ssr; yarn run)",
     "start": "(cd packages/qpa; yarn start)",
     "ssr": "API_URL=http://alpha.quepasaalpujarra.com/graphql ts-node packages/qpa-ssr/index.ts",
     "release": "docker build -t eu.gcr.io/qpa-staging-237606/web:$TAG .; docker push eu.gcr.io/qpa-staging-237606/web:$TAG",
