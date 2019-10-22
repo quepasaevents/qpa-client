@@ -3,7 +3,7 @@ import { Field, Form, Formik } from "formik"
 import { Button, TextField } from "qpa-components"
 import * as React from "react"
 import styled from "@emotion/styled"
-import {EventStatus} from "../../../@types"
+import { EventStatus } from "../../../@types"
 import DateTime from "./DateTime"
 import * as intl from "react-intl-universal"
 import messages from "./EventForm.msg.json"
@@ -95,13 +95,14 @@ const EventForm = (props: Props) => {
                 ? intl.get("EVENT_FORM_DETAILS_FOREWORD_MULTILINGUAL")
                 : intl.get("EVENT_FORM_DETAILS_FOREWORD")}
             </FormTitle>
-            {props.locales.map(lang => {
-              const msg = messages[lang.split("-")[0]]
-              const i = values.infos.findIndex(info => info.language === lang)
+            {props.locales.map(locale => {
+              const language = locale.split("-")[0]
+              const msg = messages[language]
+              const i = values.infos.findIndex(info => info.language === language)
               return (
-                <Section key={lang}>
+                <Section key={locale}>
                   <SectionTitle>
-                    {intl.get("EVENT_FORM_INFO")} {intl.get(lang)}
+                    {intl.get("EVENT_FORM_INFO")} {intl.get(locale)}
                   </SectionTitle>
                   <p>{msg.EVENT_TITLE}</p>
                   <Field name={`infos[${i}].title`}>
@@ -127,7 +128,7 @@ const EventForm = (props: Props) => {
               )
             })}
             <Section>
-                <SectionTitle>{intl.get("TITLE_TIME")}</SectionTitle>
+              <SectionTitle>{intl.get("TITLE_TIME")}</SectionTitle>
               <FormTitle>{intl.get("TIME_EXPLANATION")}</FormTitle>
               <p>{intl.get("START_TIME")}</p>
               <Field name="time.start">
