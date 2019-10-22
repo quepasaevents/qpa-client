@@ -5,7 +5,7 @@ import * as React from "react"
 import { hot } from "react-hot-loader"
 import { RouteComponentProps, withRouter } from "react-router"
 import Logo from "../LOGO.png"
-import {get as intlGet, load as intlLoad} from "react-intl-universal"
+import * as intl from "react-intl-universal"
 import { emailRegex } from "./auth-commons"
 import messages from "./login.msg.json"
 
@@ -22,7 +22,7 @@ const sendLogin = (email: string) => {
 interface Props extends RouteComponentProps {}
 
 const Login = (props: Props) => {
-  intlLoad(messages)
+  intl.load(messages)
   const [loading, setLoading] = React.useState(false)
   const [email, setEmail] = React.useState("")
   const [success, setSuccess] = React.useState(false)
@@ -56,10 +56,10 @@ const Login = (props: Props) => {
           background-repeat: no-repeat;
 `}
       />
-      <Title>{intlGet("login-title")}</Title>
+      <Title>{intl.get("login-title")}</Title>
       {error ? (
         <Error>
-          <Label>{intlGet("email-not-found")}</Label>
+          <Label>{intl.get("email-not-found")}</Label>
           <StyledButton
             onClick={() => props.history.push("/signup")}
             css={{ gridColumn: 2 }}
@@ -72,7 +72,7 @@ const Login = (props: Props) => {
         </Error>
       ) : success ? (
         <Success>
-          <Label>{intlGet("invitation-sent")}</Label>
+          <Label>{intl.get("invitation-sent")}</Label>
           <StyledButton onClick={() => props.history.push("/")}>
             To Calendar
           </StyledButton>
