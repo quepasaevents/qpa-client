@@ -3,10 +3,19 @@ import * as ReactDOM from "react-dom"
 import App from "./App"
 import Providers from "./Providers"
 
+console.log('App/index.tsx')
 const container = document.getElementById("app")
-ReactDOM.render(
+
+const mainElement = (
   <Providers>
     <App />
-  </Providers>,
-  container,
+  </Providers>
 )
+
+if ((window as any).__QPA_SSR__) {
+    console.log('Will hydrate now')
+  ReactDOM.hydrate(mainElement, container)
+} else {
+    console.log('Will render now')
+    ReactDOM.render(mainElement, container)
+}

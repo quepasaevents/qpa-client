@@ -16,6 +16,7 @@ export default ({ appBody, apolloData, helmet, emotionCritical }: TemplateProps)
         <script type="application/javascript">
             __APOLLO_DATA__ = ${apolloData};
             __EMOTION_CRITICAL_IDS_ = ${JSON.stringify(emotionCritical.ids)}
+            __QPA_SSR__ = true
         </script>
     </head>
     <body>

@@ -35,11 +35,6 @@ const qpaConfig: Configuration = {
     filename: "[name].bundle.js",
     publicPath: "/",
   },
-  optimization: {
-    splitChunks: {
-      chunks: "all",
-    },
-  },
 }
 
 export default qpaConfig
