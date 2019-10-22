@@ -83,7 +83,8 @@ const Login = (props: Props) => {
             id="email"
             type="email"
             value={email}
-            label="Please enter your email to log in"
+            label={intl.get("please-email")}
+            autoFocus
             onChange={(e, newValue) => {
               setEmail(newValue)
             }}

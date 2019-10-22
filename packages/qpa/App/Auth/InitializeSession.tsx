@@ -11,7 +11,8 @@ interface Props extends RouteComponentProps<{ hash: string }> {}
 const InitializeSession = (props: Props) => {
   const [responseCode, setResponseCode] = React.useState(0)
   const [loading, setLoading] = React.useState(true)
-  const { isSSR } = useAppContext()
+  const { isSSR, refetch } = useAppContext()
+
   if (!isSSR) {
     React.useEffect(() => {
       fetch(`/api/init-session`, {
@@ -20,11 +21,12 @@ const InitializeSession = (props: Props) => {
           "content-type": "application/json",
         },
         body: JSON.stringify({ hash: props.match.params.hash }),
-      }).then((res) => {
+      }).then(async (res) => {
         setResponseCode(res.status)
         setLoading(false)
         if (res.status === 200) {
-          props.history.push("/my-events")
+          refetch()
+          props.history.push("/")
         }
       })
     })

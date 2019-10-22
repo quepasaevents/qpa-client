@@ -1,10 +1,12 @@
 import { Spinner } from "qpa-components"
 import * as React from "react"
 import useMeQuery, { UserData } from "./useMeQuery"
+
 interface IAppContext {
   me: UserData
   isSSR: boolean
   supportedLocales: string[]
+  refetch: () => void
 }
 
 interface Props {
@@ -13,14 +15,17 @@ interface Props {
 }
 
 const SUPPORTED_LOCALES = ["en-GB", "es-ES"]
+
 const AppContext = React.createContext<IAppContext>({
   me: null,
   isSSR: false,
   supportedLocales: SUPPORTED_LOCALES,
+  refetch: () => {}
 })
+
 const { Provider, Consumer } = AppContext
 const AppContextProvider = (props: Props) => {
-  const { data, loading, error } = useMeQuery()
+  const { data, loading, error, refetch } = useMeQuery()
   if (loading) {
     return <Spinner />
   }
@@ -33,6 +38,7 @@ const AppContextProvider = (props: Props) => {
         me: data.me,
         isSSR: props.isSSR,
         supportedLocales: SUPPORTED_LOCALES,
+        refetch,
       }}
     >
       {props.children}

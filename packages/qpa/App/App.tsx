@@ -39,7 +39,6 @@ const App = () => {
       <Content>
         <Routes />
       </Content>
-      <MessageCenterDisplay />
       <StyledFooter />
     </Root>
   )
@@ -62,6 +61,7 @@ const Root = styled.div`
 const Content = styled.div`
   grid-row: center;
   grid-column: content;
+  padding: 0 4px 0 4px;
 `
 
 const StyledFooter = styled(Footer)`

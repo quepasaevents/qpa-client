@@ -6,7 +6,7 @@ import * as React from "react"
 import { Link } from "react-router-dom"
 import Logo from "../LOGO.png"
 import * as intl from "react-intl-universal"
-import {emailRegex} from "./auth-commons"
+import { emailRegex } from "./auth-commons"
 import messages from "./Signup.msg.json"
 
 interface SignupFormData {
@@ -85,27 +85,32 @@ const Signup = () => {
               .catch(e => {
                 addMessage({
                   type: "error",
-                  text: `${intl.get('signup-error')} ${e.message}`,
+                  text: `${intl.get("signup-error")} ${e.message}`,
                 })
               })
           }}
         >
           {({ values, isValid, errors, touched }) => (
             <SForm>
-              <Title>
-                {
-                  intl.get('signup-form-title')
-                }
-              </Title>
+              <Title>{intl.get("signup-form-title")}</Title>
               <Fields>
                 <Field name="name">
                   {({ field }) => (
-                    <TextField errorMessage={touched.name && errors.name} placeholder={intl.get('your-name')} {...field} />
+                    <TextField
+                      autoFocus
+                      errorMessage={touched.name && errors.name}
+                      placeholder={intl.get("your-name")}
+                      {...field}
+                    />
                   )}
                 </Field>
                 <Field name="email" css={{ gridRow: 2 }}>
                   {({ field }) => (
-                    <TextField errorMessage={touched.email && errors.email} placeholder={intl.get("your-email")} {...field} />
+                    <TextField
+                      errorMessage={touched.email && errors.email}
+                      placeholder={intl.get("your-email")}
+                      {...field}
+                    />
                   )}
                 </Field>
               </Fields>
@@ -113,9 +118,7 @@ const Signup = () => {
                 {loading ? <Spinner /> : intl.get("sign-up")}
               </SButton>
               <GoToLogin to="/login">
-                {
-                  intl.get('already-have-account-login')
-                }
+                {intl.get("already-have-account-login")}
               </GoToLogin>
             </SForm>
           )}
@@ -150,8 +153,7 @@ const SForm = styled(Form)`
     [title-end fields-start] 120px
     [fields-end button-start] 32px
     [button-end bottom-start] 48px
-    [bottom-end]
-    ;
+    [bottom-end];
 `
 const Title = styled.div`
   grid-column: full;
