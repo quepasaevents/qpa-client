@@ -5,7 +5,7 @@ import * as React from "react"
 import styled from "qpa-emotion"
 import { EventStatus } from "../../../@types"
 import DateTime from "./DateTime"
-import * as intl from "react-intl-universal"
+import {get as intlGet, load as intlLoad} from "react-intl-universal"
 import messages from "./EventForm.msg.json"
 
 interface Props {
@@ -50,7 +50,7 @@ const nextWeekMidday = new Date(nextWeekTenAM)
 nextWeekMidday.setUTCHours(12)
 
 const EventForm = (props: Props) => {
-  intl.load({
+  intlLoad({
     "es-ES": messages.es,
     "en-GB": messages.en,
   })
@@ -92,8 +92,8 @@ const EventForm = (props: Props) => {
           <StyledForm>
             <FormTitle>
               {props.locales.length > 1
-                ? intl.get("EVENT_FORM_DETAILS_FOREWORD_MULTILINGUAL")
-                : intl.get("EVENT_FORM_DETAILS_FOREWORD")}
+                ? intlGet("EVENT_FORM_DETAILS_FOREWORD_MULTILINGUAL")
+                : intlGet("EVENT_FORM_DETAILS_FOREWORD")}
             </FormTitle>
             {props.locales.map(lang => {
               const msg = messages[lang.split("-")[0]]
@@ -101,7 +101,7 @@ const EventForm = (props: Props) => {
               return (
                 <Section key={lang}>
                   <SectionTitle>
-                    {intl.get("EVENT_FORM_INFO")} {intl.get(lang)}
+                    {intlGet("EVENT_FORM_INFO")} {intlGet(lang)}
                   </SectionTitle>
                   <p>{msg.EVENT_TITLE}</p>
                   <Field name={`infos[${i}].title`}>
@@ -112,7 +112,7 @@ const EventForm = (props: Props) => {
                       />
                     )}
                   </Field>
-                  <p>{intl.get("DESCRIPTION")}</p>
+                  <p>{intlGet("DESCRIPTION")}</p>
                   <Field name={`infos[${i}].description`}>
                     {({ field }) => (
                       <TextField
@@ -127,9 +127,9 @@ const EventForm = (props: Props) => {
               )
             })}
             <Section>
-                <SectionTitle>{intl.get("TITLE_TIME")}</SectionTitle>
-              <FormTitle>{intl.get("TIME_EXPLANATION")}</FormTitle>
-              <p>{intl.get("START_TIME")}</p>
+                <SectionTitle>{intlGet("TITLE_TIME")}</SectionTitle>
+              <FormTitle>{intlGet("TIME_EXPLANATION")}</FormTitle>
+              <p>{intlGet("START_TIME")}</p>
               <Field name="time.start">
                 {({ field }) => (
                   <DateTime
@@ -144,7 +144,7 @@ const EventForm = (props: Props) => {
                   />
                 )}
               </Field>
-              <p>{intl.get("END_TIME")} </p>
+              <p>{intlGet("END_TIME")} </p>
               <Field name="time.end">
                 {({ field }) => (
                   <DateTime
@@ -157,27 +157,27 @@ const EventForm = (props: Props) => {
               </Field>
             </Section>
 
-            <p>{intl.get("LOCATION")}</p>
+            <p>{intlGet("LOCATION")}</p>
             <Field name="location.name">
               {({ field }) => (
                 <TextField
                   {...field}
-                  placeholder={intl.get("LOCATION_PLACEHOLDER")}
+                  placeholder={intlGet("LOCATION_PLACEHOLDER")}
                 />
               )}
             </Field>
-            <p>{intl.get("ADDRESS")}</p>
+            <p>{intlGet("ADDRESS")}</p>
             <Field name="location.address">
               {({ field }) => (
                 <TextField
                   {...field}
-                  placeholder={intl.get("ADDRESS_PLACEHOLDER")}
+                  placeholder={intlGet("ADDRESS_PLACEHOLDER")}
                 />
               )}
             </Field>
             <Footer>
               <Button type="submit" loading={props.loading}>
-                {isEdit ? intl.get("EDIT") : intl.get("CREATE")}
+                {isEdit ? intlGet("EDIT") : intlGet("CREATE")}
               </Button>
               {props.onDeleteEvent ? (
                 <DeleteButton
@@ -185,7 +185,7 @@ const EventForm = (props: Props) => {
                   onClick={props.onDeleteEvent}
                   loading={props.deleteEventLoading}
                 >
-                  {intl.get("DELETE")}
+                  {intlGet("DELETE")}
                 </DeleteButton>
               ) : null}
             </Footer>

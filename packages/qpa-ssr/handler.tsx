@@ -3,7 +3,7 @@ import { ApolloClient } from "apollo-client"
 import { ApolloLink } from "apollo-link"
 import { HttpLink } from "apollo-link-http"
 import apolloLogger from "apollo-link-logger"
-import {extractCritical, renderStylesToString} from "emotion-server"
+import { extractCritical, renderStylesToString } from "emotion-server"
 import { renderToString } from "react-dom/server"
 import { Request, Response } from "express-serve-static-core"
 import fetch from "node-fetch"
@@ -39,18 +39,20 @@ export const httpSSRHandler = async (req: Request, res: Response) => {
     </SSRProviders>
   )
 
-  const appDataString = await getDataFromTree(app)
+  const appDataStringPromise = getDataFromTree(app)
+  const appDataString = await appDataStringPromise
+
   const appBody = renderToString(app)
   const emotionCritical = extractCritical(appBody)
-
-  const initialState = graphqlClient.extract()
   const helmet = Helmet.renderStatic()
+
+  const initialAppoloState = graphqlClient.extract()
 
   const result = template({
     appBody,
     helmet,
-    apolloData: JSON.stringify(initialState),
-    emotionCritical
+    apolloData: JSON.stringify(initialAppoloState),
+    emotionCritical,
   })
   res.send(result)
 }

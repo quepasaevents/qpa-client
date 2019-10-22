@@ -15,6 +15,7 @@ const Button = (props: ButtonProps) => {
       {...pbProps}
       css={{
         backgroundColor: theme.colors.lead,
+        color: 'white'
       }}
     >
       {loading ? <Spinner /> : children}

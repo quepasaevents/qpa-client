@@ -5,7 +5,7 @@ import { useMessageCenter } from "qpa-message-center"
 import * as React from "react"
 import { Link } from "react-router-dom"
 import Logo from "../LOGO.png"
-import intl from "react-intl-universal"
+import {get as intlGet, load as intlLoad} from "react-intl-universal"
 import {emailRegex} from "./auth-commons"
 import messages from "./Signup.msg.json"
 
@@ -16,7 +16,7 @@ interface SignupFormData {
 class SignupFormik extends Formik<SignupFormData> {}
 
 const Signup = () => {
-  intl.load(messages)
+  intlLoad(messages)
   const { addMessage } = useMessageCenter()
   const [loading, setLoading] = React.useState(false)
   const [success, setSuccess] = React.useState(null)
@@ -30,8 +30,8 @@ const Signup = () => {
       </LogoHolder>
       {success ? (
         <Label>
-          {intl.get("signup-success")}{" "}
-          <Link to="/">{intl.get("go-to-calendar")}</Link>
+          {intlGet("signup-success")}{" "}
+          <Link to="/">{intlGet("go-to-calendar")}</Link>
         </Label>
       ) : (
         <SignupFormik
@@ -39,16 +39,16 @@ const Signup = () => {
           validate={(values: SignupFormData) => {
             const errors: any = {}
             if (!values.name) {
-              errors.name = intl.get("form-error-no-name")
+              errors.name = intlGet("form-error-no-name")
             }
             if (values.name.length < 4) {
-              errors.name = intl.get("form-error-name-too-short")
+              errors.name = intlGet("form-error-name-too-short")
             }
             if (!values.email) {
-              errors.email = intl.get("form-error-no-email")
+              errors.email = intlGet("form-error-no-email")
             }
             if (!emailRegex.test(values.email)) {
-              errors.email = intl.get("form-error-legal-email")
+              errors.email = intlGet("form-error-legal-email")
             }
             return errors
           }}
@@ -68,24 +68,24 @@ const Signup = () => {
                   setSuccess(true)
                   addMessage({
                     type: "success",
-                    text: intl.get("signup-success"),
+                    text: intlGet("signup-success"),
                   })
                   return
                 } else {
                   addMessage({
                     type: "error",
-                    text: intl.get("signup-error"),
+                    text: intlGet("signup-error"),
                   })
                 }
 
                 if (res.status === 409) {
-                  setFieldError("email", intl.get("email-taken"))
+                  setFieldError("email", intlGet("email-taken"))
                 }
               })
               .catch(e => {
                 addMessage({
                   type: "error",
-                  text: `${intl.get('signup-error')} ${e.message}`,
+                  text: `${intlGet('signup-error')} ${e.message}`,
                 })
               })
           }}
@@ -94,27 +94,27 @@ const Signup = () => {
             <SForm>
               <Title>
                 {
-                  intl.get('signup-form-title')
+                  intlGet('signup-form-title')
                 }
               </Title>
               <Fields>
                 <Field name="name">
                   {({ field }) => (
-                    <TextField errorMessage={touched.name && errors.name} placeholder={intl.get('your-name')} {...field} />
+                    <TextField errorMessage={touched.name && errors.name} placeholder={intlGet('your-name')} {...field} />
                   )}
                 </Field>
                 <Field name="email" css={{ gridRow: 2 }}>
                   {({ field }) => (
-                    <TextField errorMessage={touched.email && errors.email} placeholder={intl.get("your-email")} {...field} />
+                    <TextField errorMessage={touched.email && errors.email} placeholder={intlGet("your-email")} {...field} />
                   )}
                 </Field>
               </Fields>
               <SButton type="submit" disabled={!isValid || loading}>
-                {loading ? <Spinner /> : intl.get("sign-up")}
+                {loading ? <Spinner /> : intlGet("sign-up")}
               </SButton>
               <GoToLogin to="/login">
                 {
-                  intl.get('already-have-account-login')
+                  intlGet('already-have-account-login')
                 }
               </GoToLogin>
             </SForm>
