@@ -1,7 +1,8 @@
 import { IButtonProps, PrimaryButton } from "office-ui-fabric-react"
 import * as React from "react"
 import Spinner from "./Spinner"
-import styled, { useTheme } from "qpa-emotion"
+import { useTheme } from "qpa-emotion"
+import styled from "@emotion/styled"
 
 export interface ButtonProps extends IButtonProps {
   loading?: boolean

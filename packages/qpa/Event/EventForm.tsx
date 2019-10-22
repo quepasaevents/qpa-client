@@ -2,8 +2,8 @@ import { addHours, format } from "date-fns"
 import { Field, Form, Formik } from "formik"
 import { Button, TextField } from "qpa-components"
 import * as React from "react"
-import styled from "qpa-emotion"
-import { EventStatus } from "../../../@types"
+import styled from "@emotion/styled"
+import {EventStatus} from "../../../@types"
 import DateTime from "./DateTime"
 import * as intl from "react-intl-universal"
 import messages from "./EventForm.msg.json"
@@ -226,6 +226,7 @@ const StyledForm = styled(Form)`
     width: 200px;
   }
 `
+
 const Footer = styled.div`
   display: flex;
   flex-direction: row;
