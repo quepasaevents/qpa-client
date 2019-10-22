@@ -29,7 +29,7 @@ const qpaConfig: Configuration = {
       template: "./index-dev.html",
     }),
   ],
-  devtool: process.env.NODE_ENV === 'development' ? "#@source-map" : null,
+  devtool: process.env.NODE_ENV === 'development' ? "#@source-map" : false,
   output: {
     path: path.resolve(__dirname, "../../dist/static"),
     filename: "[name].bundle.js",
