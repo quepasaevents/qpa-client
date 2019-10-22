@@ -112,7 +112,7 @@ const EventForm = (props: Props) => {
                       />
                     )}
                   </Field>
-                  <p>{intl.get("DESCRIPTION")}</p>
+                  <p>{msg.DESCRIPTION}</p>
                   <Field name={`infos[${i}].description`}>
                     {({ field }) => (
                       <TextField
