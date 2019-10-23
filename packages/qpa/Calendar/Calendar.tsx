@@ -39,7 +39,10 @@ const Calendar = (props: Props) => {
 
   const monthBefore = addMonths(from, -1)
   const monthBeforeName = MONTH_NAMES[monthBefore.getMonth()]
-  const monthBeforeIsPast = isBefore(startOfMonth(monthBefore), startOfMonth(new Date()))
+  const monthBeforeIsPast = isBefore(
+    startOfMonth(monthBefore),
+    startOfMonth(new Date())
+  )
 
   const monthAfter = addMonths(from, 1)
   const monthAfterName = MONTH_NAMES[monthAfter.getMonth()]
@@ -48,23 +51,19 @@ const Calendar = (props: Props) => {
     <CalendarRoot>
       <Controls>
         <Button
-          title="Previous"
-          disabled={monthBeforeIsPast}
+          disabled={!!monthBeforeIsPast}
           onClick={() => {
             props.history.push(`/${monthBeforeName}`)
           }}
         >
           {"<"}
-          {monthBeforeName}
         </Button>
         <ThisMonth>{MONTH_NAMES[from.getMonth()]}</ThisMonth>
         <Button
-          title="Next"
           onClick={() => {
             props.history.push(`/${monthAfterName}`)
           }}
         >
-          {monthAfterName}
           {">"}
         </Button>
       </Controls>
@@ -74,14 +73,19 @@ const Calendar = (props: Props) => {
 }
 
 const Controls = styled.div`
+  margin-top: 14px;
   display: flex;
   justify-content: space-between;
+  ${Button} {
+    width: 38px;
+  }
 `
 
 const ThisMonth = styled.div`
   font-weight: 600;
   color: rgba(0, 0, 0, 0.6);
   font-size: 24px;
+  text-transform: capitalize;
 `
 
 const CalendarRoot = styled.div`
@@ -94,4 +98,4 @@ const CalendarRoot = styled.div`
   }
 `
 
-export default hot(module)(withRouter(Calendar))
+export default withRouter(Calendar)

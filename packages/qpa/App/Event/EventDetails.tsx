@@ -1,7 +1,7 @@
 import styled from "qpa-emotion"
-import {Button, Spinner} from "qpa-components"
+import { Button, Spinner } from "qpa-components"
 import * as React from "react"
-import {hot} from "react-hot-loader"
+import { hot } from "react-hot-loader"
 import { RouteComponentProps, withRouter } from "react-router"
 import { Link } from "react-router-dom"
 import { useAppContext } from "../Context/AppContext"
@@ -34,24 +34,38 @@ const EventDetails = (props: Props) => {
       <Title>{info.title}</Title>
       <Info>{info.description}</Info>
       {meIsOwner ? (
-        <Button onClick={() => props.history.push(`/event/${event.id}/edit`)}>Edit</Button>
+        <EditButton
+          onClick={() => props.history.push(`/event/${event.id}/edit`)}
+          css={{}}
+        >
+          Edit
+        </EditButton>
       ) : null}
     </Root>
   )
 }
 
+const EditButton = styled(Button)`
+  grid-row: small-button;
+  width: 80px;
+`
 const Title = styled.div`
   grid-row: title;
   font-size: 32px;
 `
 
 const Info = styled.div`
-  grid-row: info
+  grid-row: info;
 `
 
 const Root = styled.div`
+  margin-top: 24px;
   display: grid;
-  grid-template-rows: 48px [title] 1fr [info];
+  grid-template-rows:
+    [title-start small-button-start] 24px
+    [small-button-end] 24px
+    [title-end info-start] 1fr
+    [info-end];
   grid-gap: 12px;
 `
 

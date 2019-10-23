@@ -3,7 +3,8 @@ import Spinner from "./Spinner"
 import { useTheme } from "qpa-emotion"
 import styled from "@emotion/styled"
 
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   loading?: boolean
 }
 
@@ -14,8 +15,8 @@ const Button = (props: ButtonProps) => {
     <StyledButton
       {...pbProps}
       css={{
-        backgroundColor: props.disabled ? 'grey' : theme.colors.lead,
-        color: 'white'
+        backgroundColor: props.disabled ? "grey" : theme.colors.lead,
+        color: "white",
       }}
     >
       {loading ? <Spinner /> : children}
@@ -28,4 +29,4 @@ const StyledButton = styled.button`
   cursor: pointer;
   max-width: 120px;
 `
-export default Button
+export default styled(Button)``

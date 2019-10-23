@@ -1,4 +1,4 @@
-import styled from "qpa-emotion"
+import styled, { css } from "qpa-emotion"
 import * as React from "react"
 import { hot } from "react-hot-loader"
 import { Link } from "react-router-dom"
@@ -27,6 +27,9 @@ const ListItem = (props: Props) => {
       <Time>{startTime}</Time>
       <Link
         to={`/o/${sanitizeEventName(event.infos[0].title)}/${event.id}`}
+        css={css`
+          white-space: nowrap;
+        `}
       >
         {info.title}
       </Link>
