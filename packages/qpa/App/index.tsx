@@ -1,5 +1,7 @@
+import 'react-hot-loader' // has to be before react
+
 import * as React from "react"
-import * as ReactDOM from "react-dom"
+import * as ReactDOM from "@hot-loader/react-dom"
 import App from "./App"
 import Providers from "./Providers"
 

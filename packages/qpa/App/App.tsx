@@ -1,6 +1,6 @@
 import styled, { css, Global } from "qpa-emotion"
-import { MessageCenterDisplay } from "qpa-message-center"
 import * as React from "react"
+import {hot} from "react-hot-loader/root"
 import Footer from "./Footer"
 import Header from "./Header/Header"
 import Routes from "./Routes"
@@ -72,4 +72,4 @@ const StyledHeader = styled(Header)`
   grid-column: full;
   grid-row: header;
 `
-export default App
+export default hot(App)

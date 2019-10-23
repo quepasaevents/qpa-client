@@ -13,6 +13,7 @@ import App from "qpa/App/App"
 import SSRProviders from "./SSRProviders"
 import Helmet from "react-helmet"
 import template from "./template"
+import { configureLoadStyles } from '@microsoft/load-themed-styles';
 
 export const httpSSRHandler = async (req: Request, res: Response) => {
   res.status(200)
@@ -23,6 +24,12 @@ export const httpSSRHandler = async (req: Request, res: Response) => {
       cookie: req.header("Cookie"),
     },
   })
+
+  let microsoftFabricStyles = '';
+  configureLoadStyles((msComponentStyle: string) => {
+    console.log('msComponentStyle', msComponentStyle)
+    microsoftFabricStyles += msComponentStyle;
+  });
 
   const link = ApolloLink.from([apolloLogger, httpLink])
 
@@ -53,6 +60,7 @@ export const httpSSRHandler = async (req: Request, res: Response) => {
     helmet,
     apolloData: JSON.stringify(initialAppoloState),
     emotionCritical,
+    microsoftFabricStyles
   })
   res.send(result)
 }

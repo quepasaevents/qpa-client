@@ -9,7 +9,7 @@ import InitializeSession from "./Auth/InitializeSession"
 import Login from "./Auth/Login"
 import Signout from "./Auth/Signout"
 import Signup from "./Auth/Signup"
-import OccurrenceDetails from "./Occurrence/OccurrenceDetails"
+import EventDetails from "./Event/EventDetails"
 
 const Routes = () => {
         return (
@@ -18,12 +18,12 @@ const Routes = () => {
                     <Route
                         path="/event/:eventId/edit"
                         render={(routeProps: RouteComponentProps<{ eventId: string }>) => (
-                            <EditEvent eventId={routeProps.match.params.eventId}/>
+                            <EditEvent eventId={routeProps.match.params.eventId} />
                         )}
                     />
                     <Route
-                        path="/o/:sanitizedEventName/:occurrenceId"
-                        component={OccurrenceDetails}
+                        path="/o/:sanitizedEventName/:eventId"
+                        component={EventDetails}
                     />
                     <Route path="/init-session/:hash" component={InitializeSession}/>
                     <Route path="/login" component={Login}/>

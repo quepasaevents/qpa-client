@@ -30,7 +30,7 @@ const EditEvent = (props: Props) => {
     return <Spinner />
   }
   if (error) {
-    return error.message
+    return <p>{ error.message }</p>
   }
   const event = removeTypename(data.event)
 

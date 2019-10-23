@@ -1,6 +1,6 @@
 import * as React from "react"
 import { EventData } from "./useEventsQuery"
-import {OccurrenceData} from "./useOccurrencesQuery";
+import styled from "@emotion/styled"
 
 interface Props {
   event: EventData
@@ -18,8 +18,8 @@ const Event = (props: Props) => {
       {
         localInfo ? (
           <React.Fragment>
-            <h1> {localInfo.title} </h1>
-            <p> {localInfo.description} </p>
+            <Title> {localInfo.title} </Title>
+            <Description> {localInfo.description} </Description>
           </React.Fragment>
         ) : 'Info not available'
       }
@@ -27,4 +27,9 @@ const Event = (props: Props) => {
     </div>
   )
 }
+
+const Title = styled.div`
+  font-size: 24px;
+`
+const Description = styled.div``
 export default Event

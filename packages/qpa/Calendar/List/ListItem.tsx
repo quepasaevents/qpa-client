@@ -26,7 +26,7 @@ const ListItem = (props: Props) => {
     <Root>
       <Time>{startTime}</Time>
       <Link
-        to={`/o/${sanitizeEventName(event.infos[0].title)}/${occurrence.id}`}
+        to={`/o/${sanitizeEventName(event.infos[0].title)}/${event.id}`}
       >
         {info.title}
       </Link>

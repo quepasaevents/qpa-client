@@ -1,5 +1,5 @@
 import styled from "@emotion/styled"
-import { addMonths, endOfMonth, startOfMonth } from "date-fns"
+import { addMonths, endOfMonth, startOfMonth, isBefore } from "date-fns"
 import { Button } from "qpa-components"
 import * as React from "react"
 import { RouteComponentProps, withRouter } from "react-router"
@@ -39,6 +39,8 @@ const Calendar = (props: Props) => {
 
   const monthBefore = addMonths(from, -1)
   const monthBeforeName = MONTH_NAMES[monthBefore.getMonth()]
+  const monthBeforeIsPast = isBefore(startOfMonth(monthBefore), startOfMonth(new Date()))
+
   const monthAfter = addMonths(from, 1)
   const monthAfterName = MONTH_NAMES[monthAfter.getMonth()]
 
@@ -47,6 +49,7 @@ const Calendar = (props: Props) => {
       <Controls>
         <Button
           title="Previous"
+          disabled={monthBeforeIsPast}
           onClick={() => {
             props.history.push(`/${monthBeforeName}`)
           }}

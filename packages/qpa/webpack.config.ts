@@ -4,6 +4,8 @@ import config, {
 } from "qpa-webpack/webpack.config"
 import * as path from "path"
 
+const isDev = process.env.NODE_ENV === 'development'
+
 const qpaConfig: Configuration = {
   ...config,
   entry: "./App/index.tsx",
@@ -29,12 +31,17 @@ const qpaConfig: Configuration = {
       template: "./index-dev.html",
     }),
   ],
-  devtool: process.env.NODE_ENV === 'development' ? "#@source-map" : false,
+  devtool: isDev ? "#@source-map" : false,
   output: {
     path: path.resolve(__dirname, "../../dist/static"),
     filename: "[name].bundle.js",
     publicPath: "/",
   },
+  optimization: isDev ? {
+    splitChunks: {
+      chunks: "all"
+    }
+  } : null
 }
 
 export default qpaConfig
