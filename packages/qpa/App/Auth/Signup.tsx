@@ -162,7 +162,7 @@ const Title = styled.div`
 const Fields = styled.div`
   grid-column: full;
   grid-row: fields;
-  > *:not(:first-child) {
+  > *:not(:first-of-type) {
     margin-top: 24px;
   }
 `
