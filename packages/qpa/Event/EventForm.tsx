@@ -1,6 +1,6 @@
 import { addHours, format } from "date-fns"
 import { Field, Form, Formik } from "formik"
-import { Button, TextField } from "qpa-components"
+import { Button, DatePicker, PickersProvider, TextField } from "qpa-components"
 import * as React from "react"
 import styled from "@emotion/styled"
 import { EventStatus } from "../../../@types"
@@ -68,11 +68,14 @@ const EventForm = (props: Props) => {
                 start: nextWeekTenAM.toISOString().substring(0, 16),
                 end: nextWeekMidday.toISOString().substring(0, 16),
               },
-              infos: props.locales.map(lang => ({
-                language: lang,
-                title: "",
-                description: "",
-              })),
+              infos: props.locales.map(locale => {
+                const lang = locale.substring(0, 2)
+                return {
+                  language: lang,
+                  title: "",
+                  description: "",
+                }
+              }),
               location: {
                 name: "",
                 address: "",
@@ -85,6 +88,15 @@ const EventForm = (props: Props) => {
       }
       validate={values => {
         const errors: any = {}
+        if (!values.location.address) {
+          errors.location = errors.location || {}
+          errors.location.address = intl.get("must-provide-location-address")
+        }
+        if (!values.location.name) {
+          errors.location = errors.location || {}
+          errors.location.name = intl.get("must-provide-location-name")
+        }
+        return errors
       }}
     >
       {({ isValid, setFieldValue, values }) => {
@@ -98,7 +110,9 @@ const EventForm = (props: Props) => {
             {props.locales.map(locale => {
               const language = locale.split("-")[0]
               const msg = messages[language]
-              const i = values.infos.findIndex(info => info.language === language)
+              const i = values.infos.findIndex(
+                info => info.language === language
+              )
               return (
                 <Section key={locale}>
                   <SectionTitle>
@@ -128,34 +142,28 @@ const EventForm = (props: Props) => {
               )
             })}
             <Section>
-              <SectionTitle>{intl.get("TITLE_TIME")}</SectionTitle>
-              <FormTitle>{intl.get("TIME_EXPLANATION")}</FormTitle>
-              <p>{intl.get("START_TIME")}</p>
-              <Field name="time.start">
-                {({ field }) => (
-                  <DateTime
-                    {...field}
-                    onChange={newStartValue => {
-                      setFieldValue("time.start", newStartValue)
-                      setFieldValue(
-                        "time.end",
-                        format(addHours(newStartValue, 2), "YYYY-MM-DDTHH:MM")
-                      )
-                    }}
-                  />
-                )}
-              </Field>
-              <p>{intl.get("END_TIME")} </p>
-              <Field name="time.end">
-                {({ field }) => (
-                  <DateTime
-                    {...field}
-                    onChange={newEndValue =>
-                      setFieldValue("time.end", newEndValue)
-                    }
-                  />
-                )}
-              </Field>
+              <PickersProvider>
+                <SectionTitle>{intl.get("TITLE_TIME")}</SectionTitle>
+                <FormTitle>{intl.get("TIME_EXPLANATION")}</FormTitle>
+                <p>{intl.get("START_TIME")}</p>
+                <DatePicker
+                  value={values.time.start}
+                  onChange={newStartTime => {
+                    console.log("new start time", newStartTime)
+                  }}
+                />
+                <p>{intl.get("END_TIME")} </p>
+                <Field name="time.end">
+                  {({ field }) => (
+                    <DateTime
+                      {...field}
+                      onChange={newEndValue =>
+                        setFieldValue("time.end", newEndValue)
+                      }
+                    />
+                  )}
+                </Field>
+              </PickersProvider>
             </Section>
 
             <p>{intl.get("LOCATION")}</p>
@@ -177,7 +185,7 @@ const EventForm = (props: Props) => {
               )}
             </Field>
             <Footer>
-              <Button type="submit" loading={props.loading}>
+              <Button type="submit" loading={props.loading} disabled={!isValid}>
                 {isEdit ? intl.get("EDIT") : intl.get("CREATE")}
               </Button>
               {props.onDeleteEvent ? (
@@ -222,9 +230,6 @@ const StyledForm = styled.form`
   }
   @media (max-width: 600px) {
     width: 450px;
-  }
-  ${Button}, ${DeleteButton} {
-    width: 200px;
   }
 `
 

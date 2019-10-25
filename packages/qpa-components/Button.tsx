@@ -2,25 +2,20 @@ import * as React from "react"
 import Spinner from "./Spinner"
 import { useTheme } from "qpa-emotion"
 import styled from "@emotion/styled"
-
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+import MUIButton, {
+  ButtonProps as MUIButtonProps,
+} from "@material-ui/core/Button"
+export interface ButtonProps extends MUIButtonProps {
   loading?: boolean
 }
 
 const Button = (props: ButtonProps) => {
   const theme = useTheme()
-  const { loading, children, ...pbProps } = props
+  const { loading, children, ...muiButtonProps } = props
   return (
-    <StyledButton
-      {...pbProps}
-      css={{
-        backgroundColor: props.disabled ? "grey" : theme.colors.lead,
-        color: "white",
-      }}
-    >
+    <MUIButton variant="contained" color="secondary" {...muiButtonProps}>
       {loading ? <Spinner /> : children}
-    </StyledButton>
+    </MUIButton>
   )
 }
 

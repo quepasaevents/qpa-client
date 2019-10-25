@@ -5,9 +5,12 @@ export const query = gql`
     query Me {
       me {
         id
-        username
+        name
         events {
           id
+        }
+        roles {
+          type
         }
       }
     }
@@ -19,8 +22,11 @@ export interface UserEventData {
 
 export interface UserData {
   id: string
-  username: string
+  name: string
   events: UserEventData[]
+  roles: Array<{
+    type: string
+  }>
 }
 
 interface Data {

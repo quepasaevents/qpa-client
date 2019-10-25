@@ -38,6 +38,10 @@ const config: webpack.Configuration = {
           },
         ],
       },
+      {
+        test: /\.svg$/,
+        loader: "react-svg-loader",
+      },
     ],
   },
   plugins: [],

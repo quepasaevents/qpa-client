@@ -4,6 +4,9 @@
   "main": "index.ts",
   "license": "MIT",
   "dependencies": {
+    "@date-io/date-fns": "^1.3.11",
+    "@material-ui/core": "^4.5.1",
+    "@material-ui/pickers": "^3.2.7",
     "office-ui-fabric-react": "^7.22.1",
     "qpa-emotion": "0.0.1"
   }

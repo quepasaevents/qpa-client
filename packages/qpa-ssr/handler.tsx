@@ -13,7 +13,7 @@ import App from "qpa/App/App"
 import SSRProviders from "./SSRProviders"
 import Helmet from "react-helmet"
 import template from "./template"
-import { configureLoadStyles } from '@microsoft/load-themed-styles';
+import { ServerStyleSheets as MUIServerStyleSheets } from "@material-ui/core/styles"
 
 export const httpSSRHandler = async (req: Request, res: Response) => {
   res.status(200)
@@ -25,12 +25,6 @@ export const httpSSRHandler = async (req: Request, res: Response) => {
     },
   })
 
-  let microsoftFabricStyles = '';
-  configureLoadStyles((msComponentStyle: string) => {
-    console.log('msComponentStyle', msComponentStyle)
-    microsoftFabricStyles += msComponentStyle;
-  });
-
   const link = ApolloLink.from([apolloLogger, httpLink])
 
   const graphqlClient = new ApolloClient({
@@ -40,7 +34,9 @@ export const httpSSRHandler = async (req: Request, res: Response) => {
     ssrMode: true,
   }) as ApolloClient<any>
 
-  const app = (
+  const muiSheets = new MUIServerStyleSheets()
+
+  const app = muiSheets.collect(
     <SSRProviders location={req.path} graphqlClient={graphqlClient}>
       <App />
     </SSRProviders>
@@ -60,7 +56,7 @@ export const httpSSRHandler = async (req: Request, res: Response) => {
     helmet,
     apolloData: JSON.stringify(initialAppoloState),
     emotionCritical,
-    microsoftFabricStyles
+    muiStyles: muiSheets.toString(),
   })
   res.send(result)
 }
