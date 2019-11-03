@@ -1,9 +1,9 @@
-import styled from "qpa-emotion"
+import styled, { css } from "qpa-emotion"
 import { Field, Form, Formik } from "formik"
-import { Button, Label, Spinner, TextField } from "qpa-components"
+import { Button, Spinner, TextField } from "qpa-components"
 import { useMessageCenter } from "qpa-message-center"
 import * as React from "react"
-import { Link } from "react-router-dom"
+import { Link, RouteComponentProps, withRouter } from "react-router-dom"
 import Logo from "../LOGO.png"
 import * as intl from "react-intl-universal"
 import { emailRegex } from "./auth-commons"
@@ -13,9 +13,10 @@ interface SignupFormData {
   email: string
   name: string
 }
+
 class SignupFormik extends Formik<SignupFormData> {}
 
-const Signup = () => {
+const Signup = (props: RouteComponentProps) => {
   intl.load(messages)
   const { addMessage } = useMessageCenter()
   const [loading, setLoading] = React.useState(false)
@@ -29,10 +30,19 @@ const Signup = () => {
         <img src={Logo} />
       </LogoHolder>
       {success ? (
-        <Label>
-          {intl.get("signup-success")}{" "}
-          <Link to="/">{intl.get("go-to-calendar")}</Link>
-        </Label>
+        <Success>
+          <p>
+            {intl.get("signup-success")}
+          </p>
+          <Button
+            onClick={() => props.history.push("/")}
+            css={css`
+              width: 240px;
+            `}
+          >
+            {intl.get("go-to-calendar")}
+          </Button>
+        </Success>
       ) : (
         <SignupFormik
           initialValues={{ name: "", email: "" }}
@@ -99,7 +109,7 @@ const Signup = () => {
                     <TextField
                       autoFocus
                       helperText={touched.name && errors.name}
-                      error={touched.name && errors.name}
+                      error={Boolean(touched.name && errors.name)}
                       placeholder={intl.get("your-name")}
                       {...field}
                     />
@@ -110,7 +120,7 @@ const Signup = () => {
                   {({ field }) => (
                     <TextField
                       helperText={touched.email && errors.email}
-                      error={touched.email && errors.email}
+                      error={Boolean(touched.email && errors.email)}
                       placeholder={intl.get("your-email")}
                       {...field}
                     />
@@ -176,6 +186,12 @@ const Fields = styled.div`
     margin-top: 24px;
   }
 `
+
+const Success = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
 const SButton = styled(Button)`
   grid-row: button;
   grid-column: center;
@@ -188,4 +204,4 @@ const GoToLogin = styled(Link)`
   margin-top: 4px;
   text-align: center;
 `
-export default Signup
+export default withRouter(Signup)
