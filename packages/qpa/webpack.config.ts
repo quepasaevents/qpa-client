@@ -4,7 +4,7 @@ import config, {
 } from "qpa-webpack/webpack.config"
 import * as path from "path"
 
-const isDev = process.env.NODE_ENV === 'development'
+const isDev = process.env.NODE_ENV === "development"
 
 const qpaConfig: Configuration = {
   ...config,
@@ -31,17 +31,19 @@ const qpaConfig: Configuration = {
       template: "./index-dev.html",
     }),
   ],
-    devtool: isDev ? "@source-map" : false,
+  devtool: isDev ? "@source-map" : false,
   output: {
     path: path.resolve(__dirname, "../../dist/static"),
     filename: "[name].bundle.js",
     publicPath: "/",
   },
-  optimization: isDev ? {
-    splitChunks: {
-      chunks: "all"
-    }
-  } : null
+  optimization: {
+    splitChunks: isDev
+      ? {
+          chunks: "all",
+        }
+      : false,
+  },
 }
 
 export default qpaConfig
