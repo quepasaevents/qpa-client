@@ -76,7 +76,7 @@ const Login = (props: Props) => {
         <Success>
           <Label>{intl.get("invitation-sent")}</Label>
           <StyledButton onClick={() => props.history.push("/")}>
-            To Calendar
+              {intl.get('to-calendar')}
           </StyledButton>
         </Success>
       ) : (
