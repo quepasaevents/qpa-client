@@ -3,6 +3,7 @@ import { Field, Form, Formik } from "formik"
 import { Button, DatePicker, PickersProvider, TextField } from "qpa-components"
 import * as React from "react"
 import styled from "@emotion/styled"
+import { hot } from "react-hot-loader"
 import { EventStatus } from "../../../@types"
 import DateTime from "./DateTime"
 import * as intl from "react-intl-universal"
@@ -116,7 +117,7 @@ const EventForm = (props: Props) => {
               return (
                 <Section key={locale}>
                   <SectionTitle>
-                    {intl.get("EVENT_FORM_INFO")} {intl.get(locale)}
+                    {messages[language]["EVENT_FORM_INFO_IN_LANGUAGE"]}
                   </SectionTitle>
                   <p>{msg.EVENT_TITLE}</p>
                   <Field name={`infos[${i}].title`}>
@@ -132,6 +133,7 @@ const EventForm = (props: Props) => {
                     {({ field }) => (
                       <TextField
                         {...field}
+                        variant="outlined"
                         multiline
                         rows={8}
                         placeholder={msg.DESCRIPTION_PLACEHOLDER}
@@ -214,6 +216,8 @@ const SectionTitle = styled.div`
 `
 const Section = styled.section`
   padding-top: 18px;
+  display: flex;
+  flex-direction: column;
 `
 
 const DeleteButton = styled(Button)`
@@ -237,4 +241,4 @@ const Footer = styled.div`
   display: flex;
   flex-direction: row;
 `
-export default EventForm
+export default hot(module)(EventForm)
