@@ -1,7 +1,6 @@
 import {
     TimePicker as MUITimePicker,
     TimePickerProps as MUITimePickerProps,
-    TimePicker,
     TimePickerProps,
     KeyboardTimePicker,
     KeyboardTimePickerProps,

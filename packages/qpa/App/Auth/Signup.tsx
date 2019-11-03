@@ -98,24 +98,32 @@ const Signup = () => {
                   {({ field }) => (
                     <TextField
                       autoFocus
-                      errorMessage={touched.name && errors.name}
+                      helperText={touched.name && errors.name}
+                      error={touched.name && errors.name}
                       placeholder={intl.get("your-name")}
                       {...field}
                     />
                   )}
                 </Field>
-                <Field name="email" css={{ gridRow: 2 }}>
+
+                <Field name="email">
                   {({ field }) => (
                     <TextField
-                      errorMessage={touched.email && errors.email}
+                      helperText={touched.email && errors.email}
+                      error={touched.email && errors.email}
                       placeholder={intl.get("your-email")}
                       {...field}
                     />
                   )}
                 </Field>
               </Fields>
-              <SButton type="submit" disabled={!isValid || loading}>
-                {loading ? <Spinner /> : intl.get("sign-up")}
+              <SButton
+                color="primary"
+                type="submit"
+                disabled={!isValid || loading}
+                loading={loading}
+              >
+                {intl.get("sign-up")}
               </SButton>
               <GoToLogin to="/login">
                 {intl.get("already-have-account-login")}
@@ -162,6 +170,8 @@ const Title = styled.div`
 const Fields = styled.div`
   grid-column: full;
   grid-row: fields;
+  display: flex;
+  flex-direction: column;
   > *:not(:first-of-type) {
     margin-top: 24px;
   }
@@ -176,5 +186,6 @@ const GoToLogin = styled(Link)`
   grid-column: center;
   font-size: 12px;
   margin-top: 4px;
+  text-align: center;
 `
 export default Signup

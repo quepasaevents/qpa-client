@@ -13,15 +13,10 @@ const Button = (props: ButtonProps) => {
   const theme = useTheme()
   const { loading, children, ...muiButtonProps } = props
   return (
-    <MUIButton variant="contained" color="secondary" {...muiButtonProps}>
+    <MUIButton variant="contained" {...muiButtonProps}>
       {loading ? <Spinner /> : children}
     </MUIButton>
   )
 }
 
-const StyledButton = styled.button`
-  border: none;
-  cursor: pointer;
-  max-width: 120px;
-`
 export default styled(Button)``

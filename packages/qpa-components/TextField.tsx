@@ -3,7 +3,7 @@ import * as React from "react"
 import MUITextField, { TextFieldProps } from "@material-ui/core/TextField"
 
 const TextField = (props: TextFieldProps) => {
-  return <MUITextField {...props} variant="filled"/>
+  return <MUITextField {...props} />
 }
 export { TextFieldProps }
 export default styled(TextField)`

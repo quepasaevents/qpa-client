@@ -6,7 +6,6 @@ import Avatar from "./Avatar"
 import { IconButton, Menu, MenuItem } from "@material-ui/core"
 import DatePicker, { DatePickerProps } from './DatePicker'
 import PickersProvider from "./PickersProvider"
-import Grid from '@material-ui/core/Grid';
 
 export {
   Avatar,
@@ -23,4 +22,3 @@ export {
   MenuItem,
   PickersProvider
 }
-export { Label, MessageBar } from "office-ui-fabric-react"

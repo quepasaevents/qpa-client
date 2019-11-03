@@ -1,8 +1,7 @@
 import styled from "@emotion/styled"
-import { Button, Label, TextField } from "qpa-components"
+import { Button, TextField } from "qpa-components"
 import { css } from "qpa-emotion"
 import * as React from "react"
-import { hot } from "react-hot-loader"
 import { RouteComponentProps, withRouter } from "react-router"
 import Logo from "../LOGO.png"
 import * as intl from "react-intl-universal"
@@ -61,12 +60,15 @@ const Login = (props: Props) => {
         <Error>
           <Label>{intl.get("email-not-found")}</Label>
           <StyledButton
+            color="primary"
             onClick={() => props.history.push("/signup")}
-            css={{ gridColumn: 2 }}
           >
             Sign Up
           </StyledButton>
-          <StyledButton onClick={() => setError(false)} css={{ gridColumn: 3 }}>
+          <StyledButton
+            color="secondary"
+            onClick={() => setError(false)}
+          >
             Try Again
           </StyledButton>
         </Error>
@@ -85,14 +87,18 @@ const Login = (props: Props) => {
             value={email}
             label={intl.get("please-email")}
             autoFocus
-            onChange={(e, newValue) => {
-              setEmail(newValue)
+            onChange={e => {
+              setEmail(e.target.value)
             }}
             disabled={loading || success}
           />
-          <Button disabled={!isValid || success} type="submit">
+          <StyledButton
+            variant="contained"
+            disabled={!isValid || success}
+            type="submit"
+          >
             Login
-          </Button>
+          </StyledButton>
         </>
       )}
     </Root>
@@ -102,12 +108,12 @@ const Login = (props: Props) => {
 const Root = styled.form`
   display: grid;
   color: rgba(0, 0, 0, 0.6);
-  grid-gap: 8px;
+  grid-gap: 20px;
   grid-template-rows:
     [full-start logo-start] 200px
     [title-start logo-end] auto
     [input-start title-end] auto
-    [button-start input-end] 24px
+    [button-start input-end] 40px
     [full-end button-end];
 `
 
@@ -128,20 +134,18 @@ const Title = styled.div`
 
 const StyledButton = styled(Button)`
   grid-row: button;
+  width: 230px;
+  && {
+    margin: 0 auto;
+  }
 `
 
 const Error = styled.div`
-  display: grid;
-  grid-template-columns: 1fr repeat(2, auto) 1fr;
-  grid-gap: 24px 4px;
-}
+  margin-top: 8px;
+`
 
-  label {
-    grid-column: 1/5;
-  }
-  ${StyledButton} {
-    grid-row: 2;
-  }
+const Label = styled.div`
+  font-size: 16px;
 `
 
 const Success = styled.div`

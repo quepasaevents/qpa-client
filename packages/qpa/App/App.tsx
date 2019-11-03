@@ -67,6 +67,7 @@ const Content = styled.div`
 const StyledFooter = styled(Footer)`
   grid-row: footer;
   grid-column: full;
+  margin-top: 8px;
 `
 const StyledHeader = styled(Header)`
   grid-column: full;
