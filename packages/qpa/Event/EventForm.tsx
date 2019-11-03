@@ -1,6 +1,12 @@
 import { addHours, format } from "date-fns"
 import { Field, Form, Formik } from "formik"
-import { Button, DatePicker, PickersProvider, TextField } from "qpa-components"
+import {
+  Button,
+  DatePicker,
+  TimePicker,
+  PickersProvider,
+  TextField,
+} from "qpa-components"
 import * as React from "react"
 import styled from "@emotion/styled"
 import { hot } from "react-hot-loader"
@@ -150,21 +156,23 @@ const EventForm = (props: Props) => {
                 <p>{intl.get("START_TIME")}</p>
                 <DatePicker
                   value={values.time.start}
-                  onChange={newStartTime => {
-                    console.log("new start time", newStartTime)
+                  onChange={newStartDate => {
+                    setFieldValue("time.start", newStartDate)
                   }}
                 />
+                <TimePicker value={values.time.start} onChange={newStartDate => {
+                  setFieldValue("time.start", newStartDate)
+                }}/>
                 <p>{intl.get("END_TIME")} </p>
-                <Field name="time.end">
-                  {({ field }) => (
-                    <DateTime
-                      {...field}
-                      onChange={newEndValue =>
-                        setFieldValue("time.end", newEndValue)
-                      }
-                    />
-                  )}
-                </Field>
+                <DatePicker
+                    value={values.time.end}
+                    onChange={newEndDate => {
+                      setFieldValue("time.end", newEndDate)
+                    }}
+                />
+                <TimePicker value={values.time.end} onChange={newEndDate => {
+                  setFieldValue("time.end", newEndDate)
+                }}/>
               </PickersProvider>
             </Section>
 

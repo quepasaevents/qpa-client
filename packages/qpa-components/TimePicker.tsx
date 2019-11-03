@@ -10,7 +10,7 @@ import * as React from "react"
 export interface TimePickerProps extends MUITimePickerProps {}
 
 const TimePicker = (props: TimePickerProps) => {
-    return <KeyboardTimePicker format="dd/MM/yyyy" {...props} />
+    return <KeyboardTimePicker {...props} />
 }
 
 export default TimePicker
