@@ -154,25 +154,37 @@ const EventForm = (props: Props) => {
                 <SectionTitle>{intl.get("TITLE_TIME")}</SectionTitle>
                 <FormTitle>{intl.get("TIME_EXPLANATION")}</FormTitle>
                 <p>{intl.get("START_TIME")}</p>
-                <DatePicker
-                  value={values.time.start}
-                  onChange={newStartDate => {
-                    setFieldValue("time.start", newStartDate)
-                  }}
-                />
-                <TimePicker value={values.time.start} onChange={newStartDate => {
-                  setFieldValue("time.start", newStartDate)
-                }}/>
+
+                <TimeSection>
+                  <DatePicker
+                    value={values.time.start}
+                    onChange={newStartDate => {
+                      setFieldValue("time.start", newStartDate)
+                    }}
+                  />
+                  <TimePicker
+                    value={values.time.start}
+                    onChange={newStartDate => {
+                      setFieldValue("time.start", newStartDate)
+                    }}
+                  />
+                </TimeSection>
                 <p>{intl.get("END_TIME")} </p>
-                <DatePicker
+
+                <TimeSection>
+                  <DatePicker
                     value={values.time.end}
                     onChange={newEndDate => {
                       setFieldValue("time.end", newEndDate)
                     }}
-                />
-                <TimePicker value={values.time.end} onChange={newEndDate => {
-                  setFieldValue("time.end", newEndDate)
-                }}/>
+                  />
+                  <TimePicker
+                    value={values.time.end}
+                    onChange={newEndDate => {
+                      setFieldValue("time.end", newEndDate)
+                    }}
+                  />
+                </TimeSection>
               </PickersProvider>
             </Section>
 
@@ -236,17 +248,19 @@ const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   margin-top: 24px;
-  width: 800px;
-  @media (max-width: 800px) {
-    width: 600px;
-  }
-  @media (max-width: 600px) {
-    width: 450px;
-  }
 `
 
+const TimeSection = styled.div`
+  display: flex;
+  flex-direction: row;
+  > *:not(:last-of-type) {
+    margin-right: 8px;
+  }
+`
 const Footer = styled.div`
   display: flex;
   flex-direction: row;
+  margin-top: 14px;
+  justify-content: center;
 `
 export default hot(module)(EventForm)

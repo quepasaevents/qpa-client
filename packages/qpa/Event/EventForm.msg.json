@@ -44,7 +44,7 @@
     "START_TIME": "Comienzo",
     "END_TIME": "Final",
     "TITLE_TIME": "El tiempo",
-    "TIME_EXPLANATION": "En lo siguiente por favor pon el tiempo de cuando empieza y termina tu event. ¡En el proximo futuro te haramos posible crear eventos repetitivos!",
+    "TIME_EXPLANATION": "En lo siguiente por favor pon el tiempo de cuando empieza y termina tu event. ¡En el proximo futuro te haramos posible crear eventos regularos, por ejempjo una vez en la semana!",
     "DELETE": "Eliminar evento",
     "must-provide-location-address":  "Escribe el nombre del lugar",
     "must-provide-location-name":  "Escribe la dirección del lugar"
