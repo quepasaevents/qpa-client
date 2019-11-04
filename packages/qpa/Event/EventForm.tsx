@@ -244,7 +244,7 @@ const DeleteButton = styled(Button)`
   background: red;
 `
 
-const StyledForm = styled.form`
+const StyledForm = styled(Form)`
   display: flex;
   flex-direction: column;
   margin-top: 24px;
