@@ -24,7 +24,9 @@
     "must-provide-location-address": "Please provide name of the venue",
     "must-provide-location-name": "Please provide address of the venue",
     "event-create-success": "Event created successfully",
-    "event-create-error": "There was an error: {message}"
+    "event-create-error": "There was an error: {message}",
+    "event-edit-success": "Event was changed successfully",
+    "event-edit-error": "Error on chaging event {error}"
   },
   "es": {
     "EVENT_CREATED_SUCCESSFULLY": "Evento ha sido creado correctamente",
@@ -51,6 +53,8 @@
     "must-provide-location-address":  "Escribe el nombre del lugar",
     "must-provide-location-name": "Escribe la dirección del lugar",
     "event-create-success": "Evento creado correctamente",
-    "event-create-error": "Habido un error: {message}"
+    "event-create-error": "Habido un error: {message}",
+    "event-edit-success": "Evento correctamente modificado",
+    "event-edit-error": "Error al modificar el evento {error}"
   }
 }

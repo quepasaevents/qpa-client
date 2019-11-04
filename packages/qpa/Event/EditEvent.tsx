@@ -1,5 +1,7 @@
 import { Spinner } from "qpa-components"
+import { useMessageCenter } from "qpa-message-center"
 import * as React from "react"
+import intl from "react-intl-universal"
 import { useAppContext } from "../App/Context/AppContext"
 import removeTypename from "../App/remove-typename"
 import useEditEventMutation from "./useEditEventMutation"
@@ -13,13 +15,23 @@ interface Props {
 
 const EditEvent = (props: Props) => {
   const { supportedLocales } = useAppContext()
+  const { addMessage } = useMessageCenter()
+
   const [
     deleteEvent,
     { loading: deleteEventLoading },
   ] = useDeleteEventMutation()
   const [editEvent, { loading: editLoading }] = useEditEventMutation({
-    onCompleted: () => {
-      alert("Event edited successfully")
+    onCompleted: () =>
+      addMessage({
+        type: "success",
+        text: intl.get("event-edit-success"),
+      }),
+    onError: error => {
+      addMessage({
+        type: "error",
+        text: intl.get("event-edit-error", { message: error.message }),
+      })
     },
   })
   const { data, loading, error } = useGetEventQuery({
@@ -30,7 +42,7 @@ const EditEvent = (props: Props) => {
     return <Spinner />
   }
   if (error) {
-    return <p>{ error.message }</p>
+    return <p>{error.message}</p>
   }
   const event = removeTypename(data.event)
 
