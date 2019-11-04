@@ -15,26 +15,31 @@ const CreateEvent = () => {
       }),
   })
   return (
-    <EventForm
-      locales={supportedLocales}
-      loading={loading}
-      onSubmit={(values: EventFormData) => {
-        createEvent({
-          variables: {
-            input: {
-              infos: values.infos,
-              location: values.location,
-              time: {
-                ...values.time,
-                timeZone: "Europe/Madrid",
+    <div>
+      <button onClick={() => addMessage({
+        text: 'hello'
+      })} >hello</button>
+      <EventForm
+          locales={supportedLocales}
+          loading={loading}
+          onSubmit={(values: EventFormData) => {
+            createEvent({
+              variables: {
+                input: {
+                  infos: values.infos,
+                  location: values.location,
+                  time: {
+                    ...values.time,
+                    timeZone: "Europe/Madrid",
+                  },
+                  status: "confirmed",
+                  meta: values.meta,
+                },
               },
-              status: "confirmed",
-              meta: values.meta,
-            },
-          },
-        })
-      }}
-    />
+            })
+          }}
+      />
+    </div>
   )
 }
 

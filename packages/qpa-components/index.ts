@@ -7,10 +7,12 @@ import { IconButton, Menu, MenuItem } from "@material-ui/core"
 import DatePicker, { DatePickerProps } from "./DatePicker"
 import TimePicker, { TimePickerProps } from "./TimePicker"
 import PickersProvider from "./PickersProvider"
+import MessageBar from './MessageBar'
 
 export {
   Avatar,
   Button,
+  MessageBar,
   ButtonProps,
   IconButton,
   DatePicker,

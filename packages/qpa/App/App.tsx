@@ -1,12 +1,13 @@
 import styled, { css, Global } from "qpa-emotion"
 import * as React from "react"
-import {hot} from "react-hot-loader/root"
+import { hot } from "react-hot-loader/root"
 import Footer from "./Footer"
 import Header from "./Header/Header"
 import Routes from "./Routes"
 import * as intl from "react-intl-universal"
 import { Helmet } from "react-helmet"
 import AppMessages from "./App.msg.json"
+import MessageStage from "qpa-message-center/MessageStage"
 
 const App = () => {
   intl.init({
@@ -27,7 +28,8 @@ const App = () => {
           body {
             margin: 0;
             height: 100vh;
-            --sansserif: "Segoe UI Web (East European)", Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+            --sansserif: "Segoe UI Web (East European)", Segoe UI, -apple-system,
+              BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
             font-family: var(--sansserif);
           }
           #app {
@@ -40,6 +42,7 @@ const App = () => {
         <Routes />
       </Content>
       <StyledFooter />
+      <MessageStage />
     </Root>
   )
 }
