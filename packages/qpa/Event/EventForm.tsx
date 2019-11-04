@@ -11,7 +11,6 @@ import * as React from "react"
 import styled from "@emotion/styled"
 import { hot } from "react-hot-loader"
 import { EventStatus } from "../../../@types"
-import DateTime from "./DateTime"
 import * as intl from "react-intl-universal"
 import messages from "./EventForm.msg.json"
 
@@ -49,12 +48,13 @@ export interface EventFormData {
 
 class EventFormik extends Formik<EventFormData> {}
 
-const nextWeekTenAM = new Date()
-nextWeekTenAM.setUTCDate(nextWeekTenAM.getDate() + 7)
-nextWeekTenAM.setUTCHours(10, 0)
+const stripTZ = (date: string) => date.substring(0, 16)
 
-const nextWeekMidday = new Date(nextWeekTenAM)
-nextWeekMidday.setUTCHours(12)
+const todayMidday = new Date()
+todayMidday.setUTCHours(12, 0)
+
+const todayOnePM = new Date()
+todayOnePM.setUTCHours(13, 0)
 
 const EventForm = (props: Props) => {
   intl.load({
@@ -65,15 +65,21 @@ const EventForm = (props: Props) => {
 
   return (
     <EventFormik
-      onSubmit={props.onSubmit}
+      onSubmit={(values: EventFormData) => {
+        const cleanValues = { ...values }
+        // user's intent is always to create an event on calendar's own timezone
+        cleanValues.time.start = stripTZ(cleanValues.time.start)
+        cleanValues.time.end = stripTZ(cleanValues.time.end)
+        props.onSubmit(cleanValues)
+      }}
       initialValues={
         props.values
           ? props.values
           : ({
               time: {
                 timeZone: "Europe/Madrid",
-                start: nextWeekTenAM.toISOString().substring(0, 16),
-                end: nextWeekMidday.toISOString().substring(0, 16),
+                start: todayMidday.toISOString(),
+                end: todayOnePM.toISOString(),
               },
               infos: props.locales.map(locale => {
                 const lang = locale.substring(0, 2)
@@ -159,13 +165,13 @@ const EventForm = (props: Props) => {
                   <DatePicker
                     value={values.time.start}
                     onChange={newStartDate => {
-                      setFieldValue("time.start", newStartDate)
+                      setFieldValue("time.start", newStartDate.toISOString())
                     }}
                   />
                   <TimePicker
                     value={values.time.start}
                     onChange={newStartDate => {
-                      setFieldValue("time.start", newStartDate)
+                      setFieldValue("time.start", newStartDate.toISOString())
                     }}
                   />
                 </TimeSection>
@@ -175,13 +181,13 @@ const EventForm = (props: Props) => {
                   <DatePicker
                     value={values.time.end}
                     onChange={newEndDate => {
-                      setFieldValue("time.end", newEndDate)
+                      setFieldValue("time.end", newEndDate.toISOString())
                     }}
                   />
                   <TimePicker
                     value={values.time.end}
                     onChange={newEndDate => {
-                      setFieldValue("time.end", newEndDate)
+                      setFieldValue("time.end", newEndDate.toISOString())
                     }}
                   />
                 </TimeSection>

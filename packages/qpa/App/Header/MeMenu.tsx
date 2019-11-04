@@ -15,6 +15,8 @@ const MeMenu = (props: Props) => {
     setAnchorEl(null)
     props.history.push(path)
   }
+  const roleTypes = props.me.roles.map(role => role.type)
+
   return (
     <Root>
       <IconButton onClick={e => setAnchorEl(e.currentTarget)}>
@@ -22,6 +24,9 @@ const MeMenu = (props: Props) => {
       </IconButton>
       <Menu open={open} onClose={() => setAnchorEl(null)} anchorEl={anchorEl}>
         <MenuItem onClick={() => closeAndGo("/my-events")}>My Events</MenuItem>
+        {(roleTypes.includes("admin") || roleTypes.includes("embassador")) && (
+          <MenuItem onClick={() => closeAndGo("/admin")}>Manage Users</MenuItem>
+        )}
         <MenuItem onClick={() => closeAndGo("/logout")}>Log Out</MenuItem>
       </Menu>
     </Root>

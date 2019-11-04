@@ -4,6 +4,7 @@ import {Redirect, Route, Switch} from "react-router-dom"
 import Calendar from "../Calendar/Calendar"
 import CreateEvent from "../Event/CreateEvent"
 import EditEvent from "../Event/EditEvent"
+import Admin from "./Admin/Admin"
 import InitializeSession from "./Auth/InitializeSession"
 
 import Login from "./Auth/Login"
@@ -29,6 +30,7 @@ const Routes = () => {
                     <Route path="/login" component={Login}/>
                     <Route path="/signup" component={Signup}/>
                     <Route path="/logout" component={Signout}/>
+                    <Route path="/admin" component={Admin}/>
                     <Route path="/:month" component={Calendar}/>
                     <Route path="/" component={Calendar}/>
                     <Redirect to="/"/>
