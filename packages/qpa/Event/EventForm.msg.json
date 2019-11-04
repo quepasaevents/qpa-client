@@ -21,8 +21,10 @@
     "TITLE_TIME": "Time",
     "TIME_EXPLANATION": "In the following, please enter the times of start and end of your event. In the near future we will allow you to insert repeating events as well!",
     "DELETE": "Delete Event",
-    "must-provide-location-address":  "Please provide name of the venue",
-    "must-provide-location-name":  "Please provide address of the venue"
+    "must-provide-location-address": "Please provide name of the venue",
+    "must-provide-location-name": "Please provide address of the venue",
+    "event-create-success": "Event created successfully",
+    "event-create-error": "There was an error: {message}"
   },
   "es": {
     "EVENT_CREATED_SUCCESSFULLY": "Evento ha sido creado correctamente",
@@ -47,6 +49,8 @@
     "TIME_EXPLANATION": "En lo siguiente por favor pon el tiempo de cuando empieza y termina tu event. ¡En el proximo futuro te haramos posible crear eventos regularos, por ejempjo una vez en la semana!",
     "DELETE": "Eliminar evento",
     "must-provide-location-address":  "Escribe el nombre del lugar",
-    "must-provide-location-name":  "Escribe la dirección del lugar"
+    "must-provide-location-name": "Escribe la dirección del lugar",
+    "event-create-success": "Evento creado correctamente",
+    "event-create-error": "Habido un error: {message}"
   }
 }

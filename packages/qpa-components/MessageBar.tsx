@@ -7,6 +7,10 @@ import ErrorIcon from "@material-ui/icons/Error"
 import InfoIcon from "@material-ui/icons/Info"
 import CloseIcon from "@material-ui/icons/Close"
 import CheckCircleIcon from "@material-ui/icons/CheckCircle"
+import styled from "@emotion/styled"
+import css from "@emotion/css"
+import { makeStyles } from "@material-ui/core/styles"
+import { amber, green } from '@material-ui/core/colors';
 
 interface MessageBarProps {
   message: React.ReactNode
@@ -22,17 +26,29 @@ const variantIcon = {
   info: InfoIcon,
 }
 
+const backgroundColor = {
+  success: green[600],
+  warning: 'black',
+  error: 'grey',
+  info: 'blue',
+}
+
 const MessageBar = (props: MessageBarProps) => {
-  const Icon = variantIcon[props.variant || "info"]
+  const variant = props.variant || "info"
+  const Icon = variantIcon[variant]
 
   return (
-    <Snackbar open={props.open}>
+    <Snackbar open={props.open} onClose={props.onClose}>
       <SnackbarContent
         message={
-          <span>
-            <Icon />
-            {props.message}
-          </span>
+          <MessageRoot>
+            <Icon
+              css={css`
+                margin-right: 4px;
+              `}
+            />
+            <MessageText>{props.message}</MessageText>
+          </MessageRoot>
         }
         action={[
           <IconButton
@@ -44,9 +60,26 @@ const MessageBar = (props: MessageBarProps) => {
             <CloseIcon />
           </IconButton>,
         ]}
+        style={{
+          backgroundColor: backgroundColor[variant]
+        }}
       />
     </Snackbar>
   )
 }
+
+const MessageRoot = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-items: center;
+`
+
+const MessageText = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  line-height: normal;
+  font-size: 14px;
+`
 
 export default MessageBar

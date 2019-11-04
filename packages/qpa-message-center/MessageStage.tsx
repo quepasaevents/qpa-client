@@ -14,7 +14,7 @@ const MessageStage = () => {
   return (
     <Root>
       {messages.map(msg => (
-          <MessageBar key={msg.id} open={msg.show} onClose={() => closeMessage(msg)} message={msg.text} />
+          <MessageBar variant={msg.type} key={msg.id} open={msg.show} onClose={() => closeMessage(msg)} message={msg.text} />
       ))}
     </Root>
   )
