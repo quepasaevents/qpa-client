@@ -1,4 +1,4 @@
-import {MutationHookOptions, useMutation} from "@apollo/react-hooks"
+import { MutationHookOptions, useMutation } from "@apollo/react-hooks"
 import gql from "graphql-tag"
 import * as React from "react"
 
@@ -40,15 +40,18 @@ interface OccurrenceData {
   end: string
 }
 interface Data {
-  id: string
-  infos: InfoData[]
-  location: {
-    address: string
-    name: string
+  createEvent: {
+    id: string
+    infos: InfoData[]
+    location: {
+      address: string
+      name: string
+    }
+    occurrences: OccurrenceData[]
   }
-  occurrences: OccurrenceData[]
 }
 
-const useCreateEventMutation = (options: MutationHookOptions<Data, Variables>) =>
-  useMutation<Data, Variables>(mutation, options)
+const useCreateEventMutation = (
+  options: MutationHookOptions<Data, Variables>
+) => useMutation<Data, Variables>(mutation, options)
 export default useCreateEventMutation

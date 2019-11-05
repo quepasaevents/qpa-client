@@ -26,7 +26,9 @@
     "event-create-success": "Event created successfully",
     "event-create-error": "There was an error: {message}",
     "event-edit-success": "Event was changed successfully",
-    "event-edit-error": "Error on chaging event {error}"
+    "event-edit-error": "Error on chaging event {error}",
+    "event-delete-success": "Event deleted successfully",
+    "event-delete-error": "There was an error deleting the event {error}"
   },
   "es": {
     "EVENT_CREATED_SUCCESSFULLY": "Evento ha sido creado correctamente",
@@ -55,6 +57,8 @@
     "event-create-success": "Evento creado correctamente",
     "event-create-error": "Habido un error: {message}",
     "event-edit-success": "Evento correctamente modificado",
-    "event-edit-error": "Error al modificar el evento {error}"
+    "event-edit-error": "Habido un error al modificar el evento {error}",
+    "event-delete-success": "Evento eliminado correctamente",
+    "event-delete-error": "Habido un error al eliminar el evento {error}"
   }
 }

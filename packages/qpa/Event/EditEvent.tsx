@@ -2,6 +2,7 @@ import { Spinner } from "qpa-components"
 import { useMessageCenter } from "qpa-message-center"
 import * as React from "react"
 import intl from "react-intl-universal"
+import {RouteComponentProps, withRouter} from "react-router"
 import { useAppContext } from "../App/Context/AppContext"
 import removeTypename from "../App/remove-typename"
 import useEditEventMutation from "./useEditEventMutation"
@@ -9,7 +10,7 @@ import useDeleteEventMutation from "./useDeleteEventMutation"
 import EventForm from "./EventForm"
 import useGetEventQuery from "./useGetEventQuery"
 
-interface Props {
+interface Props extends RouteComponentProps {
   eventId: string
 }
 
@@ -17,10 +18,23 @@ const EditEvent = (props: Props) => {
   const { supportedLocales } = useAppContext()
   const { addMessage } = useMessageCenter()
 
-  const [
-    deleteEvent,
-    { loading: deleteEventLoading },
-  ] = useDeleteEventMutation()
+  const [deleteEvent, { loading: deleteEventLoading }] = useDeleteEventMutation(
+    {
+      onCompleted: () => {
+        addMessage({
+          type: "success",
+          text: intl.get("event-delete-success"),
+        })
+        props.history.push('/')
+      },
+      onError: (error) => {
+        addMessage({
+          type: "error",
+          text: intl.get("event-delete-error", {message: error.message})
+        })
+      }
+    }
+  )
   const [editEvent, { loading: editLoading }] = useEditEventMutation({
     onCompleted: () =>
       addMessage({
@@ -84,4 +98,4 @@ const EditEvent = (props: Props) => {
   )
 }
 
-export default EditEvent
+export default withRouter(EditEvent)
