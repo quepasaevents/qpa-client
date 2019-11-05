@@ -1,4 +1,4 @@
-import { addHours, format } from "date-fns"
+import { addHours, format, isBefore } from "date-fns"
 import { Field, Form, Formik } from "formik"
 import {
   Button,
@@ -109,6 +109,11 @@ const EventForm = (props: Props) => {
           errors.location = errors.location || {}
           errors.location.name = intl.get("must-provide-location-name")
         }
+        if (isBefore(new Date(values.time.end), new Date(values.time.start))) {
+          errors.time = errors.time || {}
+          errors.time.start = intl.get("validate-end-after-start")
+          errors.time.end = intl.get("validate-end-after-start")
+        }
         return errors
       }}
     >
@@ -165,13 +170,15 @@ const EventForm = (props: Props) => {
                   <DatePicker
                     value={values.time.start}
                     onChange={newStartDate => {
-                      setFieldValue("time.start", newStartDate.toISOString())
+                      setFieldValue("time.start", format(newStartDate, "yyyy-MM-dd'T'HH:mm"))
                     }}
                   />
                   <TimePicker
                     value={values.time.start}
                     onChange={newStartDate => {
-                      setFieldValue("time.start", newStartDate.toISOString())
+                        format(newStartDate, "yyyy-MM-dd'T'HH:mm")
+
+                        setFieldValue("time.start", format(newStartDate, "yyyy-MM-dd'T'HH:mm"))
                     }}
                   />
                 </TimeSection>
@@ -181,13 +188,19 @@ const EventForm = (props: Props) => {
                   <DatePicker
                     value={values.time.end}
                     onChange={newEndDate => {
-                      setFieldValue("time.end", newEndDate.toISOString())
+                      setFieldValue(
+                        "time.end",
+                        format(newEndDate, "yyyy-MM-dd'T'HH:mm")
+                      )
                     }}
                   />
                   <TimePicker
                     value={values.time.end}
                     onChange={newEndDate => {
-                      setFieldValue("time.end", newEndDate.toISOString())
+                      setFieldValue(
+                        "time.end",
+                        format(newEndDate, "yyyy-MM-dd'T'HH:mm")
+                      )
                     }}
                   />
                 </TimeSection>
