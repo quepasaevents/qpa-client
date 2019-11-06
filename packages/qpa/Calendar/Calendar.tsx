@@ -1,73 +1,41 @@
 import styled from "@emotion/styled"
-import { addMonths, endOfMonth, startOfMonth, isBefore } from "date-fns"
+import { addWeeks, endOfWeek, startOfWeek, isBefore, format } from "date-fns"
 import { Button } from "qpa-components"
 import * as React from "react"
 import { RouteComponentProps, withRouter } from "react-router"
 import RangedCalendar from "./RangedCalendar"
 import { hot } from "react-hot-loader"
+import intl from "react-intl-universal"
+import messages from "./calendar.msg.json"
 
-interface Props extends RouteComponentProps<{ month?: string }> {
+interface Params {
+  dateFrom?: string
+  dateTo?: string
+}
+interface Props extends RouteComponentProps<Params> {
   className?: string
 }
 
 const now = new Date()
-const MONTH_NAMES = [
-  "january",
-  "february",
-  "march",
-  "april",
-  "may",
-  "june",
-  "july",
-  "august",
-  "september",
-  "october",
-  "november",
-  "december",
-]
+
+const MONTH_NAMES = Object.keys(messages).map(lang =>
+  Object.keys(messages[lang])
+    .filter(key => /^month\d{2}$/.test(key))
+    .map(key => messages[lang][key])
+)
 
 const Calendar = (props: Props) => {
-  const month = props.match.params.month
+  intl.load({
+    "es-ES": messages.es,
+    "en-GB": messages.en,
+  })
 
-  const currentDateOfMonth =
-    month && MONTH_NAMES.includes(month)
-      ? now.setMonth(MONTH_NAMES.indexOf(month))
-      : now
-
-  const from = startOfMonth(currentDateOfMonth)
-  const to = endOfMonth(currentDateOfMonth)
-
-  const monthBefore = addMonths(from, -1)
-  const monthBeforeName = MONTH_NAMES[monthBefore.getMonth()]
-  const monthBeforeIsPast = isBefore(
-    startOfMonth(monthBefore),
-    startOfMonth(new Date())
-  )
-
-  const monthAfter = addMonths(from, 1)
-  const monthAfterName = MONTH_NAMES[monthAfter.getMonth()]
+  const fromDate = props.match.params.dateFrom ? new Date(props.match.params.dateFrom) : now
+  const toDate = props.match.params.dateTo ? new Date(props.match.params.dateTo) : addWeeks(fromDate, 1)
 
   return (
     <CalendarRoot>
-      <Controls>
-        <Button
-          disabled={!!monthBeforeIsPast}
-          onClick={() => {
-            props.history.push(`/${monthBeforeName}`)
-          }}
-        >
-          {"<"}
-        </Button>
-        <ThisMonth>{MONTH_NAMES[from.getMonth()]}</ThisMonth>
-        <Button
-          onClick={() => {
-            props.history.push(`/${monthAfterName}`)
-          }}
-        >
-          {">"}
-        </Button>
-      </Controls>
-      <RangedCalendar from={from} to={to} className={props.className} />
+      <RangedCalendar from={fromDate} to={toDate} className={props.className} />
     </CalendarRoot>
   )
 }

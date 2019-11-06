@@ -48,8 +48,6 @@ export interface EventFormData {
 
 class EventFormik extends Formik<EventFormData> {}
 
-const stripTZ = (date: string) => date.substring(0, 16)
-
 const todayMidday = new Date()
 todayMidday.setUTCHours(12, 0)
 
@@ -65,13 +63,7 @@ const EventForm = (props: Props) => {
 
   return (
     <EventFormik
-      onSubmit={(values: EventFormData) => {
-        const cleanValues = { ...values }
-        // user's intent is always to create an event on calendar's own timezone
-        cleanValues.time.start = stripTZ(cleanValues.time.start)
-        cleanValues.time.end = stripTZ(cleanValues.time.end)
-        props.onSubmit(cleanValues)
-      }}
+      onSubmit={props.onSubmit}
       initialValues={
         props.values
           ? props.values

@@ -1,0 +1,33 @@
+{
+  "en": {
+    "month01":"january",
+    "month02":"february",
+    "month03":"march",
+    "month04":"april",
+    "month05":"may",
+    "month06":"june",
+    "month07":"july",
+    "month08":"august",
+    "month09":"september",
+    "month10":"october",
+    "month11":"november",
+    "month12":"december",
+    "no-events": "There are no events"
+  },
+  "es": {
+    "month01":"enero",
+    "month02":"febrero",
+    "month03":"marzo",
+    "month04":"abril",
+    "month05":"mayo",
+    "month06":"junio",
+    "month07":"julio",
+    "month08":"agosto",
+    "month09":"septiembre",
+    "month10":"octubre",
+    "month11":"noviembre",
+    "month12":"deciembre",
+    "no-events": "No hay eventos"
+
+  }
+}
