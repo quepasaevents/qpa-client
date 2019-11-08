@@ -10,10 +10,10 @@ type CalendarEvent {
     info(lang: String!): EventInformation
     infos: [EventInformation]!
     location: Location!
-    meta: EventMeta
     occurrences: [EventOccurrence]
     owner: User!
     status: EventStatus!
+    tags: [EventTag]
     time: EventTime!
 }
 
@@ -28,15 +28,23 @@ type EventInformation {
     title: String!
 }
 
-type EventMeta {
-    tags: [String]!
-}
-
 type EventOccurrence {
     end: String!
     event: CalendarEvent!
     id: ID!
     start: String!
+}
+
+type EventTag {
+    id: ID!
+    name: String!
+    translations: [EventTagTranslation!]!
+}
+
+type EventTagTranslation {
+    id: ID!
+    language: String!
+    text: String!
 }
 
 type EventTime {
@@ -54,8 +62,10 @@ type Location {
 
 type Mutation {
     createEvent(input: CreateEventInput!): CalendarEvent
+    createEventTag(input: CreateEventTagInput!): EventTag
     deleteEvent(id: ID!): User!
     grantRole(input: GrantRoleInput!): User!
+    modifyEventTag(input: ModifyEventTagInput!): EventTag
     requestInvite(input: RequestInviteInput!): Boolean!
     revokeRole(input: GrantRoleInput!): User!
     signin(input: SigninInput!): UserSession!
@@ -69,6 +79,18 @@ type Query {
     me: User
     occurrence(id: ID!): EventOccurrence
     occurrences(filter: OccurrencesQueryFilter!): [EventOccurrence]
+    user(id: ID!): User
+}
+
+type Tag {
+    id: ID!
+    name: String!
+    translations: [Translations!]!
+}
+
+type TagTranslation {
+    language: String!
+    text: String!
 }
 
 type User {
@@ -95,9 +117,19 @@ type UserSession {
 input CreateEventInput {
     infos: [EventInformationInput]!
     location: EventLocationInput!
-    meta: EventMetaInput!
     status: String!
+    tagNames: [String!]!
     time: EventTimeInput!
+}
+
+input CreateEventTagInput {
+    name: String!
+    translations: [CreateModifyEventTagTranslationInput!]!
+}
+
+input CreateModifyEventTagTranslationInput {
+    language: String!
+    text: String!
 }
 
 input EventInformationInput {
@@ -109,10 +141,6 @@ input EventInformationInput {
 input EventLocationInput {
     address: String
     name: String
-}
-
-input EventMetaInput {
-    tags: [String]!
 }
 
 input EventTimeInput {
@@ -134,6 +162,12 @@ input EventsQueryFilter {
 input GrantRoleInput {
     roleType: RoleType!
     userId: ID!
+}
+
+input ModifyEventTagInput {
+    id: ID!
+    name: String!
+    translations: [CreateModifyEventTagTranslationInput!]!
 }
 
 input OccurrencesQueryFilter {
@@ -167,8 +201,8 @@ input UpdateEventInput {
     id: ID!
     infos: [EventInformationInput!]
     location: EventLocationInput
-    meta: EventMetaInput
     status: String
+    tagNames: [String!]!
     time: EventTimeInput
 }
 
@@ -184,5 +218,7 @@ scalar RoleType
 scalar Category
 
 scalar Date
+
+scalar Translations
 
 scalar Language
