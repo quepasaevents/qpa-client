@@ -65,10 +65,7 @@ const Login = (props: Props) => {
           >
             Sign Up
           </StyledButton>
-          <StyledButton
-            color="secondary"
-            onClick={() => setError(false)}
-          >
+          <StyledButton color="secondary" onClick={() => setError(false)}>
             Try Again
           </StyledButton>
         </Error>
@@ -76,12 +73,12 @@ const Login = (props: Props) => {
         <Success>
           <Label>{intl.get("invitation-sent")}</Label>
           <StyledButton onClick={() => props.history.push("/")}>
-              {intl.get('to-calendar')}
+            {intl.get("to-calendar")}
           </StyledButton>
         </Success>
       ) : (
         <>
-          <EmailTextField
+          <TextField
             id="email"
             type="email"
             value={email}
@@ -91,6 +88,9 @@ const Login = (props: Props) => {
               setEmail(e.target.value)
             }}
             disabled={loading || success}
+            css={css`
+              grid-row: input;
+            `}
           />
           <StyledButton
             variant="contained"
@@ -115,10 +115,6 @@ const Root = styled.form`
     [input-start title-end] auto
     [button-start input-end] 40px
     [full-end button-end];
-`
-
-const EmailTextField = styled(TextField)`
-  grid-row: input;
 `
 
 const LogoHolder = styled.div`

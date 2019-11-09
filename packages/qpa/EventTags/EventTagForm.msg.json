@@ -1,0 +1,8 @@
+{
+  "en": {
+    "tag-update-success": "Tag {name} was successfully updated"
+  },
+  "es": {
+    "tag-update-success": "Etiqueta {name} está correctamente actualizada"
+  }
+}

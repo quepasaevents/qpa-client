@@ -21,7 +21,6 @@
     "emotion": "^10.0.17",
     "emotion-server": "^10.0.17",
     "express": "^4.17.1",
-    "formik": "^1.4.1",
     "graphql": "^14.0.2",
     "graphql-tag": "^2.9.2",
     "graphql-tools": "^4.0.3",

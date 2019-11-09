@@ -21,7 +21,7 @@
     "date-fns": "^2.4.1",
     "express": "^4.17.1",
     "file-loader": "^4.2.0",
-    "formik": "^1.4.1",
+    "formik": "^2.0.3",
     "graphql": "^14.0.2",
     "graphql-tag": "^2.9.2",
     "graphql-tools": "^4.0.3",

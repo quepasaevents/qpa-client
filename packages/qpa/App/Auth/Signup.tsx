@@ -14,8 +14,6 @@ interface SignupFormData {
   name: string
 }
 
-class SignupFormik extends Formik<SignupFormData> {}
-
 const Signup = (props: RouteComponentProps) => {
   intl.load(messages)
   const { addMessage } = useMessageCenter()
@@ -44,8 +42,8 @@ const Signup = (props: RouteComponentProps) => {
           </Button>
         </Success>
       ) : (
-        <SignupFormik
-          initialValues={{ name: "", email: "" }}
+        <Formik
+          initialValues={{ name: "", email: "" } as SignupFormData}
           validate={(values: SignupFormData) => {
             const errors: any = {}
             if (!values.name) {
@@ -140,7 +138,7 @@ const Signup = (props: RouteComponentProps) => {
               </GoToLogin>
             </SForm>
           )}
-        </SignupFormik>
+        </Formik>
       )}
     </Root>
   )

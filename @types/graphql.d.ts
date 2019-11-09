@@ -27,6 +27,8 @@ declare namespace GQL {
     me: IUser | null;
     occurrence: IEventOccurrence | null;
     occurrences: Array<IEventOccurrence | null> | null;
+    tags: Array<IEventTag | null> | null;
+    user: IUser | null;
   }
 
   interface IEventOnQueryArguments {
@@ -45,16 +47,20 @@ declare namespace GQL {
     filter: IOccurrencesQueryFilter;
   }
 
+  interface IUserOnQueryArguments {
+    id: string;
+  }
+
   interface ICalendarEvent {
     __typename: 'CalendarEvent';
     id: string;
     info: IEventInformation | null;
     infos: Array<IEventInformation | null>;
     location: ILocation;
-    meta: IEventMeta | null;
     occurrences: Array<IEventOccurrence | null> | null;
     owner: IUser;
     status: any;
+    tags: Array<IEventTag | null> | null;
     time: IEventTime;
   }
 
@@ -73,11 +79,6 @@ declare namespace GQL {
     __typename: 'Location';
     address: string | null;
     name: string | null;
-  }
-
-  interface IEventMeta {
-    __typename: 'EventMeta';
-    tags: Array<string | null>;
   }
 
   interface IEventOccurrence {
@@ -102,6 +103,25 @@ declare namespace GQL {
     __typename: 'UserRole';
     type: any;
     user: IUser;
+  }
+
+  interface IEventTag {
+    __typename: 'EventTag';
+    id: string;
+    name: string;
+    translation: IEventTagTranslation | null;
+    translations: Array<IEventTagTranslation>;
+  }
+
+  interface ITranslationOnEventTagArguments {
+    language: string;
+  }
+
+  interface IEventTagTranslation {
+    __typename: 'EventTagTranslation';
+    id: string;
+    language: string;
+    text: string;
   }
 
   interface IEventTime {
@@ -132,6 +152,7 @@ declare namespace GQL {
   interface IMutation {
     __typename: 'Mutation';
     createEvent: ICalendarEvent | null;
+    createEventTag: IEventTag | null;
     deleteEvent: IUser;
     grantRole: IUser;
     requestInvite: boolean;
@@ -139,10 +160,15 @@ declare namespace GQL {
     signin: IUserSession;
     signup: Array<IError | null> | null;
     updateEvent: ICalendarEvent | null;
+    updateEventTag: IEventTag | null;
   }
 
   interface ICreateEventOnMutationArguments {
     input: ICreateEventInput;
+  }
+
+  interface ICreateEventTagOnMutationArguments {
+    input: ICreateEventTagInput;
   }
 
   interface IDeleteEventOnMutationArguments {
@@ -173,11 +199,15 @@ declare namespace GQL {
     input: IUpdateEventInput;
   }
 
+  interface IUpdateEventTagOnMutationArguments {
+    input: IUpdateEventTagInput;
+  }
+
   interface ICreateEventInput {
     infos: Array<IEventInformationInput | null>;
     location: IEventLocationInput;
-    meta: IEventMetaInput;
     status: string;
+    tagNames: Array<string>;
     time: IEventTimeInput;
   }
 
@@ -192,16 +222,22 @@ declare namespace GQL {
     name?: string | null;
   }
 
-  interface IEventMetaInput {
-    tags: Array<string | null>;
-  }
-
   interface IEventTimeInput {
     end: any;
     exceptions?: string | null;
     recurrence?: string | null;
     start: any;
     timeZone: any;
+  }
+
+  interface ICreateEventTagInput {
+    name: string;
+    translations: Array<ICreateModifyEventTagTranslationInput>;
+  }
+
+  interface ICreateModifyEventTagTranslationInput {
+    language: string;
+    text: string;
   }
 
   interface IGrantRoleInput {
@@ -241,9 +277,15 @@ declare namespace GQL {
     id: string;
     infos?: Array<IEventInformationInput> | null;
     location?: IEventLocationInput | null;
-    meta?: IEventMetaInput | null;
     status?: string | null;
+    tagNames: Array<string>;
     time?: IEventTimeInput | null;
+  }
+
+  interface IUpdateEventTagInput {
+    id: string;
+    name: string;
+    translations: Array<ICreateModifyEventTagTranslationInput>;
   }
 
   interface IRevokeRoleInput {

@@ -22,8 +22,9 @@ export const EventFragment = gql`
       exceptions
     }
     status
-    meta {
-      tags
+    tags {
+      id
+      name
     }
   }
 `
@@ -50,10 +51,11 @@ export interface ContactData {
   languages: string[]
   name: string
 }
-export interface EventMetaData {
-  tags: string[]
-}
 
+export interface EventTag {
+  id: string
+  name: string
+}
 export interface EventData {
   id: string
   infos: EventInfoData[]
@@ -64,7 +66,7 @@ export interface EventData {
   }
   time: EventTimeData
   status: EventStatus
-  meta: EventMetaData
+  tags: EventTag[]
 }
 
 interface Data {

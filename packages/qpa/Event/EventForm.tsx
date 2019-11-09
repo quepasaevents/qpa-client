@@ -1,4 +1,4 @@
-import { addHours, format, isBefore } from "date-fns"
+import { format, isBefore } from "date-fns"
 import { Field, Form, Formik } from "formik"
 import {
   Button,
@@ -12,6 +12,7 @@ import styled from "@emotion/styled"
 import { hot } from "react-hot-loader"
 import { EventStatus } from "../../../@types"
 import * as intl from "react-intl-universal"
+import TagSelector from "../EventTags/TagsSelector"
 import messages from "./EventForm.msg.json"
 
 interface Props {
@@ -46,8 +47,6 @@ export interface EventFormData {
   }
 }
 
-class EventFormik extends Formik<EventFormData> {}
-
 const todayMidday = new Date()
 todayMidday.setUTCHours(12, 0)
 
@@ -62,7 +61,7 @@ const EventForm = (props: Props) => {
   const isEdit = !!props.values
 
   return (
-    <EventFormik
+    <Formik
       onSubmit={props.onSubmit}
       initialValues={
         props.values
@@ -91,7 +90,7 @@ const EventForm = (props: Props) => {
               status: "confirmed",
             } as EventFormData)
       }
-      validate={values => {
+      validate={(values: EventFormData) => {
         const errors: any = {}
         if (!values.location.address) {
           errors.location = errors.location || {}
@@ -112,6 +111,7 @@ const EventForm = (props: Props) => {
       {({ isValid, setFieldValue, values }) => {
         return (
           <StyledForm>
+            <TagSelector language="en" onChange={() => {}} />
             <FormTitle>
               {props.locales.length > 1
                 ? intl.get("EVENT_FORM_DETAILS_FOREWORD_MULTILINGUAL")
@@ -159,42 +159,42 @@ const EventForm = (props: Props) => {
                 <p>{intl.get("START_TIME")}</p>
 
                 <TimeSection>
-                  <DatePicker
-                    value={values.time.start}
-                    onChange={newStartDate => {
-                      setFieldValue("time.start", format(newStartDate, "yyyy-MM-dd'T'HH:mm"))
+                  <Field name="time.start">
+                    {({ field }) => {
+                      const timeStartOnChange = newStartDate => {
+                        setFieldValue(
+                          "time.start" as any,
+                          format(newStartDate, "yyyy-MM-dd'T'HH:mm")
+                        )
+                      }
+                      return (
+                        <>
+                          <DatePicker {...field} onChange={timeStartOnChange} />
+                          <TimePicker {...field} onChange={timeStartOnChange} />
+                        </>
+                      )
                     }}
-                  />
-                  <TimePicker
-                    value={values.time.start}
-                    onChange={newStartDate => {
-                        format(newStartDate, "yyyy-MM-dd'T'HH:mm")
-
-                        setFieldValue("time.start", format(newStartDate, "yyyy-MM-dd'T'HH:mm"))
-                    }}
-                  />
+                  </Field>
                 </TimeSection>
                 <p>{intl.get("END_TIME")} </p>
 
                 <TimeSection>
-                  <DatePicker
-                    value={values.time.end}
-                    onChange={newEndDate => {
-                      setFieldValue(
-                        "time.end",
-                        format(newEndDate, "yyyy-MM-dd'T'HH:mm")
+                  <Field name="time.end">
+                    {({ field }) => {
+                      const timeEndOnChange = newStartDate => {
+                        setFieldValue(
+                          "time.end" as any,
+                          format(newStartDate, "yyyy-MM-dd'T'HH:mm")
+                        )
+                      }
+                      return (
+                        <>
+                          <DatePicker {...field} onChange={timeEndOnChange} />
+                          <TimePicker {...field} onChange={timeEndOnChange} />
+                        </>
                       )
                     }}
-                  />
-                  <TimePicker
-                    value={values.time.end}
-                    onChange={newEndDate => {
-                      setFieldValue(
-                        "time.end",
-                        format(newEndDate, "yyyy-MM-dd'T'HH:mm")
-                      )
-                    }}
-                  />
+                  </Field>
                 </TimeSection>
               </PickersProvider>
             </Section>
@@ -234,7 +234,7 @@ const EventForm = (props: Props) => {
           </StyledForm>
         )
       }}
-    </EventFormik>
+    </Formik>
   )
 }
 

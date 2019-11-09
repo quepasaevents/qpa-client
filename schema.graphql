@@ -38,6 +38,7 @@ type EventOccurrence {
 type EventTag {
     id: ID!
     name: String!
+    translation(language: String!): EventTagTranslation
     translations: [EventTagTranslation!]!
 }
 
@@ -65,12 +66,12 @@ type Mutation {
     createEventTag(input: CreateEventTagInput!): EventTag
     deleteEvent(id: ID!): User!
     grantRole(input: GrantRoleInput!): User!
-    modifyEventTag(input: ModifyEventTagInput!): EventTag
     requestInvite(input: RequestInviteInput!): Boolean!
     revokeRole(input: GrantRoleInput!): User!
     signin(input: SigninInput!): UserSession!
     signup(input: SignupInput!): [Error]
     updateEvent(input: UpdateEventInput!): CalendarEvent
+    updateEventTag(input: UpdateEventTagInput!): EventTag
 }
 
 type Query {
@@ -79,18 +80,8 @@ type Query {
     me: User
     occurrence(id: ID!): EventOccurrence
     occurrences(filter: OccurrencesQueryFilter!): [EventOccurrence]
+    tags: [EventTag]
     user(id: ID!): User
-}
-
-type Tag {
-    id: ID!
-    name: String!
-    translations: [Translations!]!
-}
-
-type TagTranslation {
-    language: String!
-    text: String!
 }
 
 type User {
@@ -164,12 +155,6 @@ input GrantRoleInput {
     userId: ID!
 }
 
-input ModifyEventTagInput {
-    id: ID!
-    name: String!
-    translations: [CreateModifyEventTagTranslationInput!]!
-}
-
 input OccurrencesQueryFilter {
     categories: [Category]
     from: Timestamp
@@ -204,6 +189,12 @@ input UpdateEventInput {
     status: String
     tagNames: [String!]!
     time: EventTimeInput
+}
+
+input UpdateEventTagInput {
+    id: ID!
+    name: String!
+    translations: [CreateModifyEventTagTranslationInput!]!
 }
 
 
