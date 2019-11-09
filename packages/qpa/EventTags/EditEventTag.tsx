@@ -1,19 +1,21 @@
 import { useMessageCenter } from "qpa-message-center"
 import * as React from "react"
 import updateEventTagMutation from "./updateEventTagMutation"
-import { EventTagData } from "./useGetAvaiableTagsQuery"
+import { EventTagFullData } from "./useGetAllTagsWithTranslationsQuery"
+import {
+  EventTagData,
+  EventTagTranslationData,
+} from "./useGetAvaiableTagsQuery"
 import styled from "@emotion/styled"
 
 interface Props {
-  eventTag: EventTagData
+  eventTag: EventTagFullData
 }
 
 const EditEventTag = (props: Props) => {
   const { addMessage } = useMessageCenter()
   const [mutation, { data, loading, error }] = updateEventTagMutation({
-    onCompleted: () => {
-
-    },
+    onCompleted: () => {},
   })
   return <Root></Root>
 }

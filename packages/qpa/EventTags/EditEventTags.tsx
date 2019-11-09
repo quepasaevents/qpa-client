@@ -1,13 +1,14 @@
-import {Spinner} from "qpa-components"
+import { Fab, Spinner} from "qpa-components"
 import * as React from 'react'
 import {RouteComponentProps, withRouter} from "react-router"
 import EditEventTag from "./EditEventTag"
-import {useGetAvailableTagsQuery} from "./useGetAvaiableTagsQuery"
+import useGetAllTagsWithTranslationsQuery from "./useGetAllTagsWithTranslationsQuery"
 import styled from "@emotion/styled"
 
 interface Props extends RouteComponentProps {}
 const EditEventTags = (props: Props) => {
-    const {data, loading, error} = useGetAvailableTagsQuery()
+    const {data, loading, error} = useGetAllTagsWithTranslationsQuery()
+    const [isAddMode, setAddMode] = React.useState(false)
     if (loading) {
         return <Spinner />
     }
@@ -20,6 +21,7 @@ const EditEventTags = (props: Props) => {
                 <EditEventTag eventTag={tag}/>
             ))
         }
+        <Fab onClick={() => setAddMode(true)}/>
     </Root>
 }
 

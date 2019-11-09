@@ -7,7 +7,8 @@ import { IconButton, Menu, MenuItem } from "@material-ui/core"
 import DatePicker, { DatePickerProps } from "./DatePicker"
 import TimePicker, { TimePickerProps } from "./TimePicker"
 import PickersProvider from "./PickersProvider"
-import MessageBar from './MessageBar'
+import MessageBar from "./MessageBar"
+import Fab from "./Fab"
 
 export {
   Avatar,
@@ -22,6 +23,7 @@ export {
   TextField,
   TextFieldProps,
   Spinner,
+  Fab,
   Icon,
   Menu,
   MenuItem,
