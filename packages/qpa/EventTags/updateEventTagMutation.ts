@@ -19,7 +19,7 @@ interface Data {
   updateEventTag: EventTagFullData
 }
 interface Variables {
-  input: GQL.IModifyEventTagInput
+  input: GQL.IUpdateEventTagInput
 }
 
 const updateEventTagMutation = (

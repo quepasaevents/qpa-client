@@ -4,6 +4,7 @@ import TextField, { TextFieldProps } from "./TextField"
 import Icon from "./Icon"
 import Avatar from "./Avatar"
 import { IconButton, Menu, MenuItem } from "@material-ui/core"
+import TagIcon from "@material-ui/icons/LocalOffer"
 import DatePicker, { DatePickerProps } from "./DatePicker"
 import TimePicker, { TimePickerProps } from "./TimePicker"
 import PickersProvider from "./PickersProvider"
@@ -25,6 +26,7 @@ export {
   Spinner,
   Fab,
   Icon,
+  TagIcon,
   Menu,
   MenuItem,
   PickersProvider,

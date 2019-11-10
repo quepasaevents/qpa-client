@@ -1,8 +1,10 @@
 {
   "en-GB": {
-    "admin_title": "Administration of users"
+    "admin_title": "Administration page",
+    "available-roles": "Your available roles are: {roles}"
   },
   "es-ES": {
-    "admin_title": "Administración de usuarios"
+    "admin_title": "Pagina de Administración",
+    "available-roles": "Las autorizaciones que tienes son: {roles}"
   }
 }
