@@ -45,6 +45,7 @@ export interface EventFormData {
   meta: {
     tags: string[]
   }
+  tagNames: string[]
 }
 
 const todayMidday = new Date()
@@ -84,9 +85,7 @@ const EventForm = (props: Props) => {
                 name: "",
                 address: "",
               },
-              meta: {
-                tags: [],
-              },
+              tagNames: [],
               status: "confirmed",
             } as EventFormData)
       }
@@ -111,7 +110,11 @@ const EventForm = (props: Props) => {
       {({ isValid, setFieldValue, values }) => {
         return (
           <StyledForm>
-            <TagSelector language="en" onChange={() => {}} />
+            <TagSelector
+              language="en"
+              onChange={tagNames => setFieldValue("tagNames", tagNames)}
+              value={values.tagNames}
+            />
             <FormTitle>
               {props.locales.length > 1
                 ? intl.get("EVENT_FORM_DETAILS_FOREWORD_MULTILINGUAL")
