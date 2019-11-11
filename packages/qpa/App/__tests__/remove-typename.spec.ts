@@ -5,7 +5,6 @@ describe('Remove Typename Util', () => {
     const input = {
       "input": {
         "id": "4b18628f-6069-4d6f-9708-f85862b2c3e6",
-        "meta": {"tags": []},
         "time": {
           "start": "2019-06-12T10:00",
           "end": "2019-06-12T12:00",
@@ -26,7 +25,6 @@ describe('Remove Typename Util', () => {
     const expected = {
       "input": {
         "id": "4b18628f-6069-4d6f-9708-f85862b2c3e6",
-        "meta": {"tags": []},
         "time": {
           "start": "2019-06-12T10:00",
           "end": "2019-06-12T12:00",

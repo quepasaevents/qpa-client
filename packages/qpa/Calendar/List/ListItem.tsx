@@ -1,3 +1,4 @@
+import Chip from "qpa-components/Chip"
 import styled, { css } from "qpa-emotion"
 import * as React from "react"
 import { hot } from "react-hot-loader"
@@ -35,6 +36,11 @@ const ListItem = (props: Props) => {
       </Link>
       <Location>{event.location.name}</Location>
       <Address>{event.location.address}</Address>
+      <Tags>
+        {event.tags.map(tag => (
+          <Chip key={tag.id} label={tag.translation.text} size="small" />
+        ))}
+      </Tags>
       {props.canEdit ? (
         <EditLink to={`/event/${event.id}/edit`}>Edit</EditLink>
       ) : null}
@@ -43,7 +49,7 @@ const ListItem = (props: Props) => {
 }
 const Root = styled.div`
   display: grid;
-  grid-template-columns: [time] 48px [details] 1fr [edit] 24px;
+  grid-template-columns: [time] 48px [details] 1fr [tags] 1fr [edit] 24px;
   grid-template-rows: [main] 24px [small1] 24px [small2] 24px;
 `
 const EditLink = styled(Link)`
@@ -67,5 +73,7 @@ const Location = styled(SubInfoLine)`
 const Address = styled(SubInfoLine)`
   grid-row: small2;
 `
-
+const Tags = styled.div`
+  grid-column: tags;
+`
 export default hot(module)(ListItem)

@@ -1,5 +1,6 @@
 import { Spinner } from "qpa-components"
 import * as React from "react"
+import {useAppContext} from "../App/Context/AppContext"
 import useOccurrencesQuery from "../Event/useOccurrencesQuery"
 import List from "./List"
 import { format } from "date-fns"
@@ -17,8 +18,10 @@ const RangedCalendar = (props: Props) => {
     "en-GB": messages.en,
     "es-ES": messages.es ,
   })
+  const { language } = useAppContext()
   const { data, error, loading } = useOccurrencesQuery({
     variables: {
+      language,
       filter: {
         from: format(props.from, "yyyy-MM-dd'T'HH:mm"),
         to: format(props.to, "yyyy-MM-dd'T'HH:mm"),

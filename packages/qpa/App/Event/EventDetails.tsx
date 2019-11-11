@@ -1,9 +1,9 @@
+import Chip from "qpa-components/Chip"
 import styled from "qpa-emotion"
 import { Button, Spinner } from "qpa-components"
 import * as React from "react"
 import { hot } from "react-hot-loader"
 import { RouteComponentProps, withRouter } from "react-router"
-import { Link } from "react-router-dom"
 import { useAppContext } from "../Context/AppContext"
 import useEventDetailsQuery from "./useEventDetailsQuery"
 
@@ -15,9 +15,9 @@ interface RouteParams {
 interface Props extends RouteComponentProps<RouteParams> {}
 
 const EventDetails = (props: Props) => {
-  const { me } = useAppContext()
+  const { me, language } = useAppContext()
   const { data, loading, error } = useEventDetailsQuery({
-    variables: { eventId: props.match.params.eventId },
+    variables: { eventId: props.match.params.eventId, language },
   })
   if (loading) {
     return <Spinner />
@@ -32,6 +32,11 @@ const EventDetails = (props: Props) => {
   return (
     <Root>
       <Title>{info.title}</Title>
+      <Tags>
+        {event.tags.map(tag => (
+          <Chip color="primary" label={tag.translation.text} key={tag.id} />
+        ))}
+      </Tags>
       <Info>{info.description}</Info>
       {meIsOwner ? (
         <EditButton
@@ -64,9 +69,13 @@ const Root = styled.div`
   grid-template-rows:
     [title-start small-button-start] 24px
     [small-button-end] 24px
-    [title-end info-start] 1fr
+    [title-end tags-start] 48px
+    [tags-end info-start] 1fr
     [info-end];
   grid-gap: 12px;
 `
 
+const Tags = styled.div`
+  grid-row: tags;
+`
 export default hot(module)(withRouter(EventDetails))

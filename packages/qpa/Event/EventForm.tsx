@@ -42,9 +42,6 @@ export interface EventFormData {
     name: string
   }
   status: EventStatus
-  meta: {
-    tags: string[]
-  }
   tagNames: string[]
 }
 

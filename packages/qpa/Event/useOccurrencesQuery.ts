@@ -2,7 +2,7 @@ import {QueryHookOptions, useQuery} from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 
 const query = gql`
-  query EventsQuery($filter: OccurrencesQueryFilter!) {
+  query EventsQuery($filter: OccurrencesQueryFilter!, $language: String!) {
     occurrences(filter: $filter) {
       id
       start
@@ -17,18 +17,38 @@ const query = gql`
           language
           title
         }
+        tags {
+          id
+          name
+          translation(language: $language) {
+            id
+            language
+            text
+          }
+        }
       }
     }
   }
 `
 
 interface Variables {
-  filter: GQL.IOccurrencesQueryFilter
+  filter: GQL.IOccurrencesQueryFilter,
+  language: string
 }
 
 export interface InfoData {
   language: string
   title: string
+}
+
+interface TagData {
+  id: string
+  name: string
+  translation: {
+    id: string
+    language: string
+    text: string
+  }
 }
 
 export interface OccurrenceData {
@@ -42,6 +62,7 @@ export interface OccurrenceData {
       address: string
       name: string
     }
+    tags: TagData[]
   }
 }
 

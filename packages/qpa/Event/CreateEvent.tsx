@@ -1,6 +1,6 @@
 import * as React from "react"
 import { useMessageCenter } from "qpa-message-center"
-import {RouteComponentProps, withRouter} from "react-router"
+import { RouteComponentProps, withRouter } from "react-router"
 import { useAppContext } from "../App/Context/AppContext"
 import useCreateEventMutation from "./useCreateEventMutation"
 import EventForm, { EventFormData } from "./EventForm"
@@ -10,12 +10,12 @@ const CreateEvent = (props: RouteComponentProps) => {
   const { addMessage } = useMessageCenter()
   const { supportedLocales } = useAppContext()
   const [createEvent, { loading }] = useCreateEventMutation({
-    onCompleted: (data) =>{
-        addMessage({
-            type: "success",
-            text: intl.get("event-create-success"),
-        })
-        props.history.push(`/event/${data.createEvent.id}/edit`)
+    onCompleted: data => {
+      addMessage({
+        type: "success",
+        text: intl.get("event-create-success"),
+      })
+      props.history.push(`/event/${data.createEvent.id}/edit`)
     },
     onError: error => {
       addMessage({
@@ -40,7 +40,7 @@ const CreateEvent = (props: RouteComponentProps) => {
                   timeZone: "Europe/Madrid",
                 },
                 status: "confirmed",
-                meta: values.meta,
+                tagNames: values.tagNames,
               },
             },
           })

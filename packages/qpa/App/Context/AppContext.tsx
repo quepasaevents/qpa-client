@@ -7,6 +7,7 @@ interface IAppContext {
   isSSR: boolean
   supportedLocales: string[]
   refetch: () => void
+  language: string
 }
 
 interface Props {
@@ -20,6 +21,7 @@ const AppContext = React.createContext<IAppContext>({
   me: null,
   isSSR: false,
   supportedLocales: SUPPORTED_LOCALES,
+  language: "es",
   refetch: () => {}
 })
 
@@ -38,6 +40,7 @@ const AppContextProvider = (props: Props) => {
         me: data.me,
         isSSR: props.isSSR,
         supportedLocales: SUPPORTED_LOCALES,
+        language: "es",
         refetch,
       }}
     >

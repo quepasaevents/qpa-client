@@ -1,8 +1,10 @@
 import { QueryHookOptions, useQuery } from "@apollo/react-hooks"
 import gql from "graphql-tag"
+import {EventTagData, TranslationDataFragment} from "../../EventTags/useGetAvaiableTagsQuery"
 
 const query = gql`
-  query GetOccurrenceDetails($eventId: ID!) {
+  ${TranslationDataFragment}
+  query GetOccurrenceDetails($eventId: ID!, $language: String!) {
     event(id: $eventId) {
       id
       owner {
@@ -13,6 +15,13 @@ const query = gql`
         description
         language
         title
+      }
+      tags {
+        id
+        name
+        translation(language: $language) {
+          ...TranslationData
+        }
       }
       occurrences {
         id
@@ -39,6 +48,7 @@ export interface EventDetailsData {
     start: string
     end: string
   }
+  tags: EventTagData[]
 }
 
 interface Data {
@@ -46,6 +56,7 @@ interface Data {
 }
 interface Variables {
   eventId: string
+  language: string
 }
 
 const useEventDetailsQuery = (

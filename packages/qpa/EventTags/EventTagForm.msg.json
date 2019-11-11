@@ -10,7 +10,7 @@
   "es": {
     "tag-update-success": "Etiqueta {name} está correctamente actualizada",
     "tag-update-error":"Hubo un error en modificar la etiqueta: {error}",
-    "event-tag-create-success": "Etiqueta {nase} ha sido sorrectamento creato",
+    "event-tag-create-success": "Etiqueta {name} ha sido sorrectamento creato",
     "event-tag-create-error":"Hubo un error en crear una etiqueta: {error}",
     "edit-tag-button": "Modificar",
     "create-tag-button":"Crear"

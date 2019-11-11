@@ -44,7 +44,7 @@ const EditEvent = (props: Props) => {
     onError: error => {
       addMessage({
         type: "error",
-        text: intl.get("event-edit-error", { message: error.message }),
+        text: intl.get("event-edit-error", { error: error.message }),
       })
     },
   })
@@ -73,6 +73,7 @@ const EditEvent = (props: Props) => {
         })
       }}
       onSubmit={values => {
+        const { ...restValues} = values
         editEvent({
           variables: {
             input: {
@@ -83,9 +84,7 @@ const EditEvent = (props: Props) => {
         })
       }}
       values={{
-        meta: {
-          tags: event.meta.tags,
-        },
+        tagNames: data.event.tags.map(tag => tag.name),
         time: event.time,
         location: {
           address: event.location.address || "",
