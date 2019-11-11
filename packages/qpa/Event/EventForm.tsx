@@ -1,4 +1,4 @@
-import { format, isBefore } from "date-fns"
+import { format, isBefore, addHours } from "date-fns"
 import { Field, Form, Formik } from "formik"
 import {
   Button,
@@ -162,9 +162,14 @@ const EventForm = (props: Props) => {
                   <Field name="time.start">
                     {({ field }) => {
                       const timeStartOnChange = newStartDate => {
+                        const oneHourLater = addHours(newStartDate, 1)
                         setFieldValue(
                           "time.start" as any,
                           format(newStartDate, "yyyy-MM-dd'T'HH:mm")
+                        )
+                        setFieldValue(
+                            "time.end" as any,
+                            format(oneHourLater, "yyyy-MM-dd'T'HH:mm")
                         )
                       }
                       return (

@@ -13,19 +13,21 @@ interface Props {
 
 const EditEventTag = (props: Props) => {
   const { addMessage } = useMessageCenter()
-  const [updateEventTag, { data, loading, error }] = updateEventTagMutation({
-    onCompleted: () => {
+  const [updateEventTag, { loading, error }] = updateEventTagMutation({
+    onCompleted: (data) => {
       addMessage({
         type: "success",
-        text: intl.get("tag-update-success"),
+        text: intl.get("tag-update-success", {
+          name: data.updateEventTag.name,
+        }),
       })
     },
-    onError: (err) => {
+    onError: err => {
       addMessage({
         type: "error",
-        text: intl.get("tag-update-error", {error: error.message})
+        text: intl.get("tag-update-error", { error: err.message }),
       })
-    }
+    },
   })
   return (
     <Root>
@@ -37,7 +39,10 @@ const EditEventTag = (props: Props) => {
             variables: {
               input: {
                 id: props.eventTag.id,
-                translations: values.translations,
+                translations: values.translations.map(translation => ({
+                  text: translation.text,
+                  language: translation.language,
+                })),
                 name: values.name,
               },
             },
