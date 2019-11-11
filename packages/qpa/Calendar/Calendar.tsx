@@ -30,6 +30,8 @@ const Calendar = (props: Props) => {
     "en-GB": messages.en,
   })
 
+  console.log('props.match.params', props.match.params)
+
   const fromDate = props.match.params.dateFrom ? new Date(props.match.params.dateFrom) : now
   const toDate = props.match.params.dateTo ? new Date(props.match.params.dateTo) : addWeeks(fromDate, 1)
 
