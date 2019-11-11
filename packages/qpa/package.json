@@ -41,6 +41,7 @@
     "react-intl-universal": "^2.1.4",
     "react-router": "^5.0.0",
     "react-router-dom": "^5.0.0",
+    "rrule": "^2.6.2",
     "typeface-fira-sans": "^0.0.75",
     "url-loader": "^2.1.0"
   },

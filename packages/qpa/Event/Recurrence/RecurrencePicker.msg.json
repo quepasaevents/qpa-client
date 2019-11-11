@@ -1,0 +1,47 @@
+{
+  "en": {
+    "repeat": "Repeat",
+    "monthly": "Monthly",
+    "weekly": "Weekly",
+    "daily": "Daily",
+    "every": "every",
+    "on-day": "on day",
+    "on-the": "on the",
+    "first": "first",
+    "second": "second",
+    "third": "third",
+    "fourth": "fourth",
+    "last": "last",
+    "sunday": "sunday",
+    "monday": "monday",
+    "tuesday": "tuesday",
+    "wednesday": "wednesday",
+    "thursday": "thursday",
+    "friday": "friday",
+    "saturday": "saturday",
+    "day": "day"
+  },
+  "es": {
+    "repeat": "Repetier",
+    "monthly": "Mensual",
+    "weekly": "Semanal",
+    "daily": "Diario",
+    "every": "cada",
+    "first": "primer",
+    "second": "segundo",
+    "third": "tercero",
+    "fourth": "quarto",
+    "last": "último",
+    "sunday": "domingo",
+    "monday": "lunes",
+    "tuesday": "martes",
+    "wednesday": "miércoles",
+    "thursday": "jueves",
+    "friday": "viernes",
+    "satuday": "sabado",
+    "day": "día",
+    "weekday": "Día en la semana",
+    "weekend": "Día en fin de semana"
+
+  }
+}
