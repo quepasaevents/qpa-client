@@ -21,18 +21,17 @@ const sanitizeEventName = (name: string) => {
 const ListItem = (props: Props) => {
   const { occurrence } = props
   const { event } = occurrence
-  const info = event.infos[0]
   const startTime = occurrence.start.split(" ")[1].substring(0, 5)
   return (
     <Root>
       <Time>{startTime}</Time>
       <Link
-        to={`/o/${sanitizeEventName(event.infos[0].title)}/${event.id}`}
+        to={`/o/${sanitizeEventName(event.info.title)}/${event.id}`}
         css={css`
           white-space: nowrap;
         `}
       >
-        {info.title}
+        {event.info.title}
       </Link>
       <Location>{event.location.name}</Location>
       <Address>{event.location.address}</Address>
