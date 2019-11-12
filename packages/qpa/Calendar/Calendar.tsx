@@ -1,6 +1,7 @@
 import styled from "@emotion/styled"
 import { addWeeks, endOfWeek, startOfWeek, isBefore, format } from "date-fns"
 import { Button, Spinner } from "qpa-components"
+import { css } from "qpa-emotion"
 import * as React from "react"
 import { RouteComponentProps, withRouter } from "react-router"
 import { useAppContext } from "../App/Context/AppContext"
@@ -58,11 +59,28 @@ const Calendar = (props: Props) => {
 
   return (
     <Root>
-      <List className={props.className} occurrences={data.occurrences} />
-      <Button loading={loading} onClick={() => setToDate(addWeeks(toDate, 1))}>Load More</Button>
+      <List
+        className={props.className}
+        occurrences={data.occurrences}
+        css={css`
+          width: 100%;
+        `}
+      />
+      <Button loading={loading} onClick={() => setToDate(addWeeks(toDate, 1))}>
+        {intl.get("show-more")}
+      </Button>
     </Root>
   )
 }
-const Root = styled.div``
+const Root = styled.div`
+  padding-top: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  ${Button} {
+    margin-top: 28px;
+    max-width: 154px;
+  }
+`
 
 export default withRouter(Calendar)

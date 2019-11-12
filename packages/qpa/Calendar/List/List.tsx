@@ -69,7 +69,8 @@ const List = (props: Props) => {
   )
 }
 
-const ListRoot = styled.div``
+const ListRoot = styled.div`
+`
 
 const Items = styled.div``
 

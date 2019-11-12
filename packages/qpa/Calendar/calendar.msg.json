@@ -12,7 +12,8 @@
     "month10":"october",
     "month11":"november",
     "month12":"december",
-    "no-events": "There are no events"
+    "no-events": "There are no events",
+    "show-more": "Show More"
   },
   "es": {
     "month01":"enero",
@@ -27,6 +28,7 @@
     "month10":"octubre",
     "month11":"noviembre",
     "month12":"deciembre",
-    "no-events": "No hay eventos"
+    "no-events": "No hay eventos",
+    "show-more": "Mostrar más"
   }
 }
