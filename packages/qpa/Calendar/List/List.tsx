@@ -33,7 +33,7 @@ const List = (props: Props) => {
   })
   const dayNames = Object.keys(days)
   const { me } = useAppContext()
-  const isSuperUser = !!me.roles.find(role =>
+  const isSuperUser = me && !!me.roles.find(role =>
     ["admin", "embassador"].includes(role.type)
   )
   return (

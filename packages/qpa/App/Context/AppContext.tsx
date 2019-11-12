@@ -3,7 +3,7 @@ import * as React from "react"
 import useMeQuery, { UserData } from "./useMeQuery"
 
 interface IAppContext {
-  me: UserData
+  me?: UserData
   isSSR: boolean
   supportedLocales: string[]
   refetch: () => void
