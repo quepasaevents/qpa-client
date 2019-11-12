@@ -1,9 +1,12 @@
 import styled from "@emotion/styled"
 import { addWeeks, endOfWeek, startOfWeek, isBefore, format } from "date-fns"
-import { Button } from "qpa-components"
+import { Button, Spinner } from "qpa-components"
+import { css } from "qpa-emotion"
 import * as React from "react"
 import { RouteComponentProps, withRouter } from "react-router"
-import RangedCalendar from "./RangedCalendar"
+import { useAppContext } from "../App/Context/AppContext"
+import useOccurrencesQuery from "../Event/useOccurrencesQuery"
+import List from "./List"
 import { hot } from "react-hot-loader"
 import intl from "react-intl-universal"
 import messages from "./calendar.msg.json"
@@ -30,39 +33,53 @@ const Calendar = (props: Props) => {
     "en-GB": messages.en,
   })
 
-  const fromDate = props.match.params.dateFrom ? new Date(props.match.params.dateFrom) : now
-  const toDate = props.match.params.dateTo ? new Date(props.match.params.dateTo) : addWeeks(fromDate, 1)
+  const [fromDate, setFromDate] = React.useState(now)
+  const [toDate, setToDate] = React.useState(addWeeks(fromDate, 1))
+
+  const { language } = useAppContext()
+  const { data, error, loading } = useOccurrencesQuery({
+    variables: {
+      language,
+      filter: {
+        from: format(fromDate, "yyyy-MM-dd'T'HH:mm"),
+        to: format(toDate, "yyyy-MM-dd'T'HH:mm"),
+      },
+    },
+  })
+  if (!data && loading) {
+    return <Spinner />
+  }
+  if (error) {
+    return <p>{error.message}</p>
+  }
+
+  if (!data.occurrences.length) {
+    return <p>{intl.get("no-events")}</p>
+  }
 
   return (
-    <CalendarRoot>
-      <RangedCalendar from={fromDate} to={toDate} className={props.className} />
-    </CalendarRoot>
+    <Root>
+      <List
+        className={props.className}
+        occurrences={data.occurrences}
+        css={css`
+          width: 100%;
+        `}
+      />
+      <Button loading={loading} onClick={() => setToDate(addWeeks(toDate, 1))}>
+        {intl.get("show-more")}
+      </Button>
+    </Root>
   )
 }
-
-const Controls = styled.div`
-  margin-top: 14px;
-  display: flex;
-  justify-content: space-between;
-  ${Button} {
-    width: 38px;
-  }
-`
-
-const ThisMonth = styled.div`
-  font-weight: 600;
-  color: rgba(0, 0, 0, 0.6);
-  font-size: 24px;
-  text-transform: capitalize;
-`
-
-const CalendarRoot = styled.div`
+const Root = styled.div`
+  padding-top: 24px;
   display: flex;
   flex-direction: column;
-  height: 100%;
-  justify-content: center;
-  ${Controls} {
-    margin-bottom: 24px;
+  align-items: center;
+  ${Button} {
+    margin-top: 28px;
+    max-width: 154px;
   }
 `
 

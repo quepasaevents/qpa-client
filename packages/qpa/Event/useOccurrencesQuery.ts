@@ -13,9 +13,9 @@ const query = gql`
           address
           name
         }
-        infos {
-          language
+        info(lang: $language) {
           title
+          description
         }
         tags {
           id
@@ -57,7 +57,7 @@ export interface OccurrenceData {
   end: string
   event: {
     id: string
-    infos: InfoData[]
+    info: InfoData
     location: {
       address: string
       name: string

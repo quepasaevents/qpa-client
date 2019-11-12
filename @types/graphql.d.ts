@@ -154,6 +154,7 @@ declare namespace GQL {
     createEvent: ICalendarEvent | null;
     createEventTag: IEventTag | null;
     deleteEvent: IUser;
+    deleteEventTag: Array<IEventTag | null> | null;
     grantRole: IUser;
     requestInvite: boolean;
     revokeRole: IUser;
@@ -173,6 +174,10 @@ declare namespace GQL {
 
   interface IDeleteEventOnMutationArguments {
     id: string;
+  }
+
+  interface IDeleteEventTagOnMutationArguments {
+    input: IDeleteEventTagInput;
   }
 
   interface IGrantRoleOnMutationArguments {
@@ -238,6 +243,10 @@ declare namespace GQL {
   interface ICreateModifyEventTagTranslationInput {
     language: string;
     text: string;
+  }
+
+  interface IDeleteEventTagInput {
+    id: string;
   }
 
   interface IGrantRoleInput {

@@ -65,6 +65,7 @@ type Mutation {
     createEvent(input: CreateEventInput!): CalendarEvent
     createEventTag(input: CreateEventTagInput!): EventTag
     deleteEvent(id: ID!): User!
+    deleteEventTag(input: DeleteEventTagInput!): [EventTag]
     grantRole(input: GrantRoleInput!): User!
     requestInvite(input: RequestInviteInput!): Boolean!
     revokeRole(input: GrantRoleInput!): User!
@@ -121,6 +122,10 @@ input CreateEventTagInput {
 input CreateModifyEventTagTranslationInput {
     language: String!
     text: String!
+}
+
+input DeleteEventTagInput {
+    id: ID!
 }
 
 input EventInformationInput {

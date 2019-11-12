@@ -1,3 +1,4 @@
+import {Button} from "qpa-components"
 import { useMessageCenter } from "qpa-message-center"
 import * as React from "react"
 import EventTagForm, { EventTagFormData } from "./EventTagForm"
@@ -5,13 +6,20 @@ import updateEventTagMutation from "./updateEventTagMutation"
 import { EventTagFullData } from "./useGetAllTagsWithTranslationsQuery"
 import styled from "@emotion/styled"
 import intl from "react-intl-universal"
-
+import messages from './EventTagForm.msg.json'
 interface Props {
   eventTag: EventTagFullData
   existingTags: EventTagFullData[]
+  onDelete: () => void
+  deleteLoading: boolean
 }
 
 const EditEventTag = (props: Props) => {
+  intl.load({
+    "en-GB": messages.en,
+    "es-ES": messages.es
+  })
+
   const { addMessage } = useMessageCenter()
   const [updateEventTag, { loading, error }] = updateEventTagMutation({
     onCompleted: (data) => {
@@ -49,6 +57,7 @@ const EditEventTag = (props: Props) => {
           })
         }}
       />
+      <Button onClick={props.onDelete} loading={props.deleteLoading}>{ intl.get('delete-tag-button') }</Button>
     </Root>
   )
 }

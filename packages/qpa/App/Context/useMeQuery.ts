@@ -30,7 +30,7 @@ export interface UserData {
 }
 
 interface Data {
-  me: UserData
+  me?: UserData
 }
 
 const useMeQuery = () => useQuery<Data>(query)
