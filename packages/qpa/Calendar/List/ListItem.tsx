@@ -75,5 +75,8 @@ const Address = styled(SubInfoLine)`
 `
 const Tags = styled.div`
   grid-column: tags;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
 `
 export default hot(module)(ListItem)
