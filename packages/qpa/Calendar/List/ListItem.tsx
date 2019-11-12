@@ -48,13 +48,14 @@ const ListItem = (props: Props) => {
 }
 const Root = styled.div`
   display: grid;
+  grid-gap: 4px;
   grid-template-columns: [time] 48px [details] 1fr [tags] 1fr [edit] 24px;
-  grid-template-rows: [main] 24px [small1] 24px [small2] 24px;
+  grid-template-rows: [main] 24px [line1] auto [line2] auto;
 `
 const EditLink = styled(Link)`
   margin-left: 8px;
   font-size: 0.6em;
-  grid-row: small2;
+  grid-row: line2;
   grid-column: -1;
 `
 const Time = styled.div`
@@ -67,10 +68,10 @@ const SubInfoLine = styled.div`
   color: rgba(0, 0, 0, 0.7);
 `
 const Location = styled(SubInfoLine)`
-  grid-row: small1;
+  grid-row: line1;
 `
 const Address = styled(SubInfoLine)`
-  grid-row: small2;
+  grid-row: line2;
 `
 const Tags = styled.div`
   grid-column: tags;
