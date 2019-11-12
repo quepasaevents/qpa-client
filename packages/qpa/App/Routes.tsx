@@ -31,8 +31,6 @@ const Routes = () => {
                     <Route path="/signup" component={Signup}/>
                     <Route path="/logout" component={Signout}/>
                     <Route path="/admin" component={Admin}/>
-                    <Route path="/:dateFrom/:dateTo" component={Calendar}/>
-                    <Route path="/:dateFrom" component={Calendar}/>
                     <Route path="/" component={Calendar}/>
                     <Redirect to="/"/>
             </Switch>
