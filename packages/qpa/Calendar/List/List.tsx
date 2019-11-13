@@ -1,5 +1,5 @@
 import styled from "@emotion/styled"
-import {css, Theme} from "qpa-emotion"
+import { css, Theme } from "qpa-emotion"
 import * as React from "react"
 import { hot } from "react-hot-loader"
 import { useAppContext } from "../../App/Context/AppContext"
@@ -46,7 +46,7 @@ const List = (props: Props) => {
           <DayItems key={dayName}>
             <DayPresentationContainer>
               <DayPresentation>
-                {DAY_NAMES[dayNumber]} {day}-{month}
+                {DAY_NAMES[dayNumber]} {day}.{month}.
               </DayPresentation>
             </DayPresentationContainer>
             <Items>
@@ -54,13 +54,10 @@ const List = (props: Props) => {
                 const isOwner =
                   me && !!me.events.find(myEvent => myEvent.id === occ.event.id)
                 return (
-                  <ListItem
+                  <StyledListItem
                     canEdit={isOwner || isSuperUser}
                     key={occ.id}
                     occurrence={occ}
-                    css={css`
-                      padding-bottom: 4px;
-                    `}
                   />
                 )
               })}
@@ -78,10 +75,17 @@ const ListRoot = styled.div``
 
 const Items = styled.div``
 
+const StyledListItem = styled(ListItem)`
+  padding: 4px;
+  &:hover {
+    background-color: rgba(4,59,20,.05);
+    transition: background-color 0.5s ease-in-out;
+  }
+`
 const DayPresentation = styled.div`
-  //font-size: 14px;
   text-align: center;
-  background-color: ${(props: {theme: Theme}) => props.theme.colors.secondary};
+  background-color: ${(props: { theme: Theme }) =>
+    props.theme.colors.secondary};
   padding: 2px 8px;
   font-weight: 600;
   color: rgba(0, 0, 0, 0.6);
