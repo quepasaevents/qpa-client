@@ -1,4 +1,5 @@
 import styled from "@emotion/styled"
+import { css } from "qpa-emotion"
 import * as React from "react"
 import { hot } from "react-hot-loader"
 import { useAppContext } from "../../App/Context/AppContext"
@@ -57,6 +58,9 @@ const List = (props: Props) => {
                     canEdit={isOwner || isSuperUser}
                     key={occ.id}
                     occurrence={occ}
+                    css={css`
+                      padding-bottom: 4px;
+                    `}
                   />
                 )
               })}
@@ -83,8 +87,9 @@ const DayPresentation = styled.div`
   color: rgba(0, 0, 0, 0.6);
   margin-right: 18px;
   width: 74px;
-  
-  @media(max-width: ${BreakPoint}) {
+
+  @media (max-width: ${BreakPoint}) {
+    margin-right: 0;
     max-width: initial;
     width: initial;
     text-align: initial;
@@ -99,7 +104,7 @@ const DayDate = styled.div`
 `
 
 const DayPresentationContainer = styled.div`
-  @media(max-width: ${BreakPoint}) {
+  @media (max-width: ${BreakPoint}) {
     margin-bottom: 4px;
   }
 `

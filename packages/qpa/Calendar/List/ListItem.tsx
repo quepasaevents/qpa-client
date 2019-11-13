@@ -8,6 +8,7 @@ import { OccurrenceData } from "../../Event/useOccurrencesQuery"
 interface Props {
   occurrence: OccurrenceData
   canEdit: boolean
+  className?: string
 }
 
 const sanitizeEventName = (name: string) => {
@@ -23,7 +24,7 @@ const ListItem = (props: Props) => {
   const { event } = occurrence
   const startTime = occurrence.start.split(" ")[1].substring(0, 5)
   return (
-    <Root>
+    <Root className={props.className}>
       <Time>{startTime}</Time>
       <Link
         to={`/o/${sanitizeEventName(event.info.title)}/${event.id}`}
@@ -46,7 +47,7 @@ const ListItem = (props: Props) => {
     </Root>
   )
 }
-const BreakPoint = "640px";
+const BreakPoint = "640px"
 const Root = styled.div`
   display: grid;
   grid-gap: 4px;
@@ -55,9 +56,7 @@ const Root = styled.div`
     [main] 24px
     [line1] auto
     [line2] auto
-    [tags] auto
-    ;
-      
+    [tags] auto;
 `
 const EditLink = styled(Link)`
   margin-left: 8px;
