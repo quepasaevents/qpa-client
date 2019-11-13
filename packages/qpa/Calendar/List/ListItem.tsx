@@ -1,5 +1,5 @@
 import Chip from "qpa-components/Chip"
-import styled, { css } from "qpa-emotion"
+import styled, {css, Theme} from "qpa-emotion"
 import * as React from "react"
 import { hot } from "react-hot-loader"
 import { Link } from "react-router-dom"
@@ -26,14 +26,14 @@ const ListItem = (props: Props) => {
   return (
     <Root className={props.className}>
       <Time>{startTime}</Time>
-      <Link
+      <Title
         to={`/o/${sanitizeEventName(event.info.title)}/${event.id}`}
         css={css`
           white-space: nowrap;
         `}
       >
         {event.info.title}
-      </Link>
+      </Title>
       <Location>{event.location.name}</Location>
       <Address>{event.location.address}</Address>
       <Tags>
@@ -58,11 +58,19 @@ const Root = styled.div`
     [line2] auto
     [tags] auto;
 `
+
+const Title = styled(Link)`
+  color: ${(props: {theme: Theme}) => props.theme.colors.lead};
+  font-size: 1.1em;
+  text-decoration: none;
+`
 const EditLink = styled(Link)`
   margin-left: 8px;
   font-size: 0.6em;
   grid-row: line2;
   grid-column: -1;
+  text-decoration: none;
+  color: inherit;
 `
 const Time = styled.div`
   grid-column: time;

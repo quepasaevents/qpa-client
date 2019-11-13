@@ -1,5 +1,5 @@
 import styled from "@emotion/styled"
-import { css } from "qpa-emotion"
+import {css, Theme} from "qpa-emotion"
 import * as React from "react"
 import { hot } from "react-hot-loader"
 import { useAppContext } from "../../App/Context/AppContext"
@@ -79,9 +79,9 @@ const ListRoot = styled.div``
 const Items = styled.div``
 
 const DayPresentation = styled.div`
-  font-size: 18px;
+  //font-size: 14px;
   text-align: center;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: ${(props: {theme: Theme}) => props.theme.colors.secondary};
   padding: 2px 8px;
   font-weight: 600;
   color: rgba(0, 0, 0, 0.6);
@@ -110,7 +110,8 @@ const DayPresentationContainer = styled.div`
 `
 const DayItems = styled.div`
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: 90px auto;
+  grid-gap: 8px;
   grid-template-rows: auto auto;
   grid-template-areas:
     "dayname items"

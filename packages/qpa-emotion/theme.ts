@@ -1,7 +1,7 @@
 const theme = {
     colors: {
         lead: '#043b14',
-        secondary: '#FFAD00'
+        secondary: '#FFAD00',
     }
 }
 
