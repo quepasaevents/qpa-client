@@ -79,7 +79,7 @@ const StyledListItem = styled(ListItem)`
   padding: 4px;
   &:hover {
     background-color: rgba(4,59,20,.05);
-    transition: background-color 0.5s ease-in-out;
+    transition: background-color 0.5s ease-out;
   }
 `
 const DayPresentation = styled.div`
