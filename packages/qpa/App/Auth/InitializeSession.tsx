@@ -29,7 +29,7 @@ const InitializeSession = (props: Props) => {
           props.history.push("/")
         }
       })
-    })
+    }, [1])
   }
 
   return (
