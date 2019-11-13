@@ -46,11 +46,18 @@ const ListItem = (props: Props) => {
     </Root>
   )
 }
+const BreakPoint = "640px";
 const Root = styled.div`
   display: grid;
   grid-gap: 4px;
-  grid-template-columns: [time] 48px [details] 1fr [tags] 1fr [edit] 24px;
-  grid-template-rows: [main] 24px [line1] auto [line2] auto;
+  grid-template-columns: [time] 48px [details] 1fr [edit] 24px;
+  grid-template-rows:
+    [main] 24px
+    [line1] auto
+    [line2] auto
+    [tags] auto
+    ;
+      
 `
 const EditLink = styled(Link)`
   margin-left: 8px;
@@ -74,9 +81,10 @@ const Address = styled(SubInfoLine)`
   grid-row: line2;
 `
 const Tags = styled.div`
-  grid-column: tags;
+  grid-row: tags;
+  grid-column: details;
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: flex-start;
 `
 export default hot(module)(ListItem)
