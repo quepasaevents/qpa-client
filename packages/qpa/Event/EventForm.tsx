@@ -14,6 +14,7 @@ import { EventStatus } from "../../../@types"
 import * as intl from "react-intl-universal"
 import TagSelector from "../EventTags/TagsSelector"
 import messages from "./EventForm.msg.json"
+import RecurrencePicker from "./Recurrence/RecurrencePicker"
 
 interface Props {
   values?: EventFormData
@@ -107,6 +108,9 @@ const EventForm = (props: Props) => {
       {({ isValid, setFieldValue, values }) => {
         return (
           <StyledForm>
+            <RecurrencePicker firstOccurrence={values.time} onChange={rrule => {
+              console.log('set rrule to event', rrule)
+            }}/>
             <TagSelector
               language="en"
               onChange={tagNames => setFieldValue("tagNames", tagNames)}
