@@ -1,4 +1,5 @@
 import styled from "@emotion/styled"
+import { css, Theme } from "qpa-emotion"
 import * as React from "react"
 import { hot } from "react-hot-loader"
 import { useAppContext } from "../../App/Context/AppContext"
@@ -33,9 +34,8 @@ const List = (props: Props) => {
   })
   const dayNames = Object.keys(days)
   const { me } = useAppContext()
-  const isSuperUser = me && !!me.roles.find(role =>
-    ["admin", "embassador"].includes(role.type)
-  )
+  const isSuperUser =
+    me && !!me.roles.find(role => ["admin", "embassador"].includes(role.type))
   return (
     <ListRoot className={props.className}>
       {dayNames.map(dayName => {
@@ -44,21 +44,21 @@ const List = (props: Props) => {
         const dayNumber = dayDate.getDay()
         return (
           <DayItems key={dayName}>
-            <DayName>
-              <div css={{ gridArea: "1/1/3/2", fontSize: 32 }}>
-                {DAY_NAMES[dayNumber]}
-              </div>
-              <div css={{ gridArea: "1/2/2/3" }}>
-                {day}-{month}
-              </div>
-              <div css={{ gridArea: "2/2/3/3", letterSpacing: 2 }}>{year}</div>
-            </DayName>
+            <DayPresentationContainer>
+              <DayPresentation>
+                {DAY_NAMES[dayNumber]} {day}.{month}.
+              </DayPresentation>
+            </DayPresentationContainer>
             <Items>
               {days[dayName].map(occ => {
                 const isOwner =
                   me && !!me.events.find(myEvent => myEvent.id === occ.event.id)
                 return (
-                  <ListItem canEdit={isOwner || isSuperUser} key={occ.id} occurrence={occ} />
+                  <StyledListItem
+                    canEdit={isOwner || isSuperUser}
+                    key={occ.id}
+                    occurrence={occ}
+                  />
                 )
               })}
             </Items>
@@ -69,30 +69,68 @@ const List = (props: Props) => {
   )
 }
 
-const ListRoot = styled.div`
-`
+const BreakPoint = "640px"
+
+const ListRoot = styled.div``
 
 const Items = styled.div``
 
-const DayName = styled.div`
+const StyledListItem = styled(ListItem)`
+  width: 100%;
+  &:hover {
+    background-color: rgba(4,59,20,.05);
+    transition: background-color 0.5s ease-out;
+  }
+`
+const DayPresentation = styled.div`
+  text-align: center;
+  background-color: ${(props: { theme: Theme }) =>
+    props.theme.colors.secondary};
+  padding: 2px 8px;
   font-weight: 600;
   color: rgba(0, 0, 0, 0.6);
-  font-size: 14px;
-  width: auto;
-
-  display: grid;
-  grid-template: 18px / 55px 42px;
   margin-right: 18px;
+  width: 74px;
+
+  @media (max-width: ${BreakPoint}) {
+    margin-right: 0;
+    max-width: initial;
+    width: initial;
+    text-align: initial;
+  }
 `
 
+const DayName = styled.div`
+  grid-area: dayname;
+`
+const DayDate = styled.div`
+  grid-area: daydate;
+`
+
+const DayPresentationContainer = styled.div`
+  @media (max-width: ${BreakPoint}) {
+    margin-bottom: 4px;
+  }
+`
 const DayItems = styled.div`
   display: grid;
-  grid-template: auto auto / 120px auto;
-  ${DayName} {
-    grid-area: 1/1/2/2;
+  grid-template-columns: 90px auto;
+  grid-gap: 8px;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+    "dayname items"
+    ".   items";
+
+  @media (max-width: ${BreakPoint}) {
+    grid-template-areas:
+      "dayname dayname"
+      "items items";
+  }
+  ${DayPresentationContainer} {
+    grid-area: dayname;
   }
   ${Items} {
-    grid-area: 1/2/2/2;
+    grid-area: items;
   }
 `
 

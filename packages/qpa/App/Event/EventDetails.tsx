@@ -73,6 +73,7 @@ const Root = styled.div`
     [tags-end info-start] 1fr
     [info-end];
   grid-gap: 12px;
+  padding: 8px;
 `
 
 const Tags = styled.div`
