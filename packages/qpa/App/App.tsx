@@ -49,9 +49,10 @@ const App = () => {
 const Root = styled.div`
   display: grid;
   height: 100%;
+  width: 100vw;
   grid-template-columns:
     [left-start full-start] minmax(0, 240px)
-    [left-end content-start] minmax(320px, 1200px)
+    [left-end content-start] auto
     [content-end right-start] minmax(0, 240px)
     [right-end full-end];
   grid-template-rows:
@@ -59,12 +60,20 @@ const Root = styled.div`
     [header-end center-start] 1fr
     [center-end footer-start] 32px
     [footer-end];
+    
+  @media(max-width: 640px) {
+    grid-template-columns:
+     [left-start full-start] 0
+     [left-end content-start] auto
+     [content-end right-start] 0
+     [right-end full-end];
+  }
 `
 
 const Content = styled.div`
   grid-row: center;
   grid-column: content;
-  padding: 0 4px 0 4px;
+  //padding: 0 4px 0 4px;
 `
 
 const StyledFooter = styled(Footer)`

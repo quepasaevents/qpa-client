@@ -1,8 +1,9 @@
 import Chip from "qpa-components/Chip"
-import styled, {css, Theme} from "qpa-emotion"
+import styled, { css, Theme } from "qpa-emotion"
 import * as React from "react"
 import { hot } from "react-hot-loader"
 import { Link } from "react-router-dom"
+import EventDetails from "../../App/Event/EventDetails"
 import { OccurrenceData } from "../../Event/useOccurrencesQuery"
 
 interface Props {
@@ -34,8 +35,10 @@ const ListItem = (props: Props) => {
       >
         {event.info.title}
       </Title>
-      <Location>{event.location.name}</Location>
-      <Address>{event.location.address}</Address>
+      <Details>
+        <Location>{event.location.name}</Location>
+        <Address>{event.location.address}</Address>
+      </Details>
       <Tags>
         {event.tags.map(tag => (
           <Chip key={tag.id} label={tag.translation.text} size="small" />
@@ -48,10 +51,13 @@ const ListItem = (props: Props) => {
   )
 }
 const BreakPoint = "640px"
+
 const Root = styled.div`
+  padding: 4px;
+  box-sizing: border-box;
   display: grid;
   grid-gap: 4px;
-  grid-template-columns: [time] 48px [details] 1fr [edit] 24px;
+  grid-template-columns: [time-start] 48px [time-end details-start] 1fr [edit-start] 24px [edit-end details-end];
   grid-template-rows:
     [main] 24px
     [line1] auto
@@ -59,8 +65,12 @@ const Root = styled.div`
     [tags] auto;
 `
 
+const Details = styled.div`
+  grid-column: details;
+`
+
 const Title = styled(Link)`
-  color: ${(props: {theme: Theme}) => props.theme.colors.lead};
+  color: ${(props: { theme: Theme }) => props.theme.colors.lead};
   font-size: 1.1em;
   text-decoration: none;
 `

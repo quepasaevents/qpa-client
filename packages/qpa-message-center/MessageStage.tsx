@@ -14,11 +14,23 @@ const MessageStage = () => {
   return (
     <Root>
       {messages.map(msg => (
-          <MessageBar variant={msg.type} key={msg.id} open={msg.show} onClose={() => closeMessage(msg)} message={msg.text} />
+        <MessageBar
+          variant={msg.type}
+          key={msg.id}
+          open={msg.show}
+          onClose={() => closeMessage(msg)}
+          message={msg.text}
+        />
       ))}
     </Root>
   )
 }
-const Root = styled.div``
+const Root = styled.div`
+  width: 0;
+  height: 0;
+  position: absolute;
+  left: -1px;
+  top: -1px
+`
 
 export default MessageStage

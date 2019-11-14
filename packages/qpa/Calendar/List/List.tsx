@@ -76,7 +76,7 @@ const ListRoot = styled.div``
 const Items = styled.div``
 
 const StyledListItem = styled(ListItem)`
-  padding: 4px;
+  width: 100%;
   &:hover {
     background-color: rgba(4,59,20,.05);
     transition: background-color 0.5s ease-out;
