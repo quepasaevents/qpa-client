@@ -28,6 +28,10 @@ const RecurrencePicker = (props: Props) => {
     dtstart: new Date(props.firstOccurrence.start),
   })
 
+  React.useEffect(() => {
+    props.onChange(recurrence.toString())
+  }, [freq, props.firstOccurrence.start])
+
   return (
     <Root>
       <Select
@@ -37,9 +41,9 @@ const RecurrencePicker = (props: Props) => {
           setFreq(e.currentTarget.value as Frequency)
         }}
       >
-        <option value={RRule.DAILY}>Daily</option>
-        <option value={RRule.WEEKLY}>Weekly</option>
-        <option value={RRule.MONTHLY}>Monthly</option>
+        <option value={RRule.DAILY}>{intl.get('daily')}</option>
+        <option value={RRule.WEEKLY}>{intl.get('weekly')}</option>
+        <option value={RRule.MONTHLY}>{intl.get('monthly')}</option>
       </Select>
       <p>{recurrence.toString()}</p>
     </Root>

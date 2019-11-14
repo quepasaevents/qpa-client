@@ -25,28 +25,26 @@ const CreateEvent = (props: RouteComponentProps) => {
     },
   })
   return (
-    <div>
-      <EventForm
-        locales={supportedLocales}
-        loading={loading}
-        onSubmit={(values: EventFormData) => {
-          createEvent({
-            variables: {
-              input: {
-                infos: values.infos,
-                location: values.location,
-                time: {
-                  ...values.time,
-                  timeZone: "Europe/Madrid",
-                },
-                status: "confirmed",
-                tagNames: values.tagNames,
+    <EventForm
+      locales={supportedLocales}
+      loading={loading}
+      onSubmit={(values: EventFormData) => {
+        createEvent({
+          variables: {
+            input: {
+              infos: values.infos,
+              location: values.location,
+              time: {
+                ...values.time,
+                timeZone: "Europe/Madrid",
               },
+              status: "confirmed",
+              tagNames: values.tagNames,
             },
-          })
-        }}
-      />
-    </div>
+          },
+        })
+      }}
+    />
   )
 }
 

@@ -14,6 +14,7 @@ import { EventStatus } from "../../../@types"
 import * as intl from "react-intl-universal"
 import TagSelector from "../EventTags/TagsSelector"
 import messages from "./EventForm.msg.json"
+import NextOccurrencesPreview from "./NextOccurrencesPreview"
 import RecurrencePicker from "./Recurrence/RecurrencePicker"
 
 interface Props {
@@ -25,14 +26,15 @@ interface Props {
   onDeleteEvent?: () => void
 }
 
+export interface EventTimeFormData {
+  timeZone: string
+  start: string
+  end: string
+  recurrence?: string
+  exceptions?: string
+}
 export interface EventFormData {
-  time: {
-    timeZone: string
-    start: string
-    end: string
-    recurrence?: string
-    exceptions?: string
-  }
+  time: EventTimeFormData
   infos: Array<{
     language: string
     title: string
@@ -68,8 +70,8 @@ const EventForm = (props: Props) => {
           : ({
               time: {
                 timeZone: "Europe/Madrid",
-                start: todayMidday.toISOString(),
-                end: todayOnePM.toISOString(),
+                start: format(todayMidday, "yyyy-MM-dd'T'HH:mm"),
+                end: format(todayOnePM, "yyyy-MM-dd'T'HH:mm"),
               },
               infos: props.locales.map(locale => {
                 const lang = locale.substring(0, 2)
@@ -108,9 +110,6 @@ const EventForm = (props: Props) => {
       {({ isValid, setFieldValue, values }) => {
         return (
           <StyledForm>
-            <RecurrencePicker firstOccurrence={values.time} onChange={rrule => {
-              console.log('set rrule to event', rrule)
-            }}/>
             <TagSelector
               language="en"
               onChange={tagNames => setFieldValue("tagNames", tagNames)}
@@ -156,7 +155,7 @@ const EventForm = (props: Props) => {
                 </Section>
               )
             })}
-            <Section>
+            <div id="timesection">
               <PickersProvider>
                 <SectionTitle>{intl.get("TITLE_TIME")}</SectionTitle>
                 <FormTitle>{intl.get("TIME_EXPLANATION")}</FormTitle>
@@ -172,8 +171,8 @@ const EventForm = (props: Props) => {
                           format(newStartDate, "yyyy-MM-dd'T'HH:mm")
                         )
                         setFieldValue(
-                            "time.end" as any,
-                            format(oneHourLater, "yyyy-MM-dd'T'HH:mm")
+                          "time.end" as any,
+                          format(oneHourLater, "yyyy-MM-dd'T'HH:mm")
                         )
                       }
                       return (
@@ -185,6 +184,7 @@ const EventForm = (props: Props) => {
                     }}
                   </Field>
                 </TimeSection>
+
                 <p>{intl.get("END_TIME")} </p>
 
                 <TimeSection>
@@ -206,7 +206,14 @@ const EventForm = (props: Props) => {
                   </Field>
                 </TimeSection>
               </PickersProvider>
-            </Section>
+              <RecurrencePicker
+                firstOccurrence={values.time}
+                onChange={rrule => {
+                  setFieldValue("time.recurrence" as any, rrule)
+                }}
+              />
+              <NextOccurrencesPreview eventTime={values.time} />
+            </div>
 
             <p>{intl.get("LOCATION")}</p>
             <Field name="location.name">
@@ -283,4 +290,5 @@ const Footer = styled.div`
   margin-top: 14px;
   justify-content: center;
 `
+
 export default hot(module)(EventForm)
