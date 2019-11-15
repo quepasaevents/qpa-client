@@ -11,11 +11,13 @@ import Select from "./Select"
 import PickersProvider from "./PickersProvider"
 import MessageBar from "./MessageBar"
 import Fab from "./Fab"
+import Checkbox from "./Checkbox"
 
 export {
   Avatar,
   Button,
   ButtonProps,
+  Checkbox,
   IconButton,
   DatePicker,
   DatePickerProps,

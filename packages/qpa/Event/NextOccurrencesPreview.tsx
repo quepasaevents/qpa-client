@@ -8,6 +8,7 @@ import messages from "./NextOccurrencesPreview.msg.json"
 
 interface Props {
     eventTime: EventTimeFormData
+    className?: string
 }
 const NextOccurrencesPreview = (props: Props) => {
     if (!props.eventTime) {
@@ -22,9 +23,9 @@ const NextOccurrencesPreview = (props: Props) => {
     })
 
     return (
-        <Root>
+        <Root className={props.className}>
             {computeOccurrences(props.eventTime).map(occ => (
-                <Occurrence>
+                <Occurrence key={new Date(occ.start).getTime()}>
                     {intl.get(format(occ.start, "eeee").toLowerCase())}
                     &nbsp;
                     {format(occ.start, "yyyy-dd-MM")}
@@ -34,7 +35,11 @@ const NextOccurrencesPreview = (props: Props) => {
     )
 }
 
-const Root = styled.div``
+const Root = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+`
 const Occurrence = styled.div``
 
 export default NextOccurrencesPreview

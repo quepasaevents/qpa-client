@@ -13,6 +13,7 @@ interface Props {
   }
   rrule?: string
   onChange: (rrule: string) => void
+  disabled?: boolean
 }
 
 const RecurrencePicker = (props: Props) => {
@@ -29,23 +30,26 @@ const RecurrencePicker = (props: Props) => {
   })
 
   React.useEffect(() => {
-    props.onChange(recurrence.toString())
-  }, [freq, props.firstOccurrence.start])
+    if (!props.disabled) {
+      props.onChange(recurrence.toString())
+    }
+  }, [freq, props.firstOccurrence.start, props.disabled])
 
   return (
     <Root>
       <Select
+        disabled={props.disabled}
         native
+        label={intl.get("repeat")}
         value={freq}
         onChange={e => {
           setFreq(e.currentTarget.value as Frequency)
         }}
       >
-        <option value={RRule.DAILY}>{intl.get('daily')}</option>
-        <option value={RRule.WEEKLY}>{intl.get('weekly')}</option>
-        <option value={RRule.MONTHLY}>{intl.get('monthly')}</option>
+        <option value={RRule.DAILY}>{intl.get("daily")}</option>
+        <option value={RRule.WEEKLY}>{intl.get("weekly")}</option>
+        <option value={RRule.MONTHLY}>{intl.get("monthly")}</option>
       </Select>
-      <p>{recurrence.toString()}</p>
     </Root>
   )
 }

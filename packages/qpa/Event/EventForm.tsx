@@ -6,6 +6,7 @@ import {
   TimePicker,
   PickersProvider,
   TextField,
+  Checkbox,
 } from "qpa-components"
 import * as React from "react"
 import styled from "@emotion/styled"
@@ -60,6 +61,24 @@ const EventForm = (props: Props) => {
     "en-GB": messages.en,
   })
   const isEdit = !!props.values
+
+  const isEventOverMultipleDays =
+    props.values &&
+    props.values.time &&
+    new Date(props.values.time.start).getDay() !==
+      new Date(props.values.time.end).getDay()
+  const [showEndDate, setShowEndDate] = React.useState<boolean>(
+    !!isEventOverMultipleDays
+  )
+
+  const [isRecurrentEvent, setIsRecurrentEvent] = React.useState<boolean>(
+    !!(
+      props.values &&
+      props.values &&
+      props.values.time &&
+      props.values.time.recurrence
+    )
+  )
 
   return (
     <Formik
@@ -159,60 +178,108 @@ const EventForm = (props: Props) => {
               <PickersProvider>
                 <SectionTitle>{intl.get("TITLE_TIME")}</SectionTitle>
                 <FormTitle>{intl.get("TIME_EXPLANATION")}</FormTitle>
-                <p>{intl.get("START_TIME")}</p>
-
-                <TimeSection>
-                  <Field name="time.start">
-                    {({ field }) => {
-                      const timeStartOnChange = newStartDate => {
-                        const oneHourLater = addHours(newStartDate, 1)
-                        setFieldValue(
-                          "time.start" as any,
-                          format(newStartDate, "yyyy-MM-dd'T'HH:mm")
+                <EventTimeSection>
+                  <TimeSegment>
+                    <Field name="time.start">
+                      {({ field }) => {
+                        const timeStartOnChange = newStartDate => {
+                          const oneHourLater = addHours(newStartDate, 1)
+                          setFieldValue(
+                            "time.start" as any,
+                            format(newStartDate, "yyyy-MM-dd'T'HH:mm")
+                          )
+                          setFieldValue(
+                            "time.end" as any,
+                            format(oneHourLater, "yyyy-MM-dd'T'HH:mm")
+                          )
+                        }
+                        return (
+                          <>
+                            <DatePicker
+                              label="Start date"
+                              {...field}
+                              onChange={timeStartOnChange}
+                            />
+                            <TimePicker
+                              label="Start time"
+                              {...field}
+                              onChange={timeStartOnChange}
+                            />
+                          </>
                         )
-                        setFieldValue(
-                          "time.end" as any,
-                          format(oneHourLater, "yyyy-MM-dd'T'HH:mm")
+                      }}
+                    </Field>
+                  </TimeSegment>
+                  <TimeSegment>
+                    <Field name="time.end">
+                      {({ field }) => {
+                        const timeEndOnChange = newStartDate => {
+                          setFieldValue(
+                            "time.end" as any,
+                            format(newStartDate, "yyyy-MM-dd'T'HH:mm")
+                          )
+                        }
+                        return (
+                          <>
+                            {showEndDate ? (
+                              <DatePicker
+                                label="End date"
+                                {...field}
+                                onChange={timeEndOnChange}
+                              />
+                            ) : null}
+                            <TimePicker
+                              label="End time"
+                              {...field}
+                              onChange={timeEndOnChange}
+                            />
+                          </>
                         )
-                      }
-                      return (
-                        <>
-                          <DatePicker {...field} onChange={timeStartOnChange} />
-                          <TimePicker {...field} onChange={timeStartOnChange} />
-                        </>
-                      )
-                    }}
-                  </Field>
-                </TimeSection>
-
-                <p>{intl.get("END_TIME")} </p>
-
-                <TimeSection>
-                  <Field name="time.end">
-                    {({ field }) => {
-                      const timeEndOnChange = newStartDate => {
-                        setFieldValue(
-                          "time.end" as any,
-                          format(newStartDate, "yyyy-MM-dd'T'HH:mm")
-                        )
-                      }
-                      return (
-                        <>
-                          <DatePicker {...field} onChange={timeEndOnChange} />
-                          <TimePicker {...field} onChange={timeEndOnChange} />
-                        </>
-                      )
-                    }}
-                  </Field>
-                </TimeSection>
+                      }}
+                    </Field>
+                  </TimeSegment>
+                </EventTimeSection>
               </PickersProvider>
+              <Checkbox
+                label={intl.get("event-is-multidate")}
+                checked={showEndDate}
+                onChange={() => setShowEndDate(!showEndDate)}
+                disabled={
+                  new Date(values.time.start).getDay() !==
+                  new Date(values.time.end).getDay()
+                }
+              />
+              <Checkbox
+                label={intl.get("event-is-recurrent")}
+                checked={isRecurrentEvent}
+                onChange={() => {
+                  const newIsRecurrentEvent = !isRecurrentEvent
+                  if (!newIsRecurrentEvent) {
+                    setFieldValue("time.recurrence" as any, null)
+                  }
+                  setIsRecurrentEvent(newIsRecurrentEvent)
+                }}
+                disabled={
+                  new Date(values.time.start).getDay() !==
+                  new Date(values.time.end).getDay()
+                }
+              />
+
               <RecurrencePicker
                 firstOccurrence={values.time}
+                disabled={!isRecurrentEvent}
                 onChange={rrule => {
                   setFieldValue("time.recurrence" as any, rrule)
                 }}
               />
-              <NextOccurrencesPreview eventTime={values.time} />
+              {values.time.recurrence ? (
+                <>
+                  <SectionTitle>
+                    {intl.get("occurrences-preview-title")}
+                  </SectionTitle>
+                  <StyledNextOccurrencesPreview eventTime={values.time} />
+                </>
+              ) : null}
             </div>
 
             <p>{intl.get("LOCATION")}</p>
@@ -277,18 +344,29 @@ const StyledForm = styled(Form)`
   margin-top: 24px;
 `
 
-const TimeSection = styled.div`
+const TimeSegment = styled.div`
   display: flex;
   flex-direction: row;
-  > *:not(:last-of-type) {
+  > *:not(:last-of-type),
+  &:not(:last-of-type) {
     margin-right: 8px;
   }
+`
+const EventTimeSection = styled.div`
+  margin-top: 8px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 `
 const Footer = styled.div`
   display: flex;
   flex-direction: row;
   margin-top: 14px;
   justify-content: center;
+`
+
+const StyledNextOccurrencesPreview = styled(NextOccurrencesPreview)`
+  height: 6em;
 `
 
 export default hot(module)(EventForm)

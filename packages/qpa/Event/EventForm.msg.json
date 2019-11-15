@@ -26,10 +26,13 @@
     "event-create-success": "Event created successfully",
     "event-create-error": "There was an error: {message}",
     "event-edit-success": "Event was changed successfully",
-    "event-edit-error": "Error on chaging event {error}",
+    "event-edit-error": "Error on changing event {error}",
     "event-delete-success": "Event deleted successfully",
     "event-delete-error": "There was an error deleting the event {error}",
-    "validate-end-after-start":  "End time must be after start time"
+    "validate-end-after-start":  "End time must be after start time",
+    "event-is-multidate": "Event starts and ends on different days",
+    "event-is-recurrent": "Event repeats regularly (weekly, monthly, etc.)",
+    "occurrences-preview-title": "Las fechas siguiéntas están previstas para este evento"
   },
   "es": {
     "EVENT_CREATED_SUCCESSFULLY": "Evento ha sido creado correctamente",
@@ -61,6 +64,9 @@
     "event-edit-error": "Habido un error al modificar el evento {error}",
     "event-delete-success": "Evento eliminado correctamente",
     "event-delete-error": "Habido un error al eliminar el evento {error}",
-    "validate-end-after-start":  "Tiempo de fin tienes que ser después del comienzo"
+    "validate-end-after-start":  "Tiempo de fin tienes que ser después del comienzo",
+    "event-is-multidate": "Evento comienza y termina en días distinctos",
+    "event-is-recurrent": "Este evento se repite regularmente (semanal, mensual, etc.)",
+    "occurrences-preview-title": "Estas fechas están previstas para este evento"
   }
 }
