@@ -1,3 +1,4 @@
+import {format} from "date-fns"
 import Chip from "qpa-components/Chip"
 import styled, { css, Theme } from "qpa-emotion"
 import * as React from "react"
@@ -23,7 +24,7 @@ const sanitizeEventName = (name: string) => {
 const ListItem = (props: Props) => {
   const { occurrence } = props
   const { event } = occurrence
-  const startTime = occurrence.start.split(" ")[1].substring(0, 5)
+  const startTime = format(new Date(occurrence.start), "HH:mm")
   return (
     <Root className={props.className}>
       <Time>{startTime}</Time>
