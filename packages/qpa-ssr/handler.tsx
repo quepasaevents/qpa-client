@@ -38,7 +38,6 @@ export const httpSSRHandler = async (req: Request, res: Response) => {
 
   const app = muiSheets.collect(
     <SSRProviders location={req.path} graphqlClient={graphqlClient} universalCookies={(req as any).universalCookies}>
-    <SSRProviders location={req.path} graphqlClient={graphqlClient} universalCookies={(req as any).universalCookies}>
       <App />
     </SSRProviders>
   )
