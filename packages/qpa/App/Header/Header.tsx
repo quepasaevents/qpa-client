@@ -5,8 +5,11 @@ import {hot} from "react-hot-loader"
 import { Link } from "react-router-dom"
 import { AppContext } from "../Context/AppContext"
 import HomeButton from "./HomeButton"
+import LocaleSelector from "./LocaleSelector"
 import MeMenu from "./MeMenu"
 import PlusIcon from './plus_icon.svg'
+import intl from 'react-intl-universal'
+import messages from './header.msg.json'
 
 interface Props {
   className?: string
@@ -14,16 +17,18 @@ interface Props {
 
 const Header = (props: Props) => {
   const theme = useTheme()
+  intl.load(messages)
 
   return (
     <AppContext>
-      {({ me }) => (
+      {({ me, locale, setLocale, supportedLocales }) => (
         <Root className={props.className} css={{
           background: theme.colors.lead
         }}>
           <HomeButton />
           <Menu />
           <Title />
+          <LocaleSelector locales={supportedLocales} value={locale} onChange={setLocale}/>
           <LinksSection>
             {me ? (
               <>

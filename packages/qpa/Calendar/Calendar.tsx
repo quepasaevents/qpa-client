@@ -36,10 +36,11 @@ const Calendar = (props: Props) => {
   const [fromDate, setFromDate] = React.useState(now)
   const [toDate, setToDate] = React.useState(addWeeks(fromDate, 1))
 
-  const { language } = useAppContext()
+  const { locale } = useAppContext()
+
   const { data, error, loading } = useOccurrencesQuery({
     variables: {
-      language,
+      language: locale.substring(0,2),
       filter: {
         from: format(fromDate, "yyyy-MM-dd'T'HH:mm"),
         to: format(toDate, "yyyy-MM-dd'T'HH:mm"),

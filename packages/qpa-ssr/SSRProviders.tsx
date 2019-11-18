@@ -5,20 +5,26 @@ import { ApolloProvider } from "react-apollo"
 import { StaticRouter } from "react-router"
 import { AppContextProvider } from "qpa/App/Context/AppContext"
 import { ThemeProvider, theme } from "qpa-emotion"
+import { CookiesProvider } from "react-cookie"
 
 interface Props {
   children: React.ReactChild | React.ReactChildren
   graphqlClient: ApolloClient<InMemoryCache>
   location: string
+  universalCookies: any
 }
 
 const SSRProviders = (props: Props) => (
   <ApolloProvider client={props.graphqlClient}>
-    <AppContextProvider isSSR={true}>
-      <ThemeProvider theme={theme}>
-        <StaticRouter location={props.location}>{props.children}</StaticRouter>
-      </ThemeProvider>
-    </AppContextProvider>
+    <CookiesProvider cookies={props.universalCookies}>
+      <AppContextProvider isSSR={true}>
+        <ThemeProvider theme={theme}>
+          <StaticRouter location={props.location}>
+            {props.children}
+          </StaticRouter>
+        </ThemeProvider>
+      </AppContextProvider>
+    </CookiesProvider>
   </ApolloProvider>
 )
 

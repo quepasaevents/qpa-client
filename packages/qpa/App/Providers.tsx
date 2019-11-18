@@ -8,6 +8,7 @@ import { ApolloProvider } from "react-apollo"
 import { BrowserRouter as Router } from "react-router-dom"
 import { AppContextProvider } from "./Context/AppContext"
 import { ThemeProvider, theme } from "qpa-emotion"
+import { CookiesProvider } from "react-cookie"
 
 interface Props {
   children: React.ReactChild | React.ReactChildren
@@ -26,13 +27,15 @@ const graphqlClient = new ApolloClient({
 
 const Providers = (props: Props) => (
   <ApolloProvider client={graphqlClient}>
-    <AppContextProvider isSSR={false}>
-      <MessageCenterProvider>
-        <ThemeProvider theme={theme}>
-          <Router>{props.children}</Router>
-        </ThemeProvider>
-      </MessageCenterProvider>
-    </AppContextProvider>
+    <CookiesProvider>
+      <AppContextProvider isSSR={false}>
+        <MessageCenterProvider>
+          <ThemeProvider theme={theme}>
+            <Router>{props.children}</Router>
+          </ThemeProvider>
+        </MessageCenterProvider>
+      </AppContextProvider>
+    </CookiesProvider>
   </ApolloProvider>
 )
 

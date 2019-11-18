@@ -10,6 +10,7 @@ import TimePicker, { TimePickerProps } from "./TimePicker"
 import Select from "./Select"
 import PickersProvider from "./PickersProvider"
 import MessageBar from "./MessageBar"
+import ButtonGroup from "./ButtonGroup"
 import Fab from "./Fab"
 import Checkbox from "./Checkbox"
 
@@ -17,6 +18,7 @@ export {
   Avatar,
   Button,
   ButtonProps,
+  ButtonGroup,
   Checkbox,
   IconButton,
   DatePicker,
