@@ -1,15 +1,15 @@
 import { Icon } from "qpa-components"
 import styled, { Theme, useTheme } from "qpa-emotion"
 import * as React from "react"
-import {hot} from "react-hot-loader"
+import { hot } from "react-hot-loader"
 import { Link } from "react-router-dom"
 import { AppContext } from "../Context/AppContext"
 import HomeButton from "./HomeButton"
 import LocaleSelector from "./LocaleSelector"
 import MeMenu from "./MeMenu"
-import PlusIcon from './plus_icon.svg'
-import intl from 'react-intl-universal'
-import messages from './header.msg.json'
+import PlusIcon from "./plus_icon.svg"
+import intl from "react-intl-universal"
+import messages from "./header.msg.json"
 
 interface Props {
   className?: string
@@ -22,20 +22,29 @@ const Header = (props: Props) => {
   return (
     <AppContext>
       {({ me, locale, setLocale, supportedLocales }) => (
-        <Root className={props.className} css={{
-          background: theme.colors.lead
-        }}>
+        <Root
+          className={props.className}
+          css={{
+            background: theme.colors.lead,
+          }}
+        >
           <HomeButton />
           <Menu />
           <Title />
-          <LocaleSelector locales={supportedLocales} value={locale} onChange={setLocale}/>
+          <StyledLocaleSelector
+            locales={supportedLocales}
+            value={locale}
+            onChange={setLocale}
+          />
           <LinksSection>
             {me ? (
               <>
                 <StyledLink to="/create">
-                  <Icon label="Add Event"><PlusIcon /> </Icon>
+                  <Icon label="Add Event">
+                    <PlusIcon />{" "}
+                  </Icon>
                 </StyledLink>
-                <MeMenu me={me}/>
+                <MeMenu me={me} />
               </>
             ) : (
               <>
@@ -50,11 +59,19 @@ const Header = (props: Props) => {
   )
 }
 const StyledLink = styled(Link)`
+  font-size: 10px;
   color: white;
   text-decoration: none;
   &:not(:first-of-type) {
     margin-left: 14px;
   }
+`
+
+const StyledLocaleSelector = styled(LocaleSelector)`
+  button {
+    font-size: 10px;
+  }
+  margin-right: 12px;
 `
 
 const Menu = styled.div``
