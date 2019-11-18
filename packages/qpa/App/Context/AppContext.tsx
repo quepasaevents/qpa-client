@@ -48,7 +48,8 @@ const AppContextProvider = (props: Props) => {
     boolean
   >(false)
   const [cookies, setCookie, removeCookie] = useCookies(COOKIE_NAMES)
-  const browserLocale = navigator.language.substring(0, 2)
+    // todo: instead of navigator pass values from Accepted-Language HTTP header
+  const browserLocale = navigator && navigator.language && navigator.language.substring(0, 2)
   const matchingBrowserLocale = SUPPORTED_LOCALES.find(
     sL => sL === browserLocale
   )
