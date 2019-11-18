@@ -37,7 +37,9 @@ const EventDetails = (props: Props) => {
           <Chip color="primary" label={tag.translation.text} key={tag.id} />
         ))}
       </Tags>
-      <Info>{info.description}</Info>
+      <Info>{
+        info.description.split('\n').map((descLine, i) => <p key={i}>{descLine}</p>)
+      }</Info>
       {meIsOwner ? (
         <EditButton
           onClick={() => props.history.push(`/event/${event.id}/edit`)}
