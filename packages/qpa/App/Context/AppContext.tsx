@@ -10,6 +10,7 @@ interface IAppContext {
   refetch: () => void
   setLocale: (locale: string) => void
   locale: string
+  language: string
   refuseDataStorage: boolean
   setRefuseDataStorage: (refuse: boolean) => void
 }
@@ -25,35 +26,44 @@ interface Props {
 
 const SUPPORTED_LOCALES = ["es-ES", "en-GB"]
 const PREFERENCES = "preferences"
+const COOKIE_NAMES = ["locale"]
 
 const AppContext = React.createContext<IAppContext>({
-      me: null,
-      isSSR: false,
-      supportedLocales: SUPPORTED_LOCALES,
-      locale: "es",
-      refetch: () => {
-      },
-      setLocale: () => null,
-      refuseDataStorage: false,
-      setRefuseDataStorage: (refuse: boolean) => null
-    }
-)
+  me: null,
+  isSSR: false,
+  supportedLocales: SUPPORTED_LOCALES,
+  locale: "es",
+  language: "es",
+  refetch: () => {},
+  setLocale: () => null,
+  refuseDataStorage: false,
+  setRefuseDataStorage: (refuse: boolean) => null,
+})
 
 const { Provider, Consumer } = AppContext
 const AppContextProvider = (props: Props) => {
   const { data, loading, error, refetch } = useMeQuery()
 
-  const [refuseDataStorageState, setRefuseDataStorageState] = React.useState<boolean>(false)
-  const [cookies, setCookie, removeCookie] = useCookies([
-    "locale",
-  ])
+  const [refuseDataStorageState, setRefuseDataStorageState] = React.useState<
+    boolean
+  >(false)
+  const [cookies, setCookie, removeCookie] = useCookies(COOKIE_NAMES)
   const browserLocale = navigator.language.substring(0, 2)
-  const matchingBrowserLocale = SUPPORTED_LOCALES.find(sL => sL === browserLocale)
-  const closestBrowserLocale = matchingBrowserLocale ? matchingBrowserLocale : (
-      SUPPORTED_LOCALES.find(sL => sL.substring(0,2) === browserLocale.substring(0,2))
+  const matchingBrowserLocale = SUPPORTED_LOCALES.find(
+    sL => sL === browserLocale
   )
-  const defaultlocale = closestBrowserLocale ? closestBrowserLocale : SUPPORTED_LOCALES[0]
-  const cookieLocale = cookies.locale && SUPPORTED_LOCALES.includes(cookies.locale) ? cookies.locale : null
+  const closestBrowserLocale = matchingBrowserLocale
+    ? matchingBrowserLocale
+    : SUPPORTED_LOCALES.find(
+        sL => sL.substring(0, 2) === browserLocale.substring(0, 2)
+      )
+  const defaultlocale = closestBrowserLocale
+    ? closestBrowserLocale
+    : SUPPORTED_LOCALES[0]
+  const cookieLocale =
+    cookies.locale && SUPPORTED_LOCALES.includes(cookies.locale)
+      ? cookies.locale
+      : null
 
   if (loading) {
     return <Spinner />
@@ -71,7 +81,7 @@ const AppContextProvider = (props: Props) => {
         refetch,
         setRefuseDataStorage: (refuse: boolean) => {
           if (refuse) {
-            removeCookie('locale')
+            COOKIE_NAMES.forEach(name => removeCookie(name))
           }
           setRefuseDataStorageState(refuse)
         },
