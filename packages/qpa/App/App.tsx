@@ -1,6 +1,7 @@
 import styled, { css, Global } from "qpa-emotion"
 import * as React from "react"
 import { hot } from "react-hot-loader/root"
+import {useAppContext} from "./Context/AppContext"
 import Footer from "./Footer"
 import Header from "./Header/Header"
 import Routes from "./Routes"
@@ -10,8 +11,9 @@ import AppMessages from "./App.msg.json"
 import MessageStage from "qpa-message-center/MessageStage"
 
 const App = () => {
+  const context = useAppContext()
   intl.init({
-    currentLocale: "es-ES",
+    currentLocale: context.locale,
     locales: {
       "en-GB": AppMessages.en,
       "es-ES": AppMessages.es,

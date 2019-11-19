@@ -1,8 +1,22 @@
 {
   "en": {
-    "APP_TITLE": "Evento en la Alpujarra"
+    "APP_TITLE": "Evento en la Alpujarra",
+    "mo": "Mo",
+    "tu": "Tu",
+    "we": "We",
+    "th": "Th",
+    "fr": "Fr",
+    "sa": "Sa",
+    "su": "Su"
   },
   "es": {
-    "APP_TITLE": "Events in the Alpujarra"
+    "APP_TITLE": "Events in the Alpujarra",
+    "mo": "Lu",
+    "tu": "Ma",
+    "we": "Mi",
+    "th": "Ju",
+    "fr": "Vi",
+    "sa": "Sa",
+    "su": "Do"
   }
 }

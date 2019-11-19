@@ -1,13 +1,10 @@
 import {
-  TimePicker as MUITimePicker,
-  TimePickerProps as MUITimePickerProps,
-  TimePickerProps,
   KeyboardTimePicker,
   KeyboardTimePickerProps,
 } from "@material-ui/pickers"
 import * as React from "react"
 
-export interface TimePickerProps extends MUITimePickerProps {}
+export interface TimePickerProps extends KeyboardTimePickerProps {}
 
 const TimePicker = (props: TimePickerProps) => {
   return (

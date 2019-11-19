@@ -1,17 +1,18 @@
 import styled from "@emotion/styled"
-import { css, Theme } from "qpa-emotion"
+import { Theme } from "qpa-emotion"
 import * as React from "react"
 import { hot } from "react-hot-loader"
 import { useAppContext } from "../../App/Context/AppContext"
 import { OccurrenceData } from "../../Event/useOccurrencesQuery"
 import ListItem from "./ListItem"
+import intl from "react-intl-universal"
 
 interface Props {
   occurrences: OccurrenceData[]
   className?: string
 }
 
-const DAY_NAMES = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"]
+const DAY_NAMES = ["su", "mo", "tu", "we", "th", "fr", "sa"]
 
 const List = (props: Props) => {
   const sorted = [...props.occurrences]
@@ -46,7 +47,7 @@ const List = (props: Props) => {
           <DayItems key={dayName}>
             <DayPresentationContainer>
               <DayPresentation>
-                {DAY_NAMES[dayNumber]} {day}.{month}.
+                {intl.get(DAY_NAMES[dayNumber])} {day}.{month}.
               </DayPresentation>
             </DayPresentationContainer>
             <Items>
@@ -78,11 +79,13 @@ const Items = styled.div``
 const StyledListItem = styled(ListItem)`
   width: 100%;
   &:hover {
-    background-color: rgba(4,59,20,.05);
+    background-color: rgba(4, 59, 20, 0.05);
     transition: background-color 0.5s ease-out;
   }
 `
-const DayPresentation = styled.div`
+
+//todo: solve TS issue with theme (shows error requiring theme as prop)
+const DayPresentation: any = styled.div`
   text-align: center;
   background-color: ${(props: { theme: Theme }) =>
     props.theme.colors.secondary};
