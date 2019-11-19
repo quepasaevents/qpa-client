@@ -130,7 +130,6 @@ const EventForm = (props: Props) => {
         return (
           <StyledForm>
             <TagSelector
-              language="en"
               onChange={tagNames => setFieldValue("tagNames", tagNames)}
               value={values.tagNames}
             />

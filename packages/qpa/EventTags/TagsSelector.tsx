@@ -1,21 +1,22 @@
 import { Spinner } from "qpa-components"
 import Chip from "qpa-components/Chip"
 import * as React from "react"
+import {useAppContext} from "../App/Context/AppContext"
 import { useGetAvailableTagsQuery } from "./useGetAvaiableTagsQuery"
 import styled from "@emotion/styled"
 
 interface Props {
-  language: string
   value: string[]
   onChange: (selectedNames: string[]) => void
   className?: string
 }
 
 const TagSelector = (props: Props) => {
+  const { language } = useAppContext()
   const [selectedNames, setSelectedNames] = React.useState(props.value || [])
   const { loading, error, data } = useGetAvailableTagsQuery({
     variables: {
-      language: props.language,
+      language,
     },
   })
 
