@@ -48,6 +48,7 @@ const AppContextProvider = (props: Props) => {
     boolean
   >(false)
   const [cookies, setCookie, removeCookie] = useCookies(COOKIE_NAMES)
+
   // todo: instead of navigator pass values from Accepted-Language HTTP header
   const browserLocale = props.isSSR ? null : navigator.language.substring(0, 2)
   const matchingBrowserLocale = SUPPORTED_LOCALES.find(
@@ -68,6 +69,7 @@ const AppContextProvider = (props: Props) => {
     cookies.locale && SUPPORTED_LOCALES.includes(cookies.locale)
       ? cookies.locale
       : null
+  const resultingLocale = cookies.locale ? cookies.locale : defaultlocale
 
   if (loading) {
     return <Spinner />
@@ -75,13 +77,15 @@ const AppContextProvider = (props: Props) => {
   if (error) {
     return <p>Error {error.message}</p>
   }
+
   return (
     <Provider
       value={{
         me: data.me,
         isSSR: props.isSSR,
         supportedLocales: SUPPORTED_LOCALES,
-        locale: cookies.locale ? cookies.locale : defaultlocale,
+        locale: resultingLocale,
+        language: resultingLocale.substring(0, 2),
         refetch,
         setRefuseDataStorage: (refuse: boolean) => {
           if (refuse) {
