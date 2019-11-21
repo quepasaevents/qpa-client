@@ -6,6 +6,7 @@ import { hot } from "react-hot-loader"
 import { RouteComponentProps, withRouter } from "react-router"
 import { useAppContext } from "../Context/AppContext"
 import useEventDetailsQuery from "./useEventDetailsQuery"
+import EventHeaderImage from './EventHeaderImage'
 
 interface RouteParams {
   eventId: string
@@ -16,6 +17,7 @@ interface Props extends RouteComponentProps<RouteParams> {}
 
 const EventDetails = (props: Props) => {
   const { me, language } = useAppContext()
+
   const { data, loading, error } = useEventDetailsQuery({
     variables: { eventId: props.match.params.eventId, language },
   })
@@ -27,20 +29,26 @@ const EventDetails = (props: Props) => {
   }
   const event = data.event
   const meIsOwner = me && me.id === event.owner.id
+  const canEdit =
+      meIsOwner ||
+      !!me.roles.find(role => ["admin", "embassador"].includes(role.type))
 
   const info = event.infos[0]
   return (
     <Root>
+      <EventHeaderImage event={event} canEdit={canEdit}/>
       <Title>{info.title}</Title>
       <Tags>
         {event.tags.map(tag => (
           <Chip color="primary" label={tag.translation.text} key={tag.id} />
         ))}
       </Tags>
-      <Info>{
-        info.description.split('\n').map((descLine, i) => <p key={i}>{descLine}</p>)
-      }</Info>
-      {meIsOwner ? (
+      <Info>
+        {info.description.split("\n").map((descLine, i) => (
+          <p key={i}>{descLine}</p>
+        ))}
+      </Info>
+      {canEdit ? (
         <EditButton
           onClick={() => props.history.push(`/event/${event.id}/edit`)}
           css={{}}

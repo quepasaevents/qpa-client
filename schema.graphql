@@ -7,6 +7,7 @@ schema {
 
 type CalendarEvent {
     id: ID!
+    images: EventImages
     info(lang: String!): EventInformation
     infos: [EventInformation]!
     location: Location!
@@ -20,6 +21,13 @@ type CalendarEvent {
 type Error {
     message: String!
     path: String!
+}
+
+type EventImages {
+    cover: Image
+    gallery: [Image!]
+    poster: Image
+    thumb: Image
 }
 
 type EventInformation {
@@ -56,21 +64,33 @@ type EventTime {
     timeZone: TimeZone
 }
 
+type Image {
+    url: String!
+}
+
 type Location {
     address: String
     name: String
 }
 
 type Mutation {
+    addEventGalleryImages(input: EventImagesUploadInput!): CalendarEvent
     createEvent(input: CreateEventInput!): CalendarEvent
     createEventTag(input: CreateEventTagInput!): EventTag
     deleteEvent(id: ID!): User!
     deleteEventTag(input: DeleteEventTagInput!): [EventTag]
     grantRole(input: GrantRoleInput!): User!
+    removeEventGalleryImages(input: EventGalleryImagesInput!): CalendarEvent
     requestInvite(input: RequestInviteInput!): Boolean!
     revokeRole(input: GrantRoleInput!): User!
+    setEventCoverImage(input: EventImageUploadInput!): CalendarEvent
+    setEventPosterImage(input: EventImageUploadInput!): CalendarEvent
+    setEventThumbnailImage(input: EventImageUploadInput!): CalendarEvent
     signin(input: SigninInput!): UserSession!
     signup(input: SignupInput!): [Error]
+    unsetEventCoverImage(id: ID!): CalendarEvent
+    unsetEventPosterImage(id: ID!): CalendarEvent
+    unsetEventThumbnailImage(id: ID!): CalendarEvent
     updateEvent(input: UpdateEventInput!): CalendarEvent
     updateEventTag(input: UpdateEventTagInput!): EventTag
 }
@@ -125,6 +145,21 @@ input CreateModifyEventTagTranslationInput {
 }
 
 input DeleteEventTagInput {
+    id: ID!
+}
+
+input EventGalleryImagesInput {
+    eventId: ID!
+    imageIds: [ID!]!
+}
+
+input EventImageUploadInput {
+    file: Upload!
+    id: ID!
+}
+
+input EventImagesUploadInput {
+    files: [Upload!]!
     id: ID!
 }
 
@@ -214,6 +249,8 @@ scalar RoleType
 scalar Category
 
 scalar Date
+
+scalar Upload
 
 scalar Translations
 

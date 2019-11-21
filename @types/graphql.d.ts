@@ -54,6 +54,7 @@ declare namespace GQL {
   interface ICalendarEvent {
     __typename: 'CalendarEvent';
     id: string;
+    images: IEventImages | null;
     info: IEventInformation | null;
     infos: Array<IEventInformation | null>;
     location: ILocation;
@@ -66,6 +67,19 @@ declare namespace GQL {
 
   interface IInfoOnCalendarEventArguments {
     lang: string;
+  }
+
+  interface IEventImages {
+    __typename: 'EventImages';
+    cover: IImage | null;
+    gallery: Array<IImage> | null;
+    poster: IImage | null;
+    thumb: IImage | null;
+  }
+
+  interface IImage {
+    __typename: 'Image';
+    url: string;
   }
 
   interface IEventInformation {
@@ -151,17 +165,29 @@ declare namespace GQL {
 
   interface IMutation {
     __typename: 'Mutation';
+    addEventGalleryImages: ICalendarEvent | null;
     createEvent: ICalendarEvent | null;
     createEventTag: IEventTag | null;
     deleteEvent: IUser;
     deleteEventTag: Array<IEventTag | null> | null;
     grantRole: IUser;
+    removeEventGalleryImages: ICalendarEvent | null;
     requestInvite: boolean;
     revokeRole: IUser;
+    setEventCoverImage: ICalendarEvent | null;
+    setEventPosterImage: ICalendarEvent | null;
+    setEventThumbnailImage: ICalendarEvent | null;
     signin: IUserSession;
     signup: Array<IError | null> | null;
+    unsetEventCoverImage: ICalendarEvent | null;
+    unsetEventPosterImage: ICalendarEvent | null;
+    unsetEventThumbnailImage: ICalendarEvent | null;
     updateEvent: ICalendarEvent | null;
     updateEventTag: IEventTag | null;
+  }
+
+  interface IAddEventGalleryImagesOnMutationArguments {
+    input: IEventImagesUploadInput;
   }
 
   interface ICreateEventOnMutationArguments {
@@ -184,12 +210,28 @@ declare namespace GQL {
     input: IGrantRoleInput;
   }
 
+  interface IRemoveEventGalleryImagesOnMutationArguments {
+    input: IEventGalleryImagesInput;
+  }
+
   interface IRequestInviteOnMutationArguments {
     input: IRequestInviteInput;
   }
 
   interface IRevokeRoleOnMutationArguments {
     input: IGrantRoleInput;
+  }
+
+  interface ISetEventCoverImageOnMutationArguments {
+    input: IEventImageUploadInput;
+  }
+
+  interface ISetEventPosterImageOnMutationArguments {
+    input: IEventImageUploadInput;
+  }
+
+  interface ISetEventThumbnailImageOnMutationArguments {
+    input: IEventImageUploadInput;
   }
 
   interface ISigninOnMutationArguments {
@@ -200,12 +242,29 @@ declare namespace GQL {
     input: ISignupInput;
   }
 
+  interface IUnsetEventCoverImageOnMutationArguments {
+    id: string;
+  }
+
+  interface IUnsetEventPosterImageOnMutationArguments {
+    id: string;
+  }
+
+  interface IUnsetEventThumbnailImageOnMutationArguments {
+    id: string;
+  }
+
   interface IUpdateEventOnMutationArguments {
     input: IUpdateEventInput;
   }
 
   interface IUpdateEventTagOnMutationArguments {
     input: IUpdateEventTagInput;
+  }
+
+  interface IEventImagesUploadInput {
+    files: Array<any>;
+    id: string;
   }
 
   interface ICreateEventInput {
@@ -254,8 +313,18 @@ declare namespace GQL {
     userId: string;
   }
 
+  interface IEventGalleryImagesInput {
+    eventId: string;
+    imageIds: Array<string>;
+  }
+
   interface IRequestInviteInput {
     email: string;
+  }
+
+  interface IEventImageUploadInput {
+    file: any;
+    id: string;
   }
 
   interface ISigninInput {
