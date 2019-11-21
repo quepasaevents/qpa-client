@@ -1,7 +1,7 @@
 import { Spinner } from "qpa-components"
 import Chip from "qpa-components/Chip"
 import * as React from "react"
-import {useAppContext} from "../App/Context/AppContext"
+import { useAppContext } from "../App/Context/AppContext"
 import { useGetAvailableTagsQuery } from "./useGetAvaiableTagsQuery"
 import styled from "@emotion/styled"
 
@@ -36,7 +36,7 @@ const TagSelector = (props: Props) => {
               color={chipColor}
               clickable={true}
               key={tag.id}
-              label={tag.translation.text || tag.name || 'what'}
+              label={tag.translation.text || tag.name}
               onClick={() => {
                 const newValue = [...props.value]
                 if (isSelected) {
