@@ -26,14 +26,14 @@ export interface EventTagTranslationData {
   language: string
   text: string
 }
-export interface EventTagData {
+export interface EventTagTranslatedData {
   id: string
   name: string
   translation: EventTagTranslationData
 }
 
 export interface Data {
-  tags: EventTagData[]
+  tags: EventTagTranslatedData[]
 }
 
 interface Variables {

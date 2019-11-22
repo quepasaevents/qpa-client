@@ -1,11 +1,15 @@
 import * as HtmlWebpackPlugin from "html-webpack-plugin"
 import * as path from "path"
-import * as webpack from "webpack"
 import { Configuration } from "webpack"
+import * as webpackDevServer from "webpack-dev-server"
 
-export { Configuration, HtmlWebpackPlugin }
+interface WebpackConfig extends Configuration {
+  devServer?: webpackDevServer.Configuration
+}
 
-const config: webpack.Configuration = {
+export { HtmlWebpackPlugin, WebpackConfig }
+
+const config: WebpackConfig = {
   entry: "./App/index.tsx",
   resolve: {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
@@ -26,6 +30,7 @@ const config: webpack.Configuration = {
             plugins: [
               "@babel/plugin-proposal-class-properties",
               "react-hot-loader/babel",
+                "@babel/plugin-proposal-optional-chaining"
             ],
           },
         },

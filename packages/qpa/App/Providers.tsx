@@ -9,19 +9,20 @@ import { BrowserRouter as Router } from "react-router-dom"
 import { AppContextProvider } from "./Context/AppContext"
 import { ThemeProvider, theme } from "qpa-emotion"
 import { CookiesProvider } from "react-cookie"
+import { createUploadLink } from "apollo-upload-client"
 
 interface Props {
   children: React.ReactChild | React.ReactChildren
 }
 
-const httpLink = new HttpLink({
+const uploadLink = createUploadLink({
   uri: "/graphql",
   fetch,
 })
 
 const graphqlClient = new ApolloClient({
   connectToDevTools: true,
-  link: httpLink,
+  link: uploadLink,
   cache: new InMemoryCache().restore((window as any).__APOLLO_DATA__),
 }) as ApolloClient<any>
 

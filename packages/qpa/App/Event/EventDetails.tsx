@@ -4,9 +4,10 @@ import { Button, Spinner } from "qpa-components"
 import * as React from "react"
 import { hot } from "react-hot-loader"
 import { RouteComponentProps, withRouter } from "react-router"
+import { useGetAvailableTagsQuery } from "../../EventTags/useGetAvaiableTagsQuery"
 import { useAppContext } from "../Context/AppContext"
 import useEventDetailsQuery from "./useEventDetailsQuery"
-import EventHeaderImage from './EventHeaderImage'
+import EventCoverImage from "./EventCoverImage"
 
 interface RouteParams {
   eventId: string
@@ -17,7 +18,14 @@ interface Props extends RouteComponentProps<RouteParams> {}
 
 const EventDetails = (props: Props) => {
   const { me, language } = useAppContext()
-
+  const {
+    data: availableTagsData,
+    loading: availableTagsLoading,
+  } = useGetAvailableTagsQuery({
+    variables: {
+      language,
+    },
+  })
   const { data, loading, error } = useEventDetailsQuery({
     variables: { eventId: props.match.params.eventId, language },
   })
@@ -30,19 +38,28 @@ const EventDetails = (props: Props) => {
   const event = data.event
   const meIsOwner = me && me.id === event.owner.id
   const canEdit =
-      meIsOwner ||
-      !!me.roles.find(role => ["admin", "embassador"].includes(role.type))
+    meIsOwner ||
+    !!me?.roles.find(role => ["admin", "embassador"].includes(role.type))
 
   const info = event.infos[0]
   return (
     <Root>
-      <EventHeaderImage event={event} canEdit={canEdit}/>
+      <EventCoverImage event={event} canEdit={canEdit} />
       <Title>{info.title}</Title>
-      <Tags>
-        {event.tags.map(tag => (
-          <Chip color="primary" label={tag.translation.text} key={tag.id} />
-        ))}
-      </Tags>
+      {availableTagsLoading ? (
+        <Spinner />
+      ) : (
+        <Tags>
+          {event.tags.map(tag => {
+            const matchingAvailableTag = availableTagsData.tags.find(
+              availableTag => availableTag.name === tag.name
+            )
+            const tagLabel = matchingAvailableTag ? matchingAvailableTag.translation.text : tag.name
+            return <Chip color="primary" label={tagLabel} key={tag.id} />
+          })}
+        </Tags>
+      )}
+
       <Info>
         {info.description.split("\n").map((descLine, i) => (
           <p key={i}>{descLine}</p>

@@ -3,14 +3,14 @@ import * as React from "react"
 import { Formik, Field, FieldArray, Form, FormikBag, FormikProps } from "formik"
 import { EventTagFullData } from "./useGetAllTagsWithTranslationsQuery"
 import {
-  EventTagData,
+  EventTagTranslatedData,
   EventTagTranslationData,
 } from "./useGetAvaiableTagsQuery"
 import messages from "./EventTagForm.msg.json"
 import styled from "@emotion/styled"
 import intl from "react-intl-universal"
 
-export interface EventTagFormData extends EventTagData {
+export interface EventTagFormData extends EventTagTranslatedData {
   name: string
   translations: EventTagTranslationData[]
 }

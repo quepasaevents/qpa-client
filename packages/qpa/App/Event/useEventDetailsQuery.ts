@@ -1,36 +1,51 @@
 import { QueryHookOptions, useQuery } from "@apollo/react-hooks"
 import gql from "graphql-tag"
-import {EventTagData, TranslationDataFragment} from "../../EventTags/useGetAvaiableTagsQuery"
+import {
+  EventTagTranslatedData,
+  TranslationDataFragment,
+} from "../../EventTags/useGetAvaiableTagsQuery"
 
-const query = gql`
-  ${TranslationDataFragment}
-  query GetOccurrenceDetails($eventId: ID!, $language: String!) {
-    event(id: $eventId) {
+const EventDetailsDataFragment = gql`
+  fragment EventDetailsData on CalendarEvent {
+    id
+    owner {
       id
-      owner {
-        id
-        name
-      }
-      infos {
-        description
-        language
-        title
-      }
-      tags {
-        id
-        name
-        translation(language: $language) {
-          ...TranslationData
-        }
-      }
-      occurrences {
-        id
-        start
-        end
-      }
+      name
+    }
+    infos {
+      description
+      language
+      title
+    }
+    tags {
+      id
+      name
+    }
+    occurrences {
+      id
+      start
+      end
     }
   }
 `
+const query = gql`
+  ${EventDetailsDataFragment}
+  query GetOccurrenceDetails($eventId: ID!) {
+    event(id: $eventId) {
+      ...EventDetailsData
+    }
+  }
+`
+export interface EventImageData {
+  url: string
+}
+export interface EventImagesData {
+  cover?: EventImageData
+}
+export interface EventTagData {
+  id: string
+  name: string
+}
 
 export interface EventDetailsData {
   id: string
@@ -43,6 +58,7 @@ export interface EventDetailsData {
     language
     title
   }>
+  images: EventImagesData
   occurrences: {
     id: string
     start: string
@@ -59,8 +75,7 @@ interface Variables {
   language: string
 }
 
-const useEventDetailsQuery = (
-  options: QueryHookOptions<Data, Variables>
-) => useQuery<Data, Variables>(query, options)
+const useEventDetailsQuery = (options: QueryHookOptions<Data, Variables>) =>
+  useQuery<Data, Variables>(query, options)
 
 export default useEventDetailsQuery
