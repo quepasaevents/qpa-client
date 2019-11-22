@@ -5,7 +5,7 @@ import {
   TranslationDataFragment,
 } from "../../EventTags/useGetAvaiableTagsQuery"
 
-const EventDetailsDataFragment = gql`
+export const EventDetailsDataFragment = gql`
   fragment EventDetailsData on CalendarEvent {
     id
     owner {

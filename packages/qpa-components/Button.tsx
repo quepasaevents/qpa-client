@@ -7,14 +7,15 @@ import MUIButton, {
 } from "@material-ui/core/Button"
 export interface ButtonProps extends MUIButtonProps {
   loading?: boolean
+  label?: string
 }
 
 const Button = (props: ButtonProps) => {
   const theme = useTheme()
-  const { loading, children, ...muiButtonProps } = props
+  const { loading, children, label, ...muiButtonProps } = props
   return (
     <MUIButton variant="contained" {...muiButtonProps}>
-      {loading ? <Spinner /> : children}
+      {loading ? <Spinner /> : (children || label)}
     </MUIButton>
   )
 }

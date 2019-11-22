@@ -1,6 +1,7 @@
 import Chip from "qpa-components/Chip"
 import styled from "qpa-emotion"
 import { Button, Spinner } from "qpa-components"
+import { useMessageCenter } from "qpa-message-center"
 import * as React from "react"
 import { hot } from "react-hot-loader"
 import { RouteComponentProps, withRouter } from "react-router"
@@ -8,6 +9,8 @@ import { useGetAvailableTagsQuery } from "../../EventTags/useGetAvaiableTagsQuer
 import { useAppContext } from "../Context/AppContext"
 import useEventDetailsQuery from "./useEventDetailsQuery"
 import EventCoverImage from "./EventCoverImage"
+import intl from "react-intl-universal"
+import messages from "./EventDetails.msg.json"
 
 interface RouteParams {
   eventId: string
@@ -17,7 +20,11 @@ interface RouteParams {
 interface Props extends RouteComponentProps<RouteParams> {}
 
 const EventDetails = (props: Props) => {
+  intl.load(messages)
+
   const { me, language } = useAppContext()
+  const { addMessage } = useMessageCenter()
+
   const {
     data: availableTagsData,
     loading: availableTagsLoading,
@@ -36,6 +43,15 @@ const EventDetails = (props: Props) => {
     return <p>{error.message}</p>
   }
   const event = data.event
+
+  if (!event) {
+    addMessage({
+      type: "warning",
+      text: intl.get("event-not-found"),
+    })
+    props.history.push("/")
+    return <br />
+  }
   const meIsOwner = me && me.id === event.owner.id
   const canEdit =
     meIsOwner ||
@@ -54,7 +70,9 @@ const EventDetails = (props: Props) => {
             const matchingAvailableTag = availableTagsData.tags.find(
               availableTag => availableTag.name === tag.name
             )
-            const tagLabel = matchingAvailableTag ? matchingAvailableTag.translation.text : tag.name
+            const tagLabel = matchingAvailableTag
+              ? matchingAvailableTag.translation.text
+              : tag.name
             return <Chip color="primary" label={tagLabel} key={tag.id} />
           })}
         </Tags>
