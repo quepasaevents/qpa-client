@@ -1,6 +1,5 @@
 import { useFormik } from "formik"
 import { Button } from "qpa-components"
-import { Props } from "react"
 import * as React from "react"
 import styled from "@emotion/styled"
 import { EventDetailsData } from "./useEventDetailsQuery"

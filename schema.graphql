@@ -83,14 +83,10 @@ type Mutation {
     removeEventGalleryImages(input: EventGalleryImagesInput!): CalendarEvent
     requestInvite(input: RequestInviteInput!): Boolean!
     revokeRole(input: GrantRoleInput!): User!
-    setEventCoverImage(input: EventImageUploadInput!): CalendarEvent
-    setEventPosterImage(input: EventImageUploadInput!): CalendarEvent
-    setEventThumbnailImage(input: EventImageUploadInput!): CalendarEvent
+    setEventImage(input: EventImageUploadInput!): CalendarEvent
     signin(input: SigninInput!): UserSession!
     signup(input: SignupInput!): [Error]
-    unsetEventCoverImage(id: ID!): CalendarEvent
-    unsetEventPosterImage(id: ID!): CalendarEvent
-    unsetEventThumbnailImage(id: ID!): CalendarEvent
+    unsetEventImage(id: UnsetEventImageInput!): CalendarEvent
     updateEvent(input: UpdateEventInput!): CalendarEvent
     updateEventTag(input: UpdateEventTagInput!): EventTag
 }
@@ -126,6 +122,11 @@ type UserSession {
     user: User!
 }
 
+enum CacheControlScope {
+    PRIVATE
+    PUBLIC
+}
+
 input CreateEventInput {
     infos: [EventInformationInput]!
     location: EventLocationInput!
@@ -154,8 +155,9 @@ input EventGalleryImagesInput {
 }
 
 input EventImageUploadInput {
+    eventId: ID!
     file: Upload!
-    id: ID!
+    imageType: EventImageType
 }
 
 input EventImagesUploadInput {
@@ -222,6 +224,11 @@ input SignupInput {
     username: String!
 }
 
+input UnsetEventImageInput {
+    eventId: ID!
+    imageType: EventImageType
+}
+
 input UpdateEventInput {
     id: ID!
     infos: [EventInformationInput!]
@@ -250,6 +257,9 @@ scalar Category
 
 scalar Date
 
+scalar EventImageType
+
+"The `Upload` scalar type represents a file upload."
 scalar Upload
 
 scalar Translations

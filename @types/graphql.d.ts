@@ -174,14 +174,10 @@ declare namespace GQL {
     removeEventGalleryImages: ICalendarEvent | null;
     requestInvite: boolean;
     revokeRole: IUser;
-    setEventCoverImage: ICalendarEvent | null;
-    setEventPosterImage: ICalendarEvent | null;
-    setEventThumbnailImage: ICalendarEvent | null;
+    setEventImage: ICalendarEvent | null;
     signin: IUserSession;
     signup: Array<IError | null> | null;
-    unsetEventCoverImage: ICalendarEvent | null;
-    unsetEventPosterImage: ICalendarEvent | null;
-    unsetEventThumbnailImage: ICalendarEvent | null;
+    unsetEventImage: ICalendarEvent | null;
     updateEvent: ICalendarEvent | null;
     updateEventTag: IEventTag | null;
   }
@@ -222,15 +218,7 @@ declare namespace GQL {
     input: IGrantRoleInput;
   }
 
-  interface ISetEventCoverImageOnMutationArguments {
-    input: IEventImageUploadInput;
-  }
-
-  interface ISetEventPosterImageOnMutationArguments {
-    input: IEventImageUploadInput;
-  }
-
-  interface ISetEventThumbnailImageOnMutationArguments {
+  interface ISetEventImageOnMutationArguments {
     input: IEventImageUploadInput;
   }
 
@@ -242,16 +230,8 @@ declare namespace GQL {
     input: ISignupInput;
   }
 
-  interface IUnsetEventCoverImageOnMutationArguments {
-    id: string;
-  }
-
-  interface IUnsetEventPosterImageOnMutationArguments {
-    id: string;
-  }
-
-  interface IUnsetEventThumbnailImageOnMutationArguments {
-    id: string;
+  interface IUnsetEventImageOnMutationArguments {
+    id: IUnsetEventImageInput;
   }
 
   interface IUpdateEventOnMutationArguments {
@@ -323,8 +303,9 @@ declare namespace GQL {
   }
 
   interface IEventImageUploadInput {
+    eventId: string;
     file: any;
-    id: string;
+    imageType?: any | null;
   }
 
   interface ISigninInput {
@@ -351,6 +332,11 @@ declare namespace GQL {
     path: string;
   }
 
+  interface IUnsetEventImageInput {
+    eventId: string;
+    imageType?: any | null;
+  }
+
   interface IUpdateEventInput {
     id: string;
     infos?: Array<IEventInformationInput> | null;
@@ -364,6 +350,11 @@ declare namespace GQL {
     id: string;
     name: string;
     translations: Array<ICreateModifyEventTagTranslationInput>;
+  }
+
+  const enum CacheControlScope {
+    PRIVATE = 'PRIVATE',
+    PUBLIC = 'PUBLIC'
   }
 
   interface IRevokeRoleInput {
