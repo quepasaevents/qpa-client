@@ -1,0 +1,8 @@
+{
+  "en-GB": {
+    "event-not-found": "The event behind the link you entered does not exist."
+  },
+  "es-ES": {
+    "event-not-found": "El evento atras del enlace que has entrado no existe."
+  }
+}

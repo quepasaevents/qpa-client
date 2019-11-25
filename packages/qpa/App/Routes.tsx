@@ -10,7 +10,7 @@ import InitializeSession from "./Auth/InitializeSession"
 import Login from "./Auth/Login"
 import Signout from "./Auth/Signout"
 import Signup from "./Auth/Signup"
-import EventDetails from "./Event/EventDetails"
+import OccurrenceDetails from "./Event/OccurrenceDetails"
 
 const Routes = () => {
         return (
@@ -23,8 +23,8 @@ const Routes = () => {
                         )}
                     />
                     <Route
-                        path="/o/:sanitizedEventName/:eventId"
-                        component={EventDetails}
+                        path="/o/:sanitizedEventName/:occurrenceId"
+                        component={OccurrenceDetails}
                     />
                     <Route path="/init-session/:hash" component={InitializeSession}/>
                     <Route path="/login" component={Login}/>

@@ -30,7 +30,7 @@ const ListItem = (props: Props) => {
     <Root className={props.className}>
       <Time>{startTime}</Time>
       <Title
-        to={`/o/${sanitizeEventName(event.info.title)}/${event.id}`}
+        to={`/o/${sanitizeEventName(event.info.title)}/${occurrence.id}`}
         css={css`
           white-space: nowrap;
         `}

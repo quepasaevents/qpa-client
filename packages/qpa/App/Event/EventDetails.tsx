@@ -3,47 +3,26 @@ import { Button, Spinner } from "qpa-components"
 import { useMessageCenter } from "qpa-message-center"
 import * as React from "react"
 import { hot } from "react-hot-loader"
-import { RouteComponentProps, withRouter } from "react-router"
+import {RouteComponentProps, withRouter} from "react-router"
+import {OccurrenceData} from "../../Event/useOccurrencesQuery"
 import EventTags from "../../EventTags/EventTags"
-import { useGetAvailableTagsQuery } from "../../EventTags/useGetAvaiableTagsQuery"
 import { useAppContext } from "../Context/AppContext"
-import useEventDetailsQuery from "./useEventDetailsQuery"
+import useEventDetailsQuery, {EventDetailsData} from "./useEventDetailsQuery"
 import EventImageUpload from "./EventImageUpload"
 import intl from "react-intl-universal"
 import messages from "./EventDetails.msg.json"
 
-interface RouteParams {
-  eventId: string
-  sanitizedEventName: string
+interface Props extends RouteComponentProps {
+  event: EventDetailsData
+  occurrence?: OccurrenceData
 }
-
-interface Props extends RouteComponentProps<RouteParams> {}
 
 const EventDetails = (props: Props) => {
   intl.load(messages)
 
   const { me, language } = useAppContext()
-  const { addMessage } = useMessageCenter()
+  const event = props.event
 
-  const { data, loading, error } = useEventDetailsQuery({
-    variables: { eventId: props.match.params.eventId, language },
-  })
-  if (loading) {
-    return <Spinner />
-  }
-  if (error) {
-    return <p>{error.message}</p>
-  }
-  const event = data.event
-
-  if (!event) {
-    addMessage({
-      type: "warning",
-      text: intl.get("event-not-found"),
-    })
-    props.history.push("/")
-    return <br />
-  }
   const meIsOwner = me && me.id === event.owner.id
   const canEdit =
     meIsOwner ||
@@ -80,6 +59,13 @@ const EventDetails = (props: Props) => {
           />
         ) : null}
       </PosterImage>
+      {
+        props.occurrence ? (
+            <OccurrenceTime>
+              { props.occurrence.start }
+            </OccurrenceTime>
+        ) : null
+      }
       <Info>
         {info.description.split("\n").map((descLine, i) => (
           <p key={i}>{descLine}</p>
@@ -136,5 +122,9 @@ const PosterImage = styled.div`
 `
 const StyledEventTags = styled(EventTags)`
   grid-column: content;
+`
+
+const OccurrenceTime = styled.div`
+
 `
 export default hot(module)(withRouter(EventDetails))

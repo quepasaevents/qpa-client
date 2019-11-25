@@ -1,11 +1,9 @@
 {
   "en-GB": {
-    "event-not-found": "The event behind the link you entered does not exist.",
     "upload-cover-image": "Upload cover image",
     "upload-poster-image": "Upload poster image"
   },
   "es-ES": {
-    "event-not-found": "El evento atras del enlace que has entrado no existe.",
     "upload-cover-image": "Subir imagen de fondo",
     "upload-poster-image": "Subir imagen de cartel"
   }
