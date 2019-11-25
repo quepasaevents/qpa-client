@@ -1,7 +1,7 @@
 import * as path from "path"
-import config, { Configuration } from "qpa-webpack/webpack.config"
+import config, { WebpackConfig } from "qpa-webpack/webpack.config"
 
-const ssrConfig: Configuration = {
+const ssrConfig: WebpackConfig = {
   ...config,
   entry: "./index.ts",
   target: "node",
