@@ -9,6 +9,7 @@ const query = gql`
   ${EventDetailsDataFragment}
   query GetOccurrenceDetails($id: ID!) {
     occurrence(id: $id) {
+      id
       start
       end
       event {
@@ -20,6 +21,7 @@ const query = gql`
 
 interface Data {
   occurrence: {
+    id: string
     start: string
     end: string
     event: EventDetailsData

@@ -34,7 +34,7 @@ const OccurrenceDetails = (props: Props) => {
     props.history.push("/")
     return <br />
   }
-  return <EventDetails event={data.occurrence.event} />
+  return <EventDetails event={data.occurrence.event} occurrence={data.occurrence}/>
 }
 
 export default withRouter(OccurrenceDetails)

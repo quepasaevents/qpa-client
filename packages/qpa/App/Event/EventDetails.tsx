@@ -1,3 +1,4 @@
+import {format} from "date-fns"
 import styled, { css } from "qpa-emotion"
 import { Button, Spinner } from "qpa-components"
 import { useMessageCenter } from "qpa-message-center"
@@ -62,7 +63,7 @@ const EventDetails = (props: Props) => {
       {
         props.occurrence ? (
             <OccurrenceTime>
-              { props.occurrence.start }
+              { format(new Date(props.occurrence.start), 'yyyy-MM-dd HH:mm') }
             </OccurrenceTime>
         ) : null
       }
@@ -125,6 +126,6 @@ const StyledEventTags = styled(EventTags)`
 `
 
 const OccurrenceTime = styled.div`
-
+  grid-column: content;
 `
 export default hot(module)(withRouter(EventDetails))
