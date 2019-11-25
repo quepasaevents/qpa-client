@@ -1,16 +1,17 @@
-import {format} from "date-fns"
+import { format } from "date-fns"
 import Chip from "qpa-components/Chip"
 import styled, { css, Theme } from "qpa-emotion"
 import * as React from "react"
 import { hot } from "react-hot-loader"
 import { Link } from "react-router-dom"
-import EventDetails from "../../App/Event/EventDetails"
 import { OccurrenceData } from "../../Event/useOccurrencesQuery"
+import EventTags from "../../EventTags/EventTags"
 
 interface Props {
   occurrence: OccurrenceData
   canEdit: boolean
   className?: string
+  language: string
 }
 
 const sanitizeEventName = (name: string) => {
@@ -40,11 +41,7 @@ const ListItem = (props: Props) => {
         <Location>{event.location.name}</Location>
         <Address>{event.location.address}</Address>
       </Details>
-      <Tags>
-        {event.tags.map(tag => (
-          <Chip key={tag.id} label={tag.translation.text} size="small" />
-        ))}
-      </Tags>
+      <Tags tags={event.tags} language={props.language} />
       {props.canEdit ? (
         <EditLink to={`/event/${event.id}/edit`}>Edit</EditLink>
       ) : null}
@@ -98,11 +95,8 @@ const Location = styled(SubInfoLine)`
 const Address = styled(SubInfoLine)`
   grid-row: line2;
 `
-const Tags = styled.div`
+const Tags = styled(EventTags)`
   grid-row: tags;
   grid-column: details;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
 `
 export default hot(module)(ListItem)

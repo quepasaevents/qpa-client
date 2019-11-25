@@ -1,10 +1,10 @@
-import Chip from "qpa-components/Chip"
 import styled, { css } from "qpa-emotion"
 import { Button, Spinner } from "qpa-components"
 import { useMessageCenter } from "qpa-message-center"
 import * as React from "react"
 import { hot } from "react-hot-loader"
 import { RouteComponentProps, withRouter } from "react-router"
+import EventTags from "../../EventTags/EventTags"
 import { useGetAvailableTagsQuery } from "../../EventTags/useGetAvaiableTagsQuery"
 import { useAppContext } from "../Context/AppContext"
 import useEventDetailsQuery from "./useEventDetailsQuery"
@@ -61,16 +61,13 @@ const EventDetails = (props: Props) => {
     event.infos.find(info => info.language === language) || event.infos[0]
   return (
     <Root>
-      <EventImageUpload
-        event={event}
-        canEdit={canEdit}
-        imageType="cover"
-        title={intl.get("upload-cover-image")}
-      />
       <Title>{info.title}</Title>
+      <StyledEventTags tags={event.tags} language={language} />
       <PosterImage
         css={css`
-          background-image: url(${event.images.poster.url});
+          background-image: url(${event.images.poster?.url});
+          grid-column: content;
+          height: 400px;
         `}
       >
         {canEdit ? (
@@ -82,23 +79,6 @@ const EventDetails = (props: Props) => {
           />
         ) : null}
       </PosterImage>
-
-      {availableTagsLoading ? (
-        <Spinner />
-      ) : (
-        <Tags>
-          {event.tags.map(tag => {
-            const matchingAvailableTag = availableTagsData.tags.find(
-              availableTag => availableTag.name === tag.name
-            )
-            const tagLabel = matchingAvailableTag
-              ? matchingAvailableTag.translation.text
-              : tag.name
-            return <Chip color="primary" label={tagLabel} key={tag.id} />
-          })}
-        </Tags>
-      )}
-
       <Info>
         {info.description.split("\n").map((descLine, i) => (
           <p key={i}>{descLine}</p>
@@ -117,28 +97,27 @@ const EventDetails = (props: Props) => {
 }
 
 const EditButton = styled(Button)`
-  grid-row: small-button;
+  grid-column: right-margin;
   width: 80px;
 `
 const Title = styled.div`
-  grid-row: title;
+  grid-column: content;
   font-size: 32px;
 `
 
 const Info = styled.div`
-  grid-row: info;
+  grid-column: content;
 `
 
 const Root = styled.div`
   margin-top: 24px;
   display: grid;
-  grid-template-rows:
-    [title-start small-button-start] 24px
-    [small-button-end] 24px
-    [title-end tags-start] 48px
-    [tags-end info-start] 1fr
-    [info-end];
-  grid-gap: 12px;
+  grid-template-columns:
+    [page-start back-button-start left-margin-start] 24px
+    [content-start back-button-end left-margin-end] 841px
+    [content-end right-margin-start] 24px
+    [right-margin-end];
+  grid-gap: 4px;
   padding: 8px;
 `
 
@@ -156,7 +135,7 @@ const PosterImage = styled.div`
     }
   }
 `
-const Tags = styled.div`
-  grid-row: tags;
+const StyledEventTags = styled(EventTags)`
+  grid-column: content;
 `
 export default hot(module)(withRouter(EventDetails))

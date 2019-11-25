@@ -34,7 +34,7 @@ const List = (props: Props) => {
     days[day].push(occ)
   })
   const dayNames = Object.keys(days)
-  const { me } = useAppContext()
+  const { me, language } = useAppContext()
   const isSuperUser =
     me && !!me.roles.find(role => ["admin", "embassador"].includes(role.type))
   return (
@@ -59,6 +59,7 @@ const List = (props: Props) => {
                     canEdit={isOwner || isSuperUser}
                     key={occ.id}
                     occurrence={occ}
+                    language={language}
                   />
                 )
               })}
