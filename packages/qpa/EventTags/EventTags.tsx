@@ -45,8 +45,8 @@ const Root = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  * >:not(:last-of-type) {
-    margin-right: 2px;
+  > *:not(:last-of-type) {
+    margin-right: 4px;
   }
 `
 

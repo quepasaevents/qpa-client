@@ -96,6 +96,7 @@ const EditButton = styled(Button)`
 const Title = styled.div`
   grid-column: content;
   font-size: 32px;
+  grid-row: 1/1;
 `
 
 const Info = styled.div`
