@@ -10,14 +10,14 @@ interface Props {
   canEdit: boolean
   imageType: EventImageType
   title?: string
+    className?: string
 }
 
 const EventImageUpload = (props: Props) => {
   const [uploadImage, { data, loading, error }] = useSetEventImage()
   return (
-    <Root>
+    <Root className={props.className}>
       {props.canEdit && props.title ? <span>{props.title}</span> : null}
-      <img src={props.event?.images?.cover?.url} />
       <input
         type="file"
         accept="image/*"
@@ -38,4 +38,4 @@ const EventImageUpload = (props: Props) => {
 
 const Root = styled.div``
 
-export default EventImageUpload
+export default styled(EventImageUpload)``

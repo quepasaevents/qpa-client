@@ -58,8 +58,9 @@ const query = gql`
 `
 export interface EventImagesData {
   cover?: EventImageData
-  thumb?: EventImagesData
-  poster?: EventImagesData
+  thumb?: EventImageData
+  poster?: EventImageData
+  gallery?: EventImageData[]
 }
 
 export interface EventTagData {

@@ -1,5 +1,5 @@
 import Chip from "qpa-components/Chip"
-import styled from "qpa-emotion"
+import styled, { css } from "qpa-emotion"
 import { Button, Spinner } from "qpa-components"
 import { useMessageCenter } from "qpa-message-center"
 import * as React from "react"
@@ -57,7 +57,8 @@ const EventDetails = (props: Props) => {
     meIsOwner ||
     !!me?.roles.find(role => ["admin", "embassador"].includes(role.type))
 
-  const info = event.infos[0]
+  const info =
+    event.infos.find(info => info.language === language) || event.infos[0]
   return (
     <Root>
       <EventImageUpload
@@ -66,16 +67,21 @@ const EventDetails = (props: Props) => {
         imageType="cover"
         title={intl.get("upload-cover-image")}
       />
-      <EventImageUpload
-        event={event}
-        canEdit={canEdit}
-        imageType="poster"
-        title={intl.get("upload-poster-image")}
-      />
       <Title>{info.title}</Title>
-      {
-        event.images?.cover?.url ? <img src={event.images.cover.url}/> : null
-      }
+      <PosterImage
+        css={css`
+          background-image: url(${event.images.poster.url});
+        `}
+      >
+        {canEdit ? (
+          <EventImageUpload
+            event={event}
+            canEdit={canEdit}
+            imageType="poster"
+            title={intl.get("upload-poster-image")}
+          />
+        ) : null}
+      </PosterImage>
 
       {availableTagsLoading ? (
         <Spinner />
@@ -136,6 +142,20 @@ const Root = styled.div`
   padding: 8px;
 `
 
+const PosterImage = styled.div`
+  background-size: contain;
+  background-repeat: no-repeat;
+  max-width: 100%;
+  ${EventImageUpload} {
+    opacity: 0;
+    transition: opacity ease-out 0.1s;
+  }
+  &:hover {
+    ${EventImageUpload} {
+      opacity: 1;
+    }
+  }
+`
 const Tags = styled.div`
   grid-row: tags;
 `
