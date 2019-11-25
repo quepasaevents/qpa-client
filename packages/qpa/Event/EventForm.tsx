@@ -126,7 +126,7 @@ const EventForm = (props: Props) => {
         return errors
       }}
     >
-      {({ isValid, setFieldValue, values }) => {
+      {({ isValid, setFieldValue, values, errors }) => {
         return (
           <StyledForm>
             <TagSelector
@@ -183,14 +183,12 @@ const EventForm = (props: Props) => {
                       {({ field }) => {
                         const timeStartOnChange = newStartDate => {
                           const oneHourLater = addHours(newStartDate, 1)
-                          setFieldValue(
-                            "time.start" as any,
-                            format(newStartDate, "yyyy-MM-dd'T'HH:mm")
-                          )
-                          setFieldValue(
-                            "time.end" as any,
-                            format(oneHourLater, "yyyy-MM-dd'T'HH:mm")
-                          )
+                          const newTime = {
+                            ...values.time,
+                            start: format(newStartDate, "yyyy-MM-dd'T'HH:mm"),
+                            end: format(oneHourLater, "yyyy-MM-dd'T'HH:mm"),
+                          }
+                          setFieldValue("time", newTime)
                         }
                         return (
                           <>
