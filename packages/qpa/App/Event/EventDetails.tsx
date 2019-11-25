@@ -25,14 +25,6 @@ const EventDetails = (props: Props) => {
   const { me, language } = useAppContext()
   const { addMessage } = useMessageCenter()
 
-  const {
-    data: availableTagsData,
-    loading: availableTagsLoading,
-  } = useGetAvailableTagsQuery({
-    variables: {
-      language,
-    },
-  })
   const { data, loading, error } = useEventDetailsQuery({
     variables: { eventId: props.match.params.eventId, language },
   })
@@ -61,6 +53,15 @@ const EventDetails = (props: Props) => {
     event.infos.find(info => info.language === language) || event.infos[0]
   return (
     <Root>
+      {canEdit ? (
+          <EditButton
+              onClick={() => props.history.push(`/event/${event.id}/edit`)}
+              css={{}}
+          >
+            Edit
+          </EditButton>
+      ) : null}
+
       <Title>{info.title}</Title>
       <StyledEventTags tags={event.tags} language={language} />
       <PosterImage
@@ -84,14 +85,6 @@ const EventDetails = (props: Props) => {
           <p key={i}>{descLine}</p>
         ))}
       </Info>
-      {canEdit ? (
-        <EditButton
-          onClick={() => props.history.push(`/event/${event.id}/edit`)}
-          css={{}}
-        >
-          Edit
-        </EditButton>
-      ) : null}
     </Root>
   )
 }
@@ -116,7 +109,7 @@ const Root = styled.div`
     [page-start back-button-start left-margin-start] 24px
     [content-start back-button-end left-margin-end] 841px
     [content-end right-margin-start] 24px
-    [right-margin-end];
+    [right-margin-end page-end];
   grid-gap: 4px;
   padding: 8px;
 `
@@ -124,8 +117,13 @@ const Root = styled.div`
 const PosterImage = styled.div`
   background-size: contain;
   background-repeat: no-repeat;
+  background-position: center;
   max-width: 100%;
+  position: relative;
   ${EventImageUpload} {
+    position: absolute;
+    right: 0;
+    top: 0;
     opacity: 0;
     transition: opacity ease-out 0.1s;
   }
