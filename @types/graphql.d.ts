@@ -71,14 +71,14 @@ declare namespace GQL {
 
   interface IEventImages {
     __typename: 'EventImages';
-    cover: IImage | null;
-    gallery: Array<IImage> | null;
-    poster: IImage | null;
-    thumb: IImage | null;
+    cover: IEventImage | null;
+    gallery: Array<IEventImage> | null;
+    poster: IEventImage | null;
+    thumb: IEventImage | null;
   }
 
-  interface IImage {
-    __typename: 'Image';
+  interface IEventImage {
+    __typename: 'EventImage';
     url: string;
   }
 

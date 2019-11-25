@@ -1,19 +1,22 @@
-import { useFormik } from "formik"
 import { Button } from "qpa-components"
 import * as React from "react"
 import styled from "@emotion/styled"
+import { EventImageType } from "../../../../@types"
 import { EventDetailsData } from "./useEventDetailsQuery"
-import useSetCoverImage from "./useSetCoverImage"
+import useSetEventImage from "./useSetEventImage"
 
 interface Props {
   event: EventDetailsData
   canEdit: boolean
+  imageType: EventImageType
+  title?: string
 }
 
-const EventCoverImage = (props: Props) => {
-  const [uploadImage, { data, loading, error }] = useSetCoverImage()
+const EventImageUpload = (props: Props) => {
+  const [uploadImage, { data, loading, error }] = useSetEventImage()
   return (
     <Root>
+      {props.canEdit && props.title ? <span>{props.title}</span> : null}
       <img src={props.event?.images?.cover?.url} />
       <input
         type="file"
@@ -23,16 +26,16 @@ const EventCoverImage = (props: Props) => {
           uploadImage({
             variables: {
               eventId: props.event.id,
-              file
-            }
+              file,
+              imageType: props.imageType,
+            },
           })
         }}
       />
-      <Button label="upload" />
     </Root>
   )
 }
 
 const Root = styled.div``
 
-export default EventCoverImage
+export default EventImageUpload

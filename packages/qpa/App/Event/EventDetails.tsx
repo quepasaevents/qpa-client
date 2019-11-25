@@ -8,7 +8,7 @@ import { RouteComponentProps, withRouter } from "react-router"
 import { useGetAvailableTagsQuery } from "../../EventTags/useGetAvaiableTagsQuery"
 import { useAppContext } from "../Context/AppContext"
 import useEventDetailsQuery from "./useEventDetailsQuery"
-import EventCoverImage from "./EventCoverImage"
+import EventImageUpload from "./EventImageUpload"
 import intl from "react-intl-universal"
 import messages from "./EventDetails.msg.json"
 
@@ -60,8 +60,23 @@ const EventDetails = (props: Props) => {
   const info = event.infos[0]
   return (
     <Root>
-      <EventCoverImage event={event} canEdit={canEdit} />
+      <EventImageUpload
+        event={event}
+        canEdit={canEdit}
+        imageType="cover"
+        title={intl.get("upload-cover-image")}
+      />
+      <EventImageUpload
+        event={event}
+        canEdit={canEdit}
+        imageType="poster"
+        title={intl.get("upload-poster-image")}
+      />
       <Title>{info.title}</Title>
+      {
+        event.images?.cover?.url ? <img src={event.images.cover.url}/> : null
+      }
+
       {availableTagsLoading ? (
         <Spinner />
       ) : (

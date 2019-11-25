@@ -5,7 +5,16 @@ import {
   TranslationDataFragment,
 } from "../../EventTags/useGetAvaiableTagsQuery"
 
+export const EventImageDataFragment = gql`
+  fragment EventImageData on EventImage {
+    url,
+  }
+`
+export interface EventImageData {
+  url: string
+}
 export const EventDetailsDataFragment = gql`
+  ${EventImageDataFragment}
   fragment EventDetailsData on CalendarEvent {
     id
     owner {
@@ -26,6 +35,17 @@ export const EventDetailsDataFragment = gql`
       start
       end
     }
+    images {
+      cover {
+        ...EventImageData
+      }
+      thumb {
+        ...EventImageData
+      }
+      poster {
+        ...EventImageData
+      }
+    }
   }
 `
 const query = gql`
@@ -36,12 +56,12 @@ const query = gql`
     }
   }
 `
-export interface EventImageData {
-  url: string
-}
 export interface EventImagesData {
   cover?: EventImageData
+  thumb?: EventImagesData
+  poster?: EventImagesData
 }
+
 export interface EventTagData {
   id: string
   name: string

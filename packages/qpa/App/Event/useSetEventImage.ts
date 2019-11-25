@@ -1,5 +1,6 @@
 import { MutationHookOptions, useMutation } from "@apollo/react-hooks"
 import gql from "graphql-tag"
+import {EventImageType} from "../../../../@types"
 import {
   EventDetailsData,
   EventDetailsDataFragment,
@@ -7,8 +8,14 @@ import {
 
 const mutation = gql`
   ${EventDetailsDataFragment}
-  mutation SetCoverImage($eventId: ID!, $file: Upload!) {
-    setEventCoverImage(input: { id: $eventId, file: $file }) {
+  mutation SetEventImage(
+    $eventId: ID!
+    $file: Upload!
+    $imageType: EventImageType!
+  ) {
+    setEventImage(
+      input: { eventId: $eventId, file: $file, imageType: $imageType }
+    ) {
       id
       ...EventDetailsData
     }
@@ -17,10 +24,11 @@ const mutation = gql`
 interface Variables {
   eventId: string
   file: any // todo what's the right type here?
+  imageType: EventImageType
 }
 
 interface Data {
-  setEventCoverImage: EventDetailsData
+  setEventImage: EventDetailsData
 }
 
 export default (options?: MutationHookOptions<Data, Variables>) =>

@@ -23,11 +23,15 @@ type Error {
     path: String!
 }
 
+type EventImage {
+    url: String!
+}
+
 type EventImages {
-    cover: Image
-    gallery: [Image!]
-    poster: Image
-    thumb: Image
+    cover: EventImage
+    gallery: [EventImage!]
+    poster: EventImage
+    thumb: EventImage
 }
 
 type EventInformation {
@@ -62,10 +66,6 @@ type EventTime {
     recurrence: String
     start: Timestamp
     timeZone: TimeZone
-}
-
-type Image {
-    url: String!
 }
 
 type Location {
