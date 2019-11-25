@@ -86,5 +86,6 @@ const StyledFooter = styled(Footer)`
 const StyledHeader = styled(Header)`
   grid-column: full;
   grid-row: header;
+  max-width: 100vw;
 `
 export default hot(App)
