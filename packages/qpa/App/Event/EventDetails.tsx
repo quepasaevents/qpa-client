@@ -1,14 +1,14 @@
-import {format} from "date-fns"
+import { format } from "date-fns"
 import styled, { css } from "qpa-emotion"
 import { Button, Spinner } from "qpa-components"
 import { useMessageCenter } from "qpa-message-center"
 import * as React from "react"
 import { hot } from "react-hot-loader"
-import {RouteComponentProps, withRouter} from "react-router"
-import {OccurrenceData} from "../../Event/useOccurrencesQuery"
+import { RouteComponentProps, withRouter } from "react-router"
+import { OccurrenceData } from "../../Event/useOccurrencesQuery"
 import EventTags from "../../EventTags/EventTags"
 import { useAppContext } from "../Context/AppContext"
-import useEventDetailsQuery, {EventDetailsData} from "./useEventDetailsQuery"
+import useEventDetailsQuery, { EventDetailsData } from "./useEventDetailsQuery"
 import EventImageUpload from "./EventImageUpload"
 import intl from "react-intl-universal"
 import messages from "./EventDetails.msg.json"
@@ -34,12 +34,12 @@ const EventDetails = (props: Props) => {
   return (
     <Root>
       {canEdit ? (
-          <EditButton
-              onClick={() => props.history.push(`/event/${event.id}/edit`)}
-              css={{}}
-          >
-            Edit
-          </EditButton>
+        <EditButton
+          onClick={() => props.history.push(`/event/${event.id}/edit`)}
+          css={{}}
+        >
+          Edit
+        </EditButton>
       ) : null}
 
       <Title>{info.title}</Title>
@@ -60,13 +60,11 @@ const EventDetails = (props: Props) => {
           />
         ) : null}
       </PosterImage>
-      {
-        props.occurrence ? (
-            <OccurrenceTime>
-              { format(new Date(props.occurrence.start), 'yyyy-MM-dd HH:mm') }
-            </OccurrenceTime>
-        ) : null
-      }
+      {props.occurrence ? (
+        <OccurrenceTime>
+          {format(new Date(props.occurrence.start), "yyyy-MM-dd HH:mm")}
+        </OccurrenceTime>
+      ) : null}
       <Info>
         {info.description.split("\n").map((descLine, i) => (
           <p key={i}>{descLine}</p>
@@ -94,10 +92,15 @@ const Root = styled.div`
   margin-top: 24px;
   display: grid;
   grid-template-columns:
-    [page-start back-button-start left-margin-start] 24px
-    [content-start back-button-end left-margin-end] 841px
+    [page-start left-margin-start] 24px
+    [content-start left-margin-end] 841px
     [content-end right-margin-start] 24px
     [right-margin-end page-end];
+  @media (max-width: 900px) {
+    grid-template-columns:
+      [content-start left-margin-end] auto
+      [content-end page-end];
+  }
   grid-gap: 4px;
   padding: 8px;
 `
