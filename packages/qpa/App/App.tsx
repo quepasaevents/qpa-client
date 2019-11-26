@@ -1,7 +1,7 @@
 import styled, { css, Global } from "qpa-emotion"
 import * as React from "react"
 import { hot } from "react-hot-loader/root"
-import {useAppContext} from "./Context/AppContext"
+import { useAppContext } from "./Context/AppContext"
 import Footer from "./Footer"
 import Header from "./Header/Header"
 import Routes from "./Routes"
@@ -34,6 +34,11 @@ const App = () => {
               BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
             font-family: var(--sansserif);
           }
+          *,
+          *::before,
+          *::after {
+            box-sizing: border-box;
+          }
           #app {
             height: 100%;
           }
@@ -62,13 +67,13 @@ const Root = styled.div`
     [header-end center-start] 1fr
     [center-end footer-start] 32px
     [footer-end];
-    
-  @media(max-width: 640px) {
+
+  @media (max-width: 640px) {
     grid-template-columns:
-     [left-start full-start] 0
-     [left-end content-start] auto
-     [content-end right-start] 0
-     [right-end full-end];
+      [left-start full-start] 0
+      [left-end content-start] auto
+      [content-end right-start] 0
+      [right-end full-end];
   }
 `
 
