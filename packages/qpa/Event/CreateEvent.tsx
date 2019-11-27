@@ -1,8 +1,9 @@
+import gql from "graphql-tag"
 import * as React from "react"
 import { useMessageCenter } from "qpa-message-center"
 import { RouteComponentProps, withRouter } from "react-router"
 import { useAppContext } from "../App/Context/AppContext"
-import useCreateEventMutation from "./useCreateEventMutation"
+import useCreateEventMutation, { Data as CreateEventData } from "./useCreateEventMutation"
 import EventForm, { EventFormData } from "./EventForm"
 import intl from "react-intl-universal"
 
@@ -10,12 +11,13 @@ const CreateEvent = (props: RouteComponentProps) => {
   const { addMessage } = useMessageCenter()
   const { supportedLocales } = useAppContext()
   const [createEvent, { loading }] = useCreateEventMutation({
-    onCompleted: data => {
+    onCompleted: (data: CreateEventData) => {
       addMessage({
         type: "success",
         text: intl.get("event-create-success"),
       })
-      props.history.push(`/event/${data.createEvent.id}/edit`)
+      props.history.push(`/o/aaa/${data.createEvent.occurrences[0].id}`)
+
     },
     onError: error => {
       addMessage({

@@ -39,7 +39,7 @@ interface OccurrenceData {
   start: string
   end: string
 }
-interface Data {
+export interface Data {
   createEvent: {
     id: string
     infos: InfoData[]
