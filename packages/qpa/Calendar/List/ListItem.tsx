@@ -29,12 +29,7 @@ const ListItem = (props: Props) => {
   return (
     <Root className={props.className}>
       <Time>{startTime}</Time>
-      <Title
-        to={`/o/${sanitizeEventName(event.info.title)}/${occurrence.id}`}
-        css={css`
-          white-space: nowrap;
-        `}
-      >
+      <Title to={`/o/${sanitizeEventName(event.info.title)}/${occurrence.id}`}>
         {event.info.title}
       </Title>
       <Details>
@@ -55,9 +50,11 @@ const Root = styled.div`
   box-sizing: border-box;
   display: grid;
   grid-gap: 4px;
-  grid-template-columns: [time-start] 48px [time-end details-start] 1fr [edit-start] 24px [edit-end details-end];
+  grid-template-columns:
+    [time-start] 48px [time-end details-start] minmax(0, 1fr)
+    [edit-start] 24px [edit-end details-end];
   grid-template-rows:
-    [main] 24px
+    [main] auto
     [line1] auto
     [line2] auto
     [tags] auto;
@@ -71,7 +68,11 @@ const Title = styled(Link)`
   color: ${(props: { theme: Theme }) => props.theme.colors.lead};
   font-size: 1.1em;
   text-decoration: none;
+  @media (max-width: 640px) {
+    font-size: 14px;
+  }
 `
+
 const EditLink = styled(Link)`
   margin-left: 8px;
   font-size: 0.6em;
@@ -83,6 +84,9 @@ const EditLink = styled(Link)`
 const Time = styled.div`
   grid-column: time;
   grid-row: main;
+  @media (max-width: 640px) {
+    font-size: 14px;
+  }
 `
 const SubInfoLine = styled.div`
   grid-column: details;
