@@ -62,6 +62,9 @@ const Root = styled.div`
 
 const Details = styled.div`
   grid-column: details;
+  @media(max-width: 640px) {
+    font-size: 12px;
+  }
 `
 
 const Title = styled(Link)`

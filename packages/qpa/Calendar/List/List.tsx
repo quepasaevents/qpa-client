@@ -90,7 +90,7 @@ const DayPresentation: any = styled.div`
   text-align: center;
   background-color: ${(props: { theme: Theme }) =>
     props.theme.colors.secondary};
-  padding: 2px 8px;
+  padding: 8px;
   font-weight: 600;
   color: rgba(0, 0, 0, 0.6);
   margin-right: 18px;
