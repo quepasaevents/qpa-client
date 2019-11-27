@@ -37,21 +37,16 @@ const Header = (props: Props) => {
             onChange={setLocale}
           />
           <LinksSection>
+            <StyledLink to="/create">
+              <Icon label={intl.get("create-event")}>
+                <PlusIcon />{" "}
+              </Icon>
+            </StyledLink>
             {me ? (
               <>
-                <StyledLink to="/create">
-                  <Icon label="Add Event">
-                    <PlusIcon />{" "}
-                  </Icon>
-                </StyledLink>
                 <MeMenu me={me} />
               </>
-            ) : (
-              <>
-                <StyledLink to="/login">Log In</StyledLink>
-                <StyledLink to="/signup">Sign Up</StyledLink>
-              </>
-            )}
+            ) : null}
           </LinksSection>
         </Root>
       )}
