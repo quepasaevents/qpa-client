@@ -1,14 +1,13 @@
 import { format } from "date-fns"
 import styled, { css } from "qpa-emotion"
-import { Button, Spinner } from "qpa-components"
-import { useMessageCenter } from "qpa-message-center"
+import { Button } from "qpa-components"
 import * as React from "react"
 import { hot } from "react-hot-loader"
 import { RouteComponentProps, withRouter } from "react-router"
 import { OccurrenceData } from "../../Event/useOccurrencesQuery"
 import EventTags from "../../EventTags/EventTags"
 import { useAppContext } from "../Context/AppContext"
-import useEventDetailsQuery, { EventDetailsData } from "./useEventDetailsQuery"
+import { EventDetailsData } from "./useEventDetailsQuery"
 import EventImageUpload from "./EventImageUpload"
 import intl from "react-intl-universal"
 import messages from "./EventDetails.msg.json"
@@ -57,6 +56,9 @@ const EventDetails = (props: Props) => {
             canEdit={canEdit}
             imageType="poster"
             title={intl.get("upload-poster-image")}
+            css={css`
+              opacity: ${event.images.poster?.url ? 0 : 1};
+            `}
           />
         ) : null}
       </PosterImage>
@@ -110,14 +112,9 @@ const PosterImage = styled.div`
   background-repeat: no-repeat;
   background-position: center;
   max-width: 100%;
-  position: relative;
-  ${EventImageUpload} {
-    position: absolute;
-    right: 0;
-    top: 0;
-    opacity: 0;
-    transition: opacity ease-out 0.1s;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
   &:hover {
     ${EventImageUpload} {
       opacity: 1;
