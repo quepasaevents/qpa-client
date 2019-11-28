@@ -15,12 +15,12 @@ const devServer: WebpackDevServer.Configuration = {
     "/graphql": {
       redirect: false,
       changeOrigin: true,
-      target: process.env.API_URL || "https://alpha.quepasaalpujarra.com",
+      target: process.env.API_URL || "https://quepasaorgiva.com",
     },
     "/api": {
       redirect: false,
       changeOrigin: true,
-      target: process.env.API_URL || "https://alpha.quepasaalpujarra.com",
+      target: process.env.API_URL || "https://quepasaorgiva.com",
     },
   },
 }

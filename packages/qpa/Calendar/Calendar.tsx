@@ -5,6 +5,7 @@ import { css } from "qpa-emotion"
 import * as React from "react"
 import { RouteComponentProps, withRouter } from "react-router"
 import { useAppContext } from "../App/Context/AppContext"
+import Introduction from "../App/Hero/Introduction"
 import useOccurrencesQuery from "../Event/useOccurrencesQuery"
 import List from "./List"
 import { hot } from "react-hot-loader"
@@ -40,7 +41,7 @@ const Calendar = (props: Props) => {
 
   const { data, error, loading } = useOccurrencesQuery({
     variables: {
-      language: locale.substring(0,2),
+      language: locale.substring(0, 2),
       filter: {
         from: format(fromDate, "yyyy-MM-dd'T'HH:mm"),
         to: format(toDate, "yyyy-MM-dd'T'HH:mm"),
@@ -60,6 +61,12 @@ const Calendar = (props: Props) => {
 
   return (
     <Root>
+      <Introduction
+        css={css`
+          margin: 4px;
+          margin-bottom: 24px;
+        `}
+      />
       <List
         className={props.className}
         occurrences={data.occurrences}
