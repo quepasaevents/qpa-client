@@ -1,5 +1,5 @@
 import { Icon } from "qpa-components"
-import styled, { Theme, useTheme } from "qpa-emotion"
+import styled, { css, Theme, useTheme } from "qpa-emotion"
 import * as React from "react"
 import { hot } from "react-hot-loader"
 import { Link } from "react-router-dom"
@@ -38,7 +38,17 @@ const Header = (props: Props) => {
           />
           <LinksSection>
             <StyledLink to="/create">
-              <Icon label={intl.get("create-event")}>
+              <Icon
+                label={intl.get("create-event")}
+                css={css`
+                  color: ${theme.colors.gray};
+                  fill: ${theme.colors.gray};
+                  &:hover {
+                  color: ${theme.colors.secondary};
+                  fill: ${theme.colors.secondary};
+                  }
+                `}
+              >
                 <PlusIcon />{" "}
               </Icon>
             </StyledLink>

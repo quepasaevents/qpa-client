@@ -4,9 +4,10 @@ import styled from "@emotion/styled"
 interface Props {
   label?: string
   children: React.ReactChild
+  className?: string
 }
 const Icon = (props: Props) => (
-  <IconRoot>
+  <IconRoot className={props.className}>
     <GraphicalIcon>{props.children}</GraphicalIcon>
     {props.label ? <Label>{props.label}</Label> : null}
   </IconRoot>
@@ -19,9 +20,6 @@ const GraphicalIcon = styled.div`
   border-radius: 100%;
   width: 20px;
   height: 20px;
-  svg {
-    fill: white;
-  }
 `
 
 const IconRoot = styled.div`

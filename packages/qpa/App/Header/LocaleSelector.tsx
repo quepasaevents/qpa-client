@@ -2,6 +2,8 @@ import { Button, ButtonGroup } from "qpa-components"
 import { css, useTheme } from "qpa-emotion"
 import * as React from "react"
 import styled from "@emotion/styled"
+import flagGB from "./flag-gb.png"
+import flagES from "./flag-es.png"
 
 interface Props {
   locales: string[]
@@ -10,9 +12,15 @@ interface Props {
   className?: string
 }
 
-const LANGUAGE_NAMES = {
-  en: "English",
-  es: "Español",
+const LANGUAGE_DISPLAY = {
+  "en-GB": {
+    name: "English",
+    icon: flagGB,
+  },
+  "es-ES": {
+    name: "Español",
+    icon: flagES,
+  },
 }
 
 const LocaleSelector = (props: Props) => {
@@ -22,7 +30,6 @@ const LocaleSelector = (props: Props) => {
     <Root className={props.className}>
       <ButtonGroup>
         {props.locales.map(availableLocale => {
-          const availableLanguage = availableLocale.substr(0, 2)
           const isActive = availableLocale === props.value
           return (
             <Button
@@ -31,9 +38,7 @@ const LocaleSelector = (props: Props) => {
               onClick={() => props.onChange(availableLocale)}
               css={css`
                 && {
-                  color: ${isActive
-                    ? theme.colors.secondary
-                    : theme.colors.gray};
+                  background-color: ${isActive ? theme.colors.gray : null};
                   &:hover {
                     background-color: ${!isActive
                       ? theme.colors.secondary
@@ -43,7 +48,7 @@ const LocaleSelector = (props: Props) => {
                 }
               `}
             >
-              {LANGUAGE_NAMES[availableLanguage]}
+              <LocaleIconImg src={LANGUAGE_DISPLAY[availableLocale].icon} />
             </Button>
           )
         })}
@@ -52,5 +57,10 @@ const LocaleSelector = (props: Props) => {
   )
 }
 const Root = styled.div``
-
+const LocaleIconImg = styled.img`
+  height: 24px;
+  @media (max-width: 800px) {
+    height: 18px;
+  }
+`
 export default LocaleSelector
