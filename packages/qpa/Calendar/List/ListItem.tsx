@@ -25,7 +25,7 @@ const sanitizeEventName = (name: string) => {
 const ListItem = (props: Props) => {
   const { occurrence } = props
   const { event } = occurrence
-  const startTime = format(new Date(occurrence.start), "HH:mm")
+  const startTime = occurrence.start.split('T')[1]
   return (
     <Root className={props.className}>
       <Time>{startTime}</Time>
