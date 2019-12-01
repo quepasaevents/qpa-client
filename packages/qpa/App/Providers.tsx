@@ -15,9 +15,13 @@ interface Props {
   children: React.ReactChild | React.ReactChildren
 }
 
+const persistedAuthToken = localStorage.getItem("authentication")
 const uploadLink = createUploadLink({
   uri: "/graphql",
   fetch,
+  headers: {
+    authentication: persistedAuthToken
+  }
 })
 
 const graphqlClient = new ApolloClient({

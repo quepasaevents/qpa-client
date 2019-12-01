@@ -6,13 +6,12 @@ import {useAppContext} from "../Context/AppContext"
 interface RouteParams {
   hash: string
 }
-interface Props extends RouteComponentProps<{ hash: string }> {}
+interface Props extends RouteComponentProps<RouteParams> {}
 
 const InitializeSession = (props: Props) => {
   const [responseCode, setResponseCode] = React.useState(0)
   const [loading, setLoading] = React.useState(true)
   const { isSSR, refetch } = useAppContext()
-
   if (!isSSR) {
     React.useEffect(() => {
       fetch(`/api/init-session`, {
@@ -23,10 +22,13 @@ const InitializeSession = (props: Props) => {
         body: JSON.stringify({ hash: props.match.params.hash }),
       }).then(async (res) => {
         setResponseCode(res.status)
+        const authToken = await res.text()
+        localStorage.setItem("authentication", authToken)
         setLoading(false)
         if (res.status === 200) {
           refetch()
           props.history.push("/")
+          props.history.go(0)
         }
       })
     }, [1])
@@ -46,4 +48,4 @@ const InitializeSession = (props: Props) => {
 
 const Root = styled.div``
 
-export default withRouter<Props>(InitializeSession)
+export default withRouter(InitializeSession)
