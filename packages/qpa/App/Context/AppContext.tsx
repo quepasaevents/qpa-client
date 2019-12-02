@@ -71,9 +71,6 @@ const AppContextProvider = (props: Props) => {
       : null
   const resultingLocale = cookies.locale ? cookies.locale : defaultlocale
 
-  if (loading) {
-    return <Spinner />
-  }
   if (error) {
     return <p>Error {error.message}</p>
   }
@@ -81,7 +78,7 @@ const AppContextProvider = (props: Props) => {
   return (
     <Provider
       value={{
-        me: data.me,
+        me: data?.me,
         isSSR: props.isSSR,
         supportedLocales: SUPPORTED_LOCALES,
         locale: resultingLocale,

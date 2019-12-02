@@ -23,7 +23,6 @@ const InitializeSession = (props: Props) => {
       }).then(async (res) => {
         setResponseCode(res.status)
         const authToken = await res.text()
-        localStorage.setItem("authentication", authToken)
         setLoading(false)
         if (res.status === 200) {
           refetch()

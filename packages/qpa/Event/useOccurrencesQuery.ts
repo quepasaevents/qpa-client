@@ -2,7 +2,7 @@ import {QueryHookOptions, useQuery} from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 
 const query = gql`
-  query EventsQuery($filter: OccurrencesQueryFilter!, $language: String!) {
+  query OccurrencesQuery($filter: OccurrencesQueryFilter!, $language: String!) {
     occurrences(filter: $filter) {
       id
       start
