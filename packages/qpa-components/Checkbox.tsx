@@ -3,7 +3,7 @@ import MUICheckbox, { CheckboxProps } from "@material-ui/core/Checkbox"
 import FormControlLabel from "@material-ui/core/FormControlLabel"
 
 interface Props extends CheckboxProps {
-  label: string
+  label?: string
 }
 
 const Checkbox = (props: Props) => {

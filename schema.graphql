@@ -14,7 +14,7 @@ type CalendarEvent {
     occurrences: [EventOccurrence]
     owner: User!
     publishedState: EventPublishedState!
-    revisionState: EventRevisionState!
+    revisionState: EventEventRevisionState!
     status: EventStatus!
     tags: [EventTag]
     time: EventTime!
@@ -208,11 +208,9 @@ input EventTimeInput {
 }
 
 input EventsQueryFilter {
-    categories: [Category]
-    from: Timestamp
     limit: Int
     owner: ID
-    to: Timestamp
+    pendingRevision: Boolean
 }
 
 input GrantRoleInput {
@@ -293,7 +291,7 @@ scalar EventStatus
 
 scalar EventPublishedState
 
-scalar EventRevisionState
+scalar EventEventRevisionState
 
 scalar RoleType
 

@@ -61,6 +61,7 @@ declare namespace GQL {
     occurrences: Array<IEventOccurrence | null> | null;
     owner: IUser;
     publishedState: any;
+    revisionState: any;
     status: any;
     tags: Array<IEventTag | null> | null;
     time: IEventTime;
@@ -150,11 +151,9 @@ declare namespace GQL {
   }
 
   interface IEventsQueryFilter {
-    categories?: Array<any | null> | null;
-    from?: any | null;
     limit?: number | null;
     owner?: string | null;
-    to?: any | null;
+    pendingRevision?: boolean | null;
   }
 
   interface IOccurrencesQueryFilter {

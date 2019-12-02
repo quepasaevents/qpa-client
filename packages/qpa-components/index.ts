@@ -4,7 +4,6 @@ import TextField, { TextFieldProps } from "./TextField"
 import Icon from "./Icon"
 import Avatar from "./Avatar"
 import { IconButton, Menu, MenuItem } from "@material-ui/core"
-import TagIcon from "@material-ui/icons/LocalOffer"
 import DatePicker, { DatePickerProps } from "./DatePicker"
 import TimePicker, { TimePickerProps } from "./TimePicker"
 import Select from "./Select"
@@ -13,7 +12,9 @@ import MessageBar from "./MessageBar"
 import ButtonGroup from "./ButtonGroup"
 import Fab from "./Fab"
 import Checkbox from "./Checkbox"
+import { List, ListItem, ListItemText, ListItemSecondaryAction } from "./List"
 
+export * from './Icons'
 export {
   Avatar,
   Button,
@@ -25,13 +26,16 @@ export {
   DatePickerProps,
   Fab,
   Icon,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemSecondaryAction,
   Menu,
   MenuItem,
   MessageBar,
   PickersProvider,
   Select,
   Spinner,
-  TagIcon,
   TextField,
   TextFieldProps,
   TimePicker,
