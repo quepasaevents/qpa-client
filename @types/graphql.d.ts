@@ -60,6 +60,9 @@ declare namespace GQL {
     location: ILocation;
     occurrences: Array<IEventOccurrence | null> | null;
     owner: IUser;
+    publishedState: any;
+    revisionState: any;
+    revisions: Array<IEventRevision | null> | null;
     status: any;
     tags: Array<IEventTag | null> | null;
     time: IEventTime;
@@ -72,6 +75,7 @@ declare namespace GQL {
   interface IEventImages {
     __typename: 'EventImages';
     cover: IEventImage | null;
+    event: ICalendarEvent | null;
     gallery: Array<IEventImage> | null;
     poster: IEventImage | null;
     thumb: IEventImage | null;
@@ -85,6 +89,7 @@ declare namespace GQL {
   interface IEventInformation {
     __typename: 'EventInformation';
     description: string | null;
+    id: string;
     language: string;
     title: string;
   }
@@ -119,6 +124,19 @@ declare namespace GQL {
     user: IUser;
   }
 
+  interface IEventRevision {
+    __typename: 'EventRevision';
+    accepting: boolean | null;
+    author: IUser;
+    comment: string | null;
+    createdAt: any;
+    denying: boolean | null;
+    event: ICalendarEvent;
+    id: string;
+    spam: boolean | null;
+    submittedAt: any | null;
+  }
+
   interface IEventTag {
     __typename: 'EventTag';
     id: string;
@@ -148,11 +166,9 @@ declare namespace GQL {
   }
 
   interface IEventsQueryFilter {
-    categories?: Array<any | null> | null;
-    from?: any | null;
     limit?: number | null;
     owner?: string | null;
-    to?: any | null;
+    pendingRevision?: boolean | null;
   }
 
   interface IOccurrencesQueryFilter {
@@ -170,13 +186,17 @@ declare namespace GQL {
     createEventTag: IEventTag | null;
     deleteEvent: IUser;
     deleteEventTag: Array<IEventTag | null> | null;
+    dismissOpenEventRevision: ICalendarEvent | null;
     grantRole: IUser;
     removeEventGalleryImages: ICalendarEvent | null;
+    requestEventRevision: ICalendarEvent | null;
     requestInvite: boolean;
     revokeRole: IUser;
     setEventImage: ICalendarEvent | null;
     signin: IUserSession;
     signup: Array<IError | null> | null;
+    startEventRevision: ICalendarEvent | null;
+    submitEventRevision: ICalendarEvent | null;
     unsetEventImage: ICalendarEvent | null;
     updateEvent: ICalendarEvent | null;
     updateEventTag: IEventTag | null;
@@ -202,12 +222,20 @@ declare namespace GQL {
     input: IDeleteEventTagInput;
   }
 
+  interface IDismissOpenEventRevisionOnMutationArguments {
+    input: IEventRevisionInput;
+  }
+
   interface IGrantRoleOnMutationArguments {
     input: IGrantRoleInput;
   }
 
   interface IRemoveEventGalleryImagesOnMutationArguments {
     input: IEventGalleryImagesInput;
+  }
+
+  interface IRequestEventRevisionOnMutationArguments {
+    input: IRequestRevisionInput;
   }
 
   interface IRequestInviteOnMutationArguments {
@@ -230,6 +258,14 @@ declare namespace GQL {
     input: ISignupInput;
   }
 
+  interface IStartEventRevisionOnMutationArguments {
+    input: IStartEventRevisionInput;
+  }
+
+  interface ISubmitEventRevisionOnMutationArguments {
+    input: IReviseEventInput;
+  }
+
   interface IUnsetEventImageOnMutationArguments {
     id: IUnsetEventImageInput;
   }
@@ -250,7 +286,7 @@ declare namespace GQL {
   interface ICreateEventInput {
     infos: Array<IEventInformationInput | null>;
     location: IEventLocationInput;
-    status: string;
+    publishedState: any;
     tagNames: Array<string>;
     time: IEventTimeInput;
   }
@@ -288,6 +324,10 @@ declare namespace GQL {
     id: string;
   }
 
+  interface IEventRevisionInput {
+    revisionId: string;
+  }
+
   interface IGrantRoleInput {
     roleType: any;
     userId: string;
@@ -296,6 +336,10 @@ declare namespace GQL {
   interface IEventGalleryImagesInput {
     eventId: string;
     imageIds: Array<string>;
+  }
+
+  interface IRequestRevisionInput {
+    eventId: string;
   }
 
   interface IRequestInviteInput {
@@ -332,6 +376,18 @@ declare namespace GQL {
     path: string;
   }
 
+  interface IStartEventRevisionInput {
+    eventId: string;
+  }
+
+  interface IReviseEventInput {
+    accepting: boolean;
+    comment?: string | null;
+    denying: boolean;
+    revisionId: string;
+    spam: boolean;
+  }
+
   interface IUnsetEventImageInput {
     eventId: string;
     imageType?: any | null;
@@ -341,6 +397,7 @@ declare namespace GQL {
     id: string;
     infos?: Array<IEventInformationInput> | null;
     location?: IEventLocationInput | null;
+    publishedState: any;
     status?: string | null;
     tagNames: Array<string>;
     time?: IEventTimeInput | null;

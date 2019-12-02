@@ -4,11 +4,14 @@ import styled from "@emotion/styled"
 import { hot } from "react-hot-loader"
 import { RouteComponentProps, withRouter } from "react-router"
 import { UserData } from "../Context/useMeQuery"
+import intl from "react-intl-universal"
+import messages from "./header.msg.json"
 
 interface Props extends RouteComponentProps {
   me: UserData
 }
 const MeMenu = (props: Props) => {
+  intl.load(messages)
   const [anchorEl, setAnchorEl] = React.useState(null)
   const open = Boolean(anchorEl)
   const closeAndGo = (path: string) => {
@@ -25,7 +28,14 @@ const MeMenu = (props: Props) => {
       <Menu open={open} onClose={() => setAnchorEl(null)} anchorEl={anchorEl}>
         <MenuItem onClick={() => closeAndGo("/my-events")}>My Events</MenuItem>
         {(roleTypes.includes("admin") || roleTypes.includes("embassador")) && (
-          <MenuItem onClick={() => closeAndGo("/admin")}>Manage Users</MenuItem>
+          [
+            <MenuItem key="manage-users" onClick={() => closeAndGo("/admin")}>
+              {intl.get("manage-users")}
+            </MenuItem>,
+            <MenuItem key="revise-events" onClick={() => closeAndGo("/admin/revise")}>
+              {intl.get("revise-events")}
+            </MenuItem>
+          ]
         )}
         <MenuItem onClick={() => closeAndGo("/logout")}>Log Out</MenuItem>
       </Menu>

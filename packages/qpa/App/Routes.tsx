@@ -5,17 +5,22 @@ import Calendar from "../Calendar/Calendar"
 import CreateEvent from "../Event/CreateEvent"
 import EditEvent from "../Event/EditEvent"
 import Admin from "./Admin/Admin"
+import ReviseEvents from "./Admin/ReviseEvents"
 import InitializeSession from "./Auth/InitializeSession"
 
 import Login from "./Auth/Login"
 import Signout from "./Auth/Signout"
 import Signup from "./Auth/Signup"
 import { useAppContext } from "./Context/AppContext"
+import EventDetails from "./Event/EventDetails"
+import EventDetailsRoute from "./Event/EventDetailsRoute"
 import OccurrenceDetails from "./Event/OccurrenceDetails"
 
 const Routes = () => {
   const { me } = useAppContext()
-    const roles = me?.roles?.map(role => role.type)
+  const roles = me?.roles?.map(role => role.type)
+  const isAdmin = roles.includes("admin")
+  const isEmbassador = roles.includes("embassador")
   return (
     <Switch>
       <Route path="/create" component={roles ? CreateEvent : Signup} />
@@ -29,11 +34,21 @@ const Routes = () => {
         path="/o/:sanitizedEventName/:occurrenceId"
         component={OccurrenceDetails}
       />
+      <Route
+        path="/e/:sanitizedEventName/:eventId"
+        component={EventDetailsRoute}
+      />
       <Route path="/init-session/:hash" component={InitializeSession} />
       <Route path="/login" component={Login} />
       <Route path="/signup" component={Signup} />
       <Route path="/logout" component={Signout} />
-      <Route path="/admin" component={Admin} />
+
+      {isAdmin || isEmbassador ? (
+        <Route path="/admin/revise" component={ReviseEvents} />
+      ) : null}
+      {isAdmin || isEmbassador ? (
+        <Route path="/admin" component={Admin} />
+      ) : null}
       <Route path="/" component={Calendar} />
       <Redirect to="/" />
     </Switch>

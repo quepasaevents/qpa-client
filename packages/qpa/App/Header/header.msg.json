@@ -1,8 +1,12 @@
 {
   "en-GB": {
-    "create-event": "Create Event"
+    "create-event": "Create Event",
+    "manage-users": "Manage Users",
+    "revise-events": "Revise Events"
   },
   "es-ES": {
-    "create-event": "Crear Evento"
+    "create-event": "Crear Evento",
+    "manage-users": "Administrar usuarios",
+    "revise-events": "Revisar eventos"
   }
 }

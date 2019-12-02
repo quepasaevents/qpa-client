@@ -16,8 +16,11 @@ const CreateEvent = (props: RouteComponentProps) => {
         type: "success",
         text: intl.get("event-create-success"),
       })
-      props.history.push(`/o/aaa/${data.createEvent.occurrences[0].id}`)
-
+      if (data.createEvent.occurrences.length) {
+        props.history.push(`/o/aaa/${data.createEvent.occurrences[0].id}`)
+      } else {
+        props.history.push(`/e/aaa/${data.createEvent.id}`)
+      }
     },
     onError: error => {
       addMessage({
@@ -40,7 +43,7 @@ const CreateEvent = (props: RouteComponentProps) => {
                 ...values.time,
                 timeZone: "Europe/Madrid",
               },
-              status: "confirmed",
+              publishedState: values.publishedState,
               tagNames: values.tagNames,
             },
           },
