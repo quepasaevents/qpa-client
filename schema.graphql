@@ -13,6 +13,8 @@ type CalendarEvent {
     location: Location!
     occurrences: [EventOccurrence]
     owner: User!
+    publishedState: EventPublishedState!
+    revisionState: EventRevisionState!
     status: EventStatus!
     tags: [EventTag]
     time: EventTime!
@@ -29,6 +31,7 @@ type EventImage {
 
 type EventImages {
     cover: EventImage
+    event: CalendarEvent
     gallery: [EventImage!]
     poster: EventImage
     thumb: EventImage
@@ -45,6 +48,18 @@ type EventOccurrence {
     event: CalendarEvent!
     id: ID!
     start: String!
+}
+
+type EventRevision {
+    accepting: Boolean
+    author: User!
+    comment: String
+    createdAt: Date!
+    denying: Boolean
+    event: CalendarEvent!
+    id: ID!
+    spam: Boolean
+    submittedAt: Date
 }
 
 type EventTag {
@@ -79,13 +94,17 @@ type Mutation {
     createEventTag(input: CreateEventTagInput!): EventTag
     deleteEvent(id: ID!): User!
     deleteEventTag(input: DeleteEventTagInput!): [EventTag]
+    dismissOpenEventRevision(input: EventRevisionInput!): EventRevision
     grantRole(input: GrantRoleInput!): User!
     removeEventGalleryImages(input: EventGalleryImagesInput!): CalendarEvent
+    requestEventRevision(input: RequestRevisionInput!): CalendarEvent
     requestInvite(input: RequestInviteInput!): Boolean!
     revokeRole(input: GrantRoleInput!): User!
     setEventImage(input: EventImageUploadInput!): CalendarEvent
     signin(input: SigninInput!): UserSession!
     signup(input: SignupInput!): [Error]
+    startEventRevision(input: StartEventRevisionInput!): EventRevision
+    submitEventRevision(input: ReviseEventInput!): EventRevision
     unsetEventImage(id: UnsetEventImageInput!): CalendarEvent
     updateEvent(input: UpdateEventInput!): CalendarEvent
     updateEventTag(input: UpdateEventTagInput!): EventTag
@@ -130,7 +149,7 @@ enum CacheControlScope {
 input CreateEventInput {
     infos: [EventInformationInput]!
     location: EventLocationInput!
-    status: String!
+    publishedState: EventPublishedState!
     tagNames: [String!]!
     time: EventTimeInput!
 }
@@ -176,6 +195,10 @@ input EventLocationInput {
     name: String
 }
 
+input EventRevisionInput {
+    revisionId: ID!
+}
+
 input EventTimeInput {
     end: Timestamp!
     exceptions: String
@@ -209,6 +232,18 @@ input RequestInviteInput {
     email: String!
 }
 
+input RequestRevisionInput {
+    eventId: ID!
+}
+
+input ReviseEventInput {
+    accepting: Boolean!
+    comment: String
+    denying: Boolean!
+    revisionId: ID!
+    spam: Boolean!
+}
+
 input RevokeRoleInput {
     roleType: RoleType!
     userId: ID!
@@ -224,6 +259,10 @@ input SignupInput {
     username: String!
 }
 
+input StartEventRevisionInput {
+    eventId: ID!
+}
+
 input UnsetEventImageInput {
     eventId: ID!
     imageType: EventImageType
@@ -233,6 +272,7 @@ input UpdateEventInput {
     id: ID!
     infos: [EventInformationInput!]
     location: EventLocationInput
+    publishedState: EventPublishedState!
     status: String
     tagNames: [String!]!
     time: EventTimeInput
@@ -250,6 +290,10 @@ scalar TimeZone
 scalar Timestamp
 
 scalar EventStatus
+
+scalar EventPublishedState
+
+scalar EventRevisionState
 
 scalar RoleType
 

@@ -11,11 +11,13 @@ import Login from "./Auth/Login"
 import Signout from "./Auth/Signout"
 import Signup from "./Auth/Signup"
 import { useAppContext } from "./Context/AppContext"
+import EventDetails from "./Event/EventDetails"
+import EventDetailsRoute from "./Event/EventDetailsRoute"
 import OccurrenceDetails from "./Event/OccurrenceDetails"
 
 const Routes = () => {
   const { me } = useAppContext()
-    const roles = me?.roles?.map(role => role.type)
+  const roles = me?.roles?.map(role => role.type)
   return (
     <Switch>
       <Route path="/create" component={roles ? CreateEvent : Signup} />
@@ -28,6 +30,10 @@ const Routes = () => {
       <Route
         path="/o/:sanitizedEventName/:occurrenceId"
         component={OccurrenceDetails}
+      />
+      <Route
+        path="/e/:sanitizedEventName/:eventId"
+        component={EventDetailsRoute}
       />
       <Route path="/init-session/:hash" component={InitializeSession} />
       <Route path="/login" component={Login} />

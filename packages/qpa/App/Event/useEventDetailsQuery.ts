@@ -1,5 +1,6 @@
 import { QueryHookOptions, useQuery } from "@apollo/react-hooks"
 import gql from "graphql-tag"
+import {EventPublishedState} from "../../../../@types"
 import {
   EventTagTranslatedData,
   TranslationDataFragment,
@@ -10,6 +11,15 @@ export const EventImageDataFragment = gql`
     url,
   }
 `
+export enum EventRevisionState {
+  PENDING_SUGGESTED_REVISION = "pending_suggested_revision",
+  PENDING_MANDATORY_REVISION = "pending_mandatory_revision",
+  CHANGES_REQUIRED = "changes_required",
+  ACCEPTED = "accepted",
+  DENIED = "denied",
+  SPAM = "spam",
+}
+
 export interface EventImageData {
   url: string
 }
@@ -35,6 +45,8 @@ export const EventDetailsDataFragment = gql`
       start
       end
     }
+    publishedState
+    revisionState
     images {
       cover {
         ...EventImageData
@@ -79,6 +91,8 @@ export interface EventDetailsData {
     language
     title
   }>
+  revisionState: EventRevisionState
+  publishedState: EventPublishedState
   images: EventImagesData
   occurrences: {
     id: string

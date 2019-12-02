@@ -11,7 +11,7 @@ import {
 import * as React from "react"
 import styled from "@emotion/styled"
 import { hot } from "react-hot-loader"
-import { EventStatus } from "../../../@types"
+import {EventPublishedState, EventStatus} from "../../../@types"
 import * as intl from "react-intl-universal"
 import TagSelector from "../EventTags/TagsSelector"
 import messages from "./EventForm.msg.json"
@@ -47,6 +47,7 @@ export interface EventFormData {
   }
   status: EventStatus
   tagNames: string[]
+  publishedState: EventPublishedState
 }
 
 const todayMidday = new Date()
@@ -106,6 +107,7 @@ const EventForm = (props: Props) => {
               },
               tagNames: [],
               status: "confirmed",
+              publishedState: "published"
             } as EventFormData)
       }
       validate={(values: EventFormData) => {
