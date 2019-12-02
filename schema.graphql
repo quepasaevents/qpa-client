@@ -15,6 +15,7 @@ type CalendarEvent {
     owner: User!
     publishedState: EventPublishedState!
     revisionState: EventEventRevisionState!
+    revisions: [EventRevision]
     status: EventStatus!
     tags: [EventTag]
     time: EventTime!
@@ -39,6 +40,7 @@ type EventImages {
 
 type EventInformation {
     description: String
+    id: ID!
     language: String!
     title: String!
 }
@@ -94,7 +96,7 @@ type Mutation {
     createEventTag(input: CreateEventTagInput!): EventTag
     deleteEvent(id: ID!): User!
     deleteEventTag(input: DeleteEventTagInput!): [EventTag]
-    dismissOpenEventRevision(input: EventRevisionInput!): EventRevision
+    dismissOpenEventRevision(input: EventRevisionInput!): CalendarEvent
     grantRole(input: GrantRoleInput!): User!
     removeEventGalleryImages(input: EventGalleryImagesInput!): CalendarEvent
     requestEventRevision(input: RequestRevisionInput!): CalendarEvent
@@ -103,8 +105,8 @@ type Mutation {
     setEventImage(input: EventImageUploadInput!): CalendarEvent
     signin(input: SigninInput!): UserSession!
     signup(input: SignupInput!): [Error]
-    startEventRevision(input: StartEventRevisionInput!): EventRevision
-    submitEventRevision(input: ReviseEventInput!): EventRevision
+    startEventRevision(input: StartEventRevisionInput!): CalendarEvent
+    submitEventRevision(input: ReviseEventInput!): CalendarEvent
     unsetEventImage(id: UnsetEventImageInput!): CalendarEvent
     updateEvent(input: UpdateEventInput!): CalendarEvent
     updateEventTag(input: UpdateEventTagInput!): EventTag
@@ -293,11 +295,11 @@ scalar EventPublishedState
 
 scalar EventEventRevisionState
 
+scalar Date
+
 scalar RoleType
 
 scalar Category
-
-scalar Date
 
 scalar EventImageType
 

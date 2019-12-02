@@ -3,7 +3,7 @@ import {List} from "qpa-components/List"
 import * as React from 'react'
 import {RouteComponentProps, withRouter} from "react-router"
 import {useAppContext} from "../Context/AppContext"
-import ReviseListItem from "../ReviseListItem"
+import ReviseListItem from "./ReviseListItem"
 import useEventsPendingRevisionQuery from "./useEventsPendingRevisionQuery"
 
 interface Props extends RouteComponentProps {
@@ -16,6 +16,9 @@ const ReviseEvents = (props: Props) => {
     const [selectedIds, setSelectedIds] = React.useState(new Set<string>())
     if (loading) {
         return <Spinner />
+    }
+    if (error) {
+        return <p>{error.message}</p>
     }
     return <List>
         {

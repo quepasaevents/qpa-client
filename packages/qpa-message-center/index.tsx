@@ -29,6 +29,7 @@ export interface IMessageCenterContext {
   addMessage?: (m: MessageRequest) => void
   closeMessage?: (m: Message) => void
   removeMessage?: (m: Message) => void
+  notifyError?: (e: Error) => void
 }
 
 interface Props {}
@@ -57,6 +58,12 @@ class MessageCenterProvider extends React.Component<Props, State, IMessageCenter
     })
   }
 
+  notifyError = (err: Error) => {
+    this.addMessage({
+      type: "error",
+      text: err.message
+    })
+  }
   closeMessage = (m: Message) => {
     const index = this.state.messages.findIndex((msg) => msg.id === m.id)
     if (index > -1) {
@@ -88,6 +95,7 @@ class MessageCenterProvider extends React.Component<Props, State, IMessageCenter
           addMessage: this.addMessage,
           closeMessage: this.closeMessage,
           removeMessage: this.removeMessage,
+          notifyError: this.notifyError
         }}
       >
         {this.props.children}

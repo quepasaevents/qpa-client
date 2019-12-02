@@ -62,6 +62,7 @@ declare namespace GQL {
     owner: IUser;
     publishedState: any;
     revisionState: any;
+    revisions: Array<IEventRevision | null> | null;
     status: any;
     tags: Array<IEventTag | null> | null;
     time: IEventTime;
@@ -88,6 +89,7 @@ declare namespace GQL {
   interface IEventInformation {
     __typename: 'EventInformation';
     description: string | null;
+    id: string;
     language: string;
     title: string;
   }
@@ -120,6 +122,19 @@ declare namespace GQL {
     __typename: 'UserRole';
     type: any;
     user: IUser;
+  }
+
+  interface IEventRevision {
+    __typename: 'EventRevision';
+    accepting: boolean | null;
+    author: IUser;
+    comment: string | null;
+    createdAt: any;
+    denying: boolean | null;
+    event: ICalendarEvent;
+    id: string;
+    spam: boolean | null;
+    submittedAt: any | null;
   }
 
   interface IEventTag {
@@ -171,7 +186,7 @@ declare namespace GQL {
     createEventTag: IEventTag | null;
     deleteEvent: IUser;
     deleteEventTag: Array<IEventTag | null> | null;
-    dismissOpenEventRevision: IEventRevision | null;
+    dismissOpenEventRevision: ICalendarEvent | null;
     grantRole: IUser;
     removeEventGalleryImages: ICalendarEvent | null;
     requestEventRevision: ICalendarEvent | null;
@@ -180,8 +195,8 @@ declare namespace GQL {
     setEventImage: ICalendarEvent | null;
     signin: IUserSession;
     signup: Array<IError | null> | null;
-    startEventRevision: IEventRevision | null;
-    submitEventRevision: IEventRevision | null;
+    startEventRevision: ICalendarEvent | null;
+    submitEventRevision: ICalendarEvent | null;
     unsetEventImage: ICalendarEvent | null;
     updateEvent: ICalendarEvent | null;
     updateEventTag: IEventTag | null;
@@ -311,19 +326,6 @@ declare namespace GQL {
 
   interface IEventRevisionInput {
     revisionId: string;
-  }
-
-  interface IEventRevision {
-    __typename: 'EventRevision';
-    accepting: boolean | null;
-    author: IUser;
-    comment: string | null;
-    createdAt: any;
-    denying: boolean | null;
-    event: ICalendarEvent;
-    id: string;
-    spam: boolean | null;
-    submittedAt: any | null;
   }
 
   interface IGrantRoleInput {
