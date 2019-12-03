@@ -95,7 +95,7 @@ const DayPresentation: any = styled.div`
   color: rgba(0, 0, 0, 0.6);
   margin-right: 18px;
   width: 74px;
-  height: 90%;
+  height: 80%;
 
   @media (max-width: ${BreakPoint}) {
     margin-right: 0;
@@ -125,7 +125,7 @@ const DayItems = styled.div`
   grid-template-rows: auto auto;
   grid-template-areas:
     "dayname items"
-    ".   items";
+    "dayname items";
 
   @media (max-width: ${BreakPoint}) {
     grid-template-areas:
