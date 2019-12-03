@@ -95,6 +95,7 @@ const DayPresentation: any = styled.div`
   color: rgba(0, 0, 0, 0.6);
   margin-right: 18px;
   width: 74px;
+  height: 90%;
 
   @media (max-width: ${BreakPoint}) {
     margin-right: 0;
@@ -115,6 +116,7 @@ const DayPresentationContainer = styled.div`
   @media (max-width: ${BreakPoint}) {
     margin-bottom: 4px;
   }
+  
 `
 const DayItems = styled.div`
   display: grid;
