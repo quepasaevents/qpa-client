@@ -19,8 +19,8 @@ import OccurrenceDetails from "./Event/OccurrenceDetails"
 const Routes = () => {
   const { me } = useAppContext()
   const roles = me?.roles?.map(role => role.type)
-  const isAdmin = roles.includes("admin")
-  const isEmbassador = roles.includes("embassador")
+  const isAdmin = roles?.includes("admin")
+  const isEmbassador = roles?.includes("embassador")
   return (
     <Switch>
       <Route path="/create" component={roles ? CreateEvent : Signup} />
