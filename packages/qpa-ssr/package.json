@@ -6,8 +6,8 @@
   "private": true,
   "scripts": {
     "build": "webpack --config ./webpack.config.ts",
-    "start": "API_URL=http://alpha.quepasaalpujarra.com/graphql webpack --config ./webpack.config.ts --watch --progress",
-    "server": "API_URL=http://alpha.quepasaalpujarra.com/graphql nodemon node ../../dist/ssr/ssr-server.js"
+    "start": "API_URL=https://quepasaorgiva.com/graphql webpack --config ./webpack.config.ts --watch --progress",
+    "server": "API_URL=https://quepasaorgiva.com/graphql nodemon node ../../dist/ssr/ssr-server.js"
   },
   "dependencies": {
     "@babel/node": "^7.6.2",

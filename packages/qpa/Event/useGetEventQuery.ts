@@ -1,6 +1,6 @@
 import gql from "graphql-tag"
 import {QueryHookOptions, useQuery} from "@apollo/react-hooks"
-import {EventStatus} from "../../../@types"
+import {EventPublishedState, EventStatus} from "../../../@types"
 
 export const EventFragment = gql`
   fragment EventData on CalendarEvent {
@@ -26,6 +26,7 @@ export const EventFragment = gql`
       id
       name
     }
+    publishedState
   }
 `
 
@@ -67,6 +68,7 @@ export interface EventData {
   time: EventTimeData
   status: EventStatus
   tags: EventTag[]
+  publishedState: EventPublishedState
 }
 
 interface Data {

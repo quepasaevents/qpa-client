@@ -131,6 +131,7 @@ declare namespace GQL {
     comment: string | null;
     createdAt: any;
     denying: boolean | null;
+    dismissedBy: IUser | null;
     event: ICalendarEvent;
     id: string;
     spam: boolean | null;

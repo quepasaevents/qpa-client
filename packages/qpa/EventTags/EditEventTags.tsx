@@ -1,4 +1,4 @@
-import { Fab, Spinner, TagIcon } from "qpa-components"
+import { Fab, Spinner, MUITagIcon } from "qpa-components"
 import { useMessageCenter } from "qpa-message-center"
 import * as React from "react"
 import { RouteComponentProps, withRouter } from "react-router"
@@ -59,7 +59,7 @@ const EditEventTags = (props: Props) => {
       ) : null}
       {!isAddMode ? (
         <Fab onClick={() => setAddMode(true)}>
-          <TagIcon />
+          <MUITagIcon />
         </Fab>
       ) : null}
     </Root>

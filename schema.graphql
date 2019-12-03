@@ -58,6 +58,7 @@ type EventRevision {
     comment: String
     createdAt: Date!
     denying: Boolean
+    dismissedBy: User
     event: CalendarEvent!
     id: ID!
     spam: Boolean
