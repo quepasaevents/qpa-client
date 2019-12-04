@@ -53,15 +53,13 @@ type EventOccurrence {
 }
 
 type EventRevision {
-    accepting: Boolean
     author: User!
     comment: String
+    conclusion: String
     createdAt: Date!
-    denying: Boolean
     dismissedBy: User
     event: CalendarEvent!
     id: ID!
-    spam: Boolean
     submittedAt: Date
 }
 
@@ -238,11 +236,9 @@ input RequestRevisionInput {
 }
 
 input ReviseEventInput {
-    accepting: Boolean!
     comment: String
-    denying: Boolean!
+    conclusion: String!
     revisionId: ID!
-    spam: Boolean!
 }
 
 input RevokeRoleInput {

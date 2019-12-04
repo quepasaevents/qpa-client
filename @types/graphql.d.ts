@@ -126,15 +126,13 @@ declare namespace GQL {
 
   interface IEventRevision {
     __typename: 'EventRevision';
-    accepting: boolean | null;
     author: IUser;
     comment: string | null;
+    conclusion: string | null;
     createdAt: any;
-    denying: boolean | null;
     dismissedBy: IUser | null;
     event: ICalendarEvent;
     id: string;
-    spam: boolean | null;
     submittedAt: any | null;
   }
 
@@ -382,11 +380,9 @@ declare namespace GQL {
   }
 
   interface IReviseEventInput {
-    accepting: boolean;
     comment?: string | null;
-    denying: boolean;
+    conclusion: string;
     revisionId: string;
-    spam: boolean;
   }
 
   interface IUnsetEventImageInput {

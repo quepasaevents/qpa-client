@@ -5,12 +5,15 @@ import {RouteComponentProps, withRouter} from "react-router"
 import {useAppContext} from "../Context/AppContext"
 import ReviseListItem from "./ReviseListItem"
 import useEventsPendingRevisionQuery from "./useEventsPendingRevisionQuery"
+import messages from './ReviseEvents.msg.json'
+import intl from 'react-intl-universal'
 
 interface Props extends RouteComponentProps {
 
 }
 
 const ReviseEvents = (props: Props) => {
+    intl.load(messages)
     const {data,loading,error} = useEventsPendingRevisionQuery()
     const { language } = useAppContext()
     const [selectedIds, setSelectedIds] = React.useState(new Set<string>())
