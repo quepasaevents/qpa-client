@@ -13,6 +13,7 @@ import {
 } from "qpa-components"
 import { useMessageCenter } from "qpa-message-center"
 import * as React from "react"
+import {Link} from "react-router-dom"
 import { useAppContext } from "../Context/AppContext"
 import useDismissRevisionMutation from "./useDismissRevisionMutation"
 import useStartRevisionMutation from "./useStartRevisionMutation"
@@ -39,8 +40,9 @@ const ReviseListItem = (props: Props) => {
   })
 
   const latestRevision = props.event.revisions.sort((r1, r2) =>
-      r1.createdAt.getTime() > r2.createdAt.getTime() ? 1 : 0
+      new Date(r1.createdAt).getTime() < new Date(r2.createdAt).getTime() ? 1 : 0
   )[0]
+
   const isLatestRevisionOpen =
       latestRevision &&
       !(latestRevision.submittedAt || latestRevision.dismissedBy)
@@ -70,7 +72,9 @@ const ReviseListItem = (props: Props) => {
           onChange={() => props.onCheckedChange()}
         />
       )}
-      <ListItemText primary={languageInfo.title} />
+      <Link to={`/e/aaa/${props.event.id}`}>
+        <ListItemText primary={languageInfo.title} />
+      </Link>
       <ListItemSecondaryAction>
         <IconButton
           edge="end"
@@ -92,7 +96,7 @@ const ReviseListItem = (props: Props) => {
             aria-label="dismiss"
             onClick={() => dismissRevision()}
           >
-            <StopIcon color="action" style={{ color: "green" }} />
+            <StopIcon color="action" style={{ color: "red" }} />
           </IconButton>
         ) : (
           <IconButton
