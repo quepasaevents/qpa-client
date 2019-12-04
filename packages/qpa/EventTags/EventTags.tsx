@@ -22,10 +22,8 @@ const EventTags = (props: Props) => {
   if (error) {
     return <p className={props.className}>{error.message}</p>
   }
-  console.log('tags', props.tags)
   const tagNames = props.tags.map(tag => tag.name)
   const matchingTags = data.tags.filter(tag => tagNames.includes(tag.name))
-    console.log('matchingTags', matchingTags)
   return (
     <Root className={props.className}>
       {matchingTags.map(tag => {
