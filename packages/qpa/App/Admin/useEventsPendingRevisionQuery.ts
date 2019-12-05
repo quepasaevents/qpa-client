@@ -1,7 +1,25 @@
 import { QueryHookOptions, useQuery } from "@apollo/react-hooks"
 import gql from "graphql-tag"
 
+export const RevisionFragment = gql`
+  fragment RevisionData on EventRevision {
+    id
+    author {
+      id
+      name
+    }
+    createdAt
+    submittedAt
+    conclusion
+    lastChangedAt
+    dismissedBy {
+      id
+      name
+    }
+  }
+`
 export const RevisionPendingEventFragment = gql`
+  ${RevisionFragment}
   fragment PendingEvent on CalendarEvent {
     id
     infos {
@@ -10,17 +28,7 @@ export const RevisionPendingEventFragment = gql`
     }
     revisionState
     revisions {
-      id
-      author {
-        id
-        name
-      }
-      createdAt
-      submittedAt
-      dismissedBy {
-        id
-        name
-      }
+      ...RevisionData
     }
   }
 `
@@ -32,7 +40,7 @@ const query = gql`
     }
   }
 `
-interface RevisionData {
+export interface RevisionData {
   id: string
   author: {
     id: string
@@ -40,6 +48,8 @@ interface RevisionData {
   }
   createdAt: Date
   submittedAt?: Date
+  lastChangedAt: Date
+  conclusion?: string
   dismissedBy?: RevisionDismissingUserData
 }
 interface RevisionDismissingUserData {

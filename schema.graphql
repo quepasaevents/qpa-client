@@ -60,6 +60,7 @@ type EventRevision {
     dismissedBy: User
     event: CalendarEvent!
     id: ID!
+    lastChangedAt: Date!
     submittedAt: Date
 }
 
@@ -117,6 +118,7 @@ type Query {
     me: User
     occurrence(id: ID!): EventOccurrence
     occurrences(filter: OccurrencesQueryFilter!): [EventOccurrence]
+    revisions(filter: RevisionsQueryFilter!): [EventRevision]
     tags: [EventTag]
     user(id: ID!): User
 }
@@ -239,6 +241,10 @@ input ReviseEventInput {
     comment: String
     conclusion: String!
     revisionId: ID!
+}
+
+input RevisionsQueryFilter {
+    limit: Int
 }
 
 input RevokeRoleInput {

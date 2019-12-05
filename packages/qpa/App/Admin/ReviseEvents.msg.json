@@ -1,8 +1,16 @@
 {
   "en-GB": {
-    "revision-successful": "Revision was submitted successfully"
+    "revision-successful": "Revision was submitted successfully",
+    "events-pending-revision": "Events pending revision",
+    "dismissed-by": "Dismissed by {name}",
+    "request-new-revision": "Resubmit",
+    "last-change": "Last change"
   },
   "es-ES": {
-    "revision-successful":  "Event ha sido revisado correctamente"
+    "revision-successful":  "Event ha sido revisado correctamente",
+    "events-pending-revision": "Eventos pendientes a revisar",
+    "dismissed-by": "Anulado por {name}",
+    "request-new-revision": "Solicitar",
+    "last-change": "Última actualisación"
   }
 }
