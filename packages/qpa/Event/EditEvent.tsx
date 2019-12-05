@@ -30,7 +30,7 @@ const EditEvent = (props: Props) => {
       onError: error => {
         addMessage({
           type: "error",
-          text: intl.get("event-delete-error", { message: error.message }),
+          text: intl.get("event-delete-error", { error: error.message }),
         })
       },
     }
