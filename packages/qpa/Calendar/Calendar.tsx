@@ -1,5 +1,5 @@
 import styled from "@emotion/styled"
-import { addWeeks, endOfWeek, startOfWeek, isBefore, format } from "date-fns"
+import {addWeeks, endOfWeek, startOfWeek, isBefore, format, addMonths} from "date-fns"
 import { Button, Spinner } from "qpa-components"
 import { css } from "qpa-emotion"
 import * as React from "react"
@@ -35,7 +35,7 @@ const Calendar = (props: Props) => {
   })
 
   const [fromDate, setFromDate] = React.useState(now)
-  const [toDate, setToDate] = React.useState(addWeeks(fromDate, 1))
+  const [toDate, setToDate] = React.useState(addMonths(fromDate, 1))
 
   const { locale } = useAppContext()
 
@@ -74,7 +74,7 @@ const Calendar = (props: Props) => {
           width: 100%;
         `}
       />
-      <Button loading={loading} onClick={() => setToDate(addWeeks(toDate, 1))}>
+      <Button loading={loading} onClick={() => setToDate(addWeeks(toDate, 2))}>
         {intl.get("show-more")}
       </Button>
     </Root>
