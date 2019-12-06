@@ -11,8 +11,10 @@ const Footer = (props: Props) => {
       className={props.className}
       css={{
         background: theme.colors.secondary,
+          textAlign: 'center'
+
       }}
-    ></Root>
+    >Hecho con &#9829; en la Alpujarra</Root>
   )
 }
 const Root = styled.div``

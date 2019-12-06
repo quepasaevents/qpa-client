@@ -18,6 +18,9 @@
   "workspaces": [
     "packages/*"
   ],
+  "peerDependencies": {
+    "serialize-javascript": "^2.1.1"
+  },
   "dependencies": {
     "@types/mustache": "^0.8.32",
     "@types/react-router-dom": "^5.1.0",
