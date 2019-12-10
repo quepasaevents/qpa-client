@@ -7,7 +7,14 @@
     "th": "Th",
     "fr": "Fr",
     "sa": "Sa",
-    "su": "Su"
+    "su": "Su",
+    "monday": "Monday",
+    "tuesday": "Tuesday",
+    "wednesday": "Wednesday",
+    "thursday": "Thursday",
+    "friday": "Friday",
+    "saturday": "Saturday",
+    "sunday": "Sunday"
   },
   "es": {
     "APP_TITLE": "Events in the Alpujarra",
@@ -17,6 +24,13 @@
     "th": "Ju",
     "fr": "Vi",
     "sa": "Sa",
-    "su": "Do"
+    "su": "Do",
+    "monday": "Lunes",
+    "tuesday": "Martes",
+    "wednesday": "Miercoles",
+    "thursday": "Jueves",
+    "friday": "Viernes",
+    "saturday": "Sabado",
+    "sunday": "Domingo"
   }
 }

@@ -45,6 +45,10 @@ export const EventDetailsDataFragment = gql`
       start
       end
     }
+    location {
+      address
+      name
+    }
     publishedState
     revisionState
     images {
@@ -94,6 +98,10 @@ export interface EventDetailsData {
   revisionState: EventRevisionState
   publishedState: EventPublishedState
   images: EventImagesData
+  location: {
+    name: string
+    address: string
+  }
   occurrences: {
     id: string
     start: string

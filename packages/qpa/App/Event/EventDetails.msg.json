@@ -2,11 +2,13 @@
   "en-GB": {
     "upload-cover-image": "Upload cover image",
     "upload-poster-image": "Upload poster image",
-    "event-awaiting-mandatory-revision": "This event is pending revision. Our team will soon revise this event and set it online!"
+    "event-awaiting-mandatory-revision": "This event is pending revision. Our team will soon revise this event and set it online!",
+    "at-time": "at"
   },
   "es-ES": {
     "upload-cover-image": "Subir imagen de fondo",
     "upload-poster-image": "Subir imagen de cartel",
-    "event-awaiting-mandatory-revision": "Este evento está pendiente de una revisión. ¡Nuestro equipo revisará este evento pronto y lo publicarémos!"
+    "event-awaiting-mandatory-revision": "Este evento está pendiente de una revisión. ¡Nuestro equipo revisará este evento pronto y lo publicarémos!",
+    "at-time": "a las"
   }
 }

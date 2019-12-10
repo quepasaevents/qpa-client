@@ -1,5 +1,5 @@
 import { format } from "date-fns"
-import { Button } from "qpa-components"
+import { Button, LocationPinIcon, HourIcon } from "qpa-components"
 import styled, { css, useTheme } from "qpa-emotion"
 import * as React from "react"
 import { hot } from "react-hot-loader"
@@ -35,6 +35,7 @@ const EventDetails = (props: Props) => {
 
   const info =
     event.infos.find(info => info.language === language) || event.infos[0]
+
   return (
     <Root>
       {event.revisionState ===
@@ -57,12 +58,34 @@ const EventDetails = (props: Props) => {
       ) : null}
 
       <Title>{info.title}</Title>
-      <StyledEventTags tags={event.tags} language={language} />
-      <PosterImage
+      {props.occurrence ? (
+        <OccurrenceTime>
+            <HourIcon />
+          {(() => {
+            const startDate = new Date(props.occurrence.start)
+            const day = intl.get(format(startDate, "iiii").toLowerCase())
+            const fullDay = format(startDate, "dd-MM-yyyy")
+            const time = format(startDate, "HH:mm")
+            return `${day}, ${fullDay} ${intl.get('at-time')} ${time}`
+          })()}
+        </OccurrenceTime>
+      ) : null}
+      <Location
         css={css`
-          background-image: url(${event.images.poster?.url});
           grid-column: content;
-          height: 400px;
+        `}
+      >
+        <LocationPinIcon />
+        <div>
+          {event.location.name} <br /> {event.location.address}
+        </div>
+      </Location>
+      <StyledEventTags tags={event.tags} language={language} />
+      <img
+        src={event.images.poster?.url}
+        css={css`
+          grid-column: content;
+          width: 100%;
         `}
       >
         {canEdit ? (
@@ -76,12 +99,7 @@ const EventDetails = (props: Props) => {
             `}
           />
         ) : null}
-      </PosterImage>
-      {props.occurrence ? (
-        <OccurrenceTime>
-          {format(new Date(props.occurrence.start), "yyyy-MM-dd HH:mm")}
-        </OccurrenceTime>
-      ) : null}
+      </img>
       <Info>
         {info.description.split("\n").map((descLine, i) => (
           <p key={i}>{descLine}</p>
@@ -135,12 +153,30 @@ const PosterImage = styled.div`
     }
   }
 `
+
+const Location = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  svg {
+    margin-right: 8px;
+  }
+`
+
 const StyledEventTags = styled(EventTags)`
   grid-column: content;
 `
 
 const OccurrenceTime = styled.div`
   grid-column: content;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  svg {
+    margin-right: 8px;
+  }
 `
 
 const CommentToPublishedState = styled.div`
