@@ -1,4 +1,4 @@
-import { Button } from "qpa-components"
+import {AddPhotoIcon, Button, IconButton, PlayIcon} from "qpa-components"
 import * as React from "react"
 import styled from "@emotion/styled"
 import { EventImageType } from "../../../../@types"
@@ -17,7 +17,9 @@ const EventImageUpload = (props: Props) => {
   const [uploadImage, { data, loading, error }] = useSetEventImage()
   return (
     <Root className={props.className}>
-      <Button label={props.title} />
+      <IconButton label={props.title}>
+        <AddPhotoIcon />
+      </IconButton>
       <input
         type="file"
         accept="image/*"
@@ -38,7 +40,7 @@ const EventImageUpload = (props: Props) => {
 
 const Root = styled.div`
   position: relative;
-  width: 140px;
+  width: 48px;
   height: 48px;
   > * {
     width: 100%;
@@ -47,6 +49,10 @@ const Root = styled.div`
   }
   input {
     opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: pointer;
   }
 `
 

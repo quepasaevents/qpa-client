@@ -36,6 +36,7 @@ const EventDetails = (props: Props) => {
   const info =
     event.infos.find(info => info.language === language) || event.infos[0]
 
+  const posterURL = event.images.poster?.url
   return (
     <Root>
       {event.revisionState ===
@@ -60,13 +61,13 @@ const EventDetails = (props: Props) => {
       <Title>{info.title}</Title>
       {props.occurrence ? (
         <OccurrenceTime>
-            <HourIcon />
+          <HourIcon />
           {(() => {
             const startDate = new Date(props.occurrence.start)
             const day = intl.get(format(startDate, "iiii").toLowerCase())
             const fullDay = format(startDate, "dd-MM-yyyy")
             const time = format(startDate, "HH:mm")
-            return `${day}, ${fullDay} ${intl.get('at-time')} ${time}`
+            return `${day}, ${fullDay} ${intl.get("at-time")} ${time}`
           })()}
         </OccurrenceTime>
       ) : null}
@@ -81,25 +82,28 @@ const EventDetails = (props: Props) => {
         </div>
       </Location>
       <StyledEventTags tags={event.tags} language={language} />
-      <img
-        src={event.images.poster?.url}
-        css={css`
-          grid-column: content;
-          width: 100%;
-        `}
-      >
+      <ImageContainer>
         {canEdit ? (
           <EventImageUpload
             event={event}
             canEdit={canEdit}
             imageType="poster"
-            title={intl.get("upload-poster-image")}
             css={css`
-              opacity: ${event.images.poster?.url ? 0 : 1};
+              opacity: ${posterURL ? 0.2 : 1};
             `}
           />
         ) : null}
-      </img>
+
+        {posterURL ? (
+          <img
+            src={event.images.poster?.url}
+            css={css`
+              width: 100%;
+              z-index: 1;
+            `}
+          />
+        ) : null}
+      </ImageContainer>
       <Info>
         {info.description.split("\n").map((descLine, i) => (
           <p key={i}>{descLine}</p>
@@ -139,21 +143,6 @@ const Root = styled.div`
   padding: 8px;
 `
 
-const PosterImage = styled.div`
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  max-width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  &:hover {
-    ${EventImageUpload} {
-      opacity: 1;
-    }
-  }
-`
-
 const Location = styled.div`
   display: flex;
   flex-direction: row;
@@ -176,6 +165,26 @@ const OccurrenceTime = styled.div`
   align-items: center;
   svg {
     margin-right: 8px;
+  }
+`
+
+const ImageContainer = styled.div`
+  grid-column: content;
+  position: relative;
+  ${EventImageUpload} {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: grey;
+    transition: opacity linear 0.1s;
+    button {
+      background: rgba(255, 255, 255, 0.9);
+    }
+  }
+  &:hover {
+    ${EventImageUpload} {
+      opacity: 1;
+    }
   }
 `
 

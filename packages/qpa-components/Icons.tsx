@@ -7,8 +7,10 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import ReplayIcon from '@material-ui/icons/Replay';
 import LocationPinIcon from '@material-ui/icons/Room';
 import HourIcon from '@material-ui/icons/AccessTime';
+import AddPhotoIcon from '@material-ui/icons/AddPhotoAlternate';
 
 
 
 
-export { TagIcon, CheckIcon, CrossNoIcon, PlayIcon, StopIcon, DeleteForeverIcon, ReplayIcon, LocationPinIcon, HourIcon }
+
+export { TagIcon, CheckIcon, CrossNoIcon, PlayIcon, StopIcon, DeleteForeverIcon, ReplayIcon, LocationPinIcon, HourIcon, AddPhotoIcon }
