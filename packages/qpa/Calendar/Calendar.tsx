@@ -1,5 +1,12 @@
 import styled from "@emotion/styled"
-import {addWeeks, endOfWeek, startOfWeek, isBefore, format, addMonths} from "date-fns"
+import {
+  addWeeks,
+  endOfWeek,
+  startOfWeek,
+  isBefore,
+  format,
+  addMonths,
+} from "date-fns"
 import { Button, Spinner } from "qpa-components"
 import { css } from "qpa-emotion"
 import * as React from "react"
@@ -36,7 +43,7 @@ const Calendar = (props: Props) => {
 
   const [fromDate, setFromDate] = React.useState(now)
   const [toDate, setToDate] = React.useState(addMonths(fromDate, 1))
-
+  const [isInitiallyLoaded, setIsInitiallyLoaded] = React.useState<boolean>(false)
   const { locale } = useAppContext()
 
   const { data, error, loading } = useOccurrencesQuery({
@@ -48,14 +55,17 @@ const Calendar = (props: Props) => {
       },
     },
   })
-  if (!data && loading) {
-    return <Spinner />
+  const showSpinner = (!data && loading)
+
+  if (data && !isInitiallyLoaded) {
+    setIsInitiallyLoaded(true)
   }
+
   if (error) {
     return <p>{error.message}</p>
   }
 
-  if (!data.occurrences.length) {
+  if (data && !data.occurrences.length) {
     return <p>{intl.get("no-events")}</p>
   }
 
@@ -67,24 +77,30 @@ const Calendar = (props: Props) => {
           margin-bottom: 24px;
         `}
       />
-      <List
-        className={props.className}
-        occurrences={data.occurrences}
-        css={css`
-          width: 100%;
-        `}
-      />
-      <Button loading={loading} onClick={() => setToDate(addWeeks(toDate, 2))}>
+      {showSpinner ? (
+        <Spinner />
+      ) : (
+        <List
+          className={props.className}
+          occurrences={data.occurrences}
+          css={css`
+            width: 100%;
+          `}
+        />
+      )}
+      <Button loading={loading && isInitiallyLoaded} onClick={() => setToDate(addWeeks(toDate, 2))}>
         {intl.get("show-more")}
       </Button>
     </Root>
   )
 }
 const Root = styled.div`
+  height: 100%;
   padding-top: 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   ${Button} {
     margin-top: 28px;
     max-width: 154px;
