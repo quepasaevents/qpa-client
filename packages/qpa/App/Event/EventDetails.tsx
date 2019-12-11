@@ -1,6 +1,8 @@
 import { format } from "date-fns"
-import { Button, LocationPinIcon, HourIcon } from "qpa-components"
-import styled, { css, useTheme } from "qpa-emotion"
+import { LocationPinIcon, HourIcon, IconButton, EditIcon } from "qpa-components"
+import styled from "@emotion/styled"
+import css from "@emotion/css"
+import { useTheme } from "qpa-emotion"
 import * as React from "react"
 import { hot } from "react-hot-loader"
 import intl from "react-intl-universal"
@@ -49,16 +51,18 @@ const EventDetails = (props: Props) => {
           {intl.get("event-awaiting-mandatory-revision")}
         </CommentToPublishedState>
       )}
-      {canEdit ? (
-        <EditButton
-          onClick={() => props.history.push(`/event/${event.id}/edit`)}
-          css={{}}
-        >
-          Edit
-        </EditButton>
-      ) : null}
 
-      <Title>{info.title}</Title>
+      <Title>
+        {info.title}
+        {canEdit ? (
+          <EditIconButton
+            onClick={() => props.history.push(`/event/${event.id}/edit`)}
+            css={{}}
+          >
+            <EditIcon />
+          </EditIconButton>
+        ) : null}
+      </Title>
       {props.occurrence ? (
         <OccurrenceTime>
           <HourIcon />
@@ -113,13 +117,16 @@ const EventDetails = (props: Props) => {
   )
 }
 
-const EditButton = styled(Button)`
-  grid-column: right-margin;
-  width: 80px;
-`
+const EditIconButton = styled(IconButton)``
 const Title = styled.div`
   grid-column: content;
   font-size: 32px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  ${EditIconButton} {
+    margin-right: 8px;
+  }
 `
 
 const Info = styled.div`
@@ -127,6 +134,7 @@ const Info = styled.div`
 `
 
 const Root = styled.div`
+  position: relative;
   margin-top: 24px;
   display: grid;
   grid-template-columns:

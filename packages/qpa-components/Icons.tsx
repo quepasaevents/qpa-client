@@ -8,9 +8,6 @@ import ReplayIcon from '@material-ui/icons/Replay';
 import LocationPinIcon from '@material-ui/icons/Room';
 import HourIcon from '@material-ui/icons/AccessTime';
 import AddPhotoIcon from '@material-ui/icons/AddPhotoAlternate';
+import EditIcon from '@material-ui/icons/Edit';
 
-
-
-
-
-export { TagIcon, CheckIcon, CrossNoIcon, PlayIcon, StopIcon, DeleteForeverIcon, ReplayIcon, LocationPinIcon, HourIcon, AddPhotoIcon }
+export { EditIcon, TagIcon, CheckIcon, CrossNoIcon, PlayIcon, StopIcon, DeleteForeverIcon, ReplayIcon, LocationPinIcon, HourIcon, AddPhotoIcon }

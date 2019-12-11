@@ -300,8 +300,8 @@ const EventForm = (props: Props) => {
               )}
             </Field>
             <Footer>
-              <Button type="submit" loading={props.loading} disabled={!isValid}>
-                {isEdit ? intl.get("EDIT") : intl.get("CREATE")}
+              <Button type="submit" loading={props.loading} disabled={!isValid} color="green">
+                {isEdit ? intl.get("save-changes") : intl.get("CREATE")}
               </Button>
               {props.onDeleteEvent ? (
                 <DeleteButton
