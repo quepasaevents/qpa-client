@@ -8,10 +8,12 @@ import {
   TextField,
   Checkbox,
 } from "qpa-components"
+import css from "@emotion/css"
+import { useTheme } from "qpa-emotion"
 import * as React from "react"
 import styled from "@emotion/styled"
 import { hot } from "react-hot-loader"
-import {EventPublishedState, EventStatus} from "../../../@types"
+import { EventPublishedState, EventStatus } from "../../../@types"
 import * as intl from "react-intl-universal"
 import TagSelector from "../EventTags/TagsSelector"
 import messages from "./EventForm.msg.json"
@@ -62,7 +64,7 @@ const EventForm = (props: Props) => {
     "en-GB": messages.en,
   })
   const isEdit = !!props.values
-
+  const theme = useTheme()
   const isEventOverMultipleDays =
     props.values &&
     props.values.time &&
@@ -107,7 +109,7 @@ const EventForm = (props: Props) => {
               },
               tagNames: [],
               status: "confirmed",
-              publishedState: "published"
+              publishedState: "published",
             } as EventFormData)
       }
       validate={(values: EventFormData) => {
@@ -300,14 +302,25 @@ const EventForm = (props: Props) => {
               )}
             </Field>
             <Footer>
-              <Button type="submit" loading={props.loading} disabled={!isValid} color="green">
+              <Button
+                type="submit"
+                loading={props.loading}
+                disabled={!isValid}
+                color="primary"
+              >
                 {isEdit ? intl.get("save-changes") : intl.get("CREATE")}
               </Button>
               {props.onDeleteEvent ? (
                 <DeleteButton
                   type="button"
+                  color="inherit"
                   onClick={props.onDeleteEvent}
                   loading={props.deleteEventLoading}
+                  css={css`
+                    && {
+                      background-color: ${theme.colors.red};
+                    }
+                  `}
                 >
                   {intl.get("DELETE")}
                 </DeleteButton>
@@ -362,6 +375,9 @@ const Footer = styled.div`
   flex-direction: row;
   margin-top: 14px;
   justify-content: center;
+  > *:not(:last-of-type) {
+    margin-right: 24px;
+  }
 `
 
 const StyledNextOccurrencesPreview = styled(NextOccurrencesPreview)`

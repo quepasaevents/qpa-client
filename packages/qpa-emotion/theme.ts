@@ -3,6 +3,8 @@ const theme = {
     lead: "#043b14",
     secondary: "#FFAD00",
     gray: "#c8c8c8",
+    green:"#1fe651",
+    red:"#e64055"
   },
 }
 
