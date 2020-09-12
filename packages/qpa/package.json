@@ -29,7 +29,7 @@
     "jest": "^24.8.0",
     "jest-cli": "^24.8.0",
     "keycode": "^2.2.0",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.1",
     "nodemon": "^1.19.1",
     "qpa-components": "0.0.1",
     "qpa-emotion": "0.0.1",
