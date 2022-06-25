@@ -26,7 +26,7 @@
     "graphql-tools": "^4.0.3",
     "jest": "^24.8.0",
     "jest-cli": "^24.8.0",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.7",
     "nodemon": "^1.19.1",
     "qpa": "0.0.1",
     "qpa-emotion": "0.0.1",
