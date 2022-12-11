@@ -20,7 +20,7 @@
     "apollo-link-logger": "^1.2.3",
     "apollo-upload-client": "^11.0.0",
     "date-fns": "^2.4.1",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "file-loader": "^4.2.0",
     "formik": "^2.0.3",
     "graphql": "^14.0.2",
